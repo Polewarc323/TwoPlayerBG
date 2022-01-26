@@ -192,5 +192,23 @@ public class BattleshipLogic {
 		return coord;
 				
 	}
+	
+	public void resetBoard(int player) {
+		int[][] board = new int[10][10];
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				board[i][j] = 0;
+			}
+		}
+		
+		if(1 == player) {
+			this.p1ShipP2Hit = board;
+		}
+		
+		if(2 == player) {
+			this.p2ShipP1Hit = board;
+		}
+		
+	}
 		
 }
