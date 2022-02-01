@@ -317,6 +317,8 @@ public class BattleshipLogic {
 	 * Sends back the board of a particular player. This can be used to help the GUI show the placement of the player's ship
 	 * when considering other ship placements.
 	 * 
+	 * This is also used for testing the class.
+	 * 
 	 * @param player the player who is seeing their board during ship placement (1 for player 1, else player 2).
 	 * @return the player's current board during ship placement.
 	 ********************************************************************************************************************/
@@ -326,5 +328,23 @@ public class BattleshipLogic {
 		}
 		return this.p2ShipP1Hit;
 	}
+	
+	/********************************************************************************************************************
+	 * 
+	 * Returns the lives of a player. (Used for testing)
+	 * 
+	 * @param player an integer to get that players lives (1 for player 1, else for player 2)
+	 * @return the lives of the specified player
+	 **********************************************************************************************************************/
+	public int getLives(int player) {
+		if (1 == player) {
+			return p1Lives;
+		}
+		else {
+			return p2Lives;
+		}
+	}
+	
+	
 		
 }
