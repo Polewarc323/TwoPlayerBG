@@ -4,9 +4,9 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /************************************************************************************
- * 
+ *
  * The test class for BattleshipLogic.java
- * 
+ *
  * @author Romandy Vu (GVSU-Romandy-Vu)
  * @version February 5, 2022
  ************************************************************************************/
@@ -69,6 +69,50 @@ public class BattleshipLogicTest {
 		assertTrue(game.getCoordinateData("d10", 1) == 1);
 		assertTrue(game.getCoordinateData("E10", 1) == 1);
 		
+		
+	}
+	@Test
+	public void testValidPlayer2PlaceShips() {
+		
+	}
+	
+	@Test
+	public void testInvalidPlayer1PlaceShips() {
+		
+	}
+	
+	@Test
+	public void testInvalidPlayer2PlaceShips() {
+		
+	}
+	
+	@Test
+	public void testGameOver() {
+		
+	}
+	
+	@Test
+	public void testValidPlayer1PlaceHit() {
+		
+	}
+	
+	@Test
+	public void testValidPlayer2PlaceHit() {
+		
+	}
+	
+	@Test
+	public void testInvalidPlayer1PlaceHit() {
+		
+	}
+	
+	@Test
+	public void testInvalidPlayer2PlaceHit() {
+		
+	}
+	
+	@Test
+	public void testBoardData() {
 		
 	}
 
