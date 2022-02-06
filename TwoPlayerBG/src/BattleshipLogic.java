@@ -116,7 +116,7 @@ public class BattleshipLogic {
 			return false;
 		}
 		int row = convertStringToArrayVal(coordinate.substring(0,1));
-		int col = convertStringToArrayVal(coordinate.substring(1,3));
+		int col = convertStringToArrayVal(coordinate.substring(1,coordinate.length()));
 		
 		//Checks if input a valid coordinate.
 		return (-1 != row && -1 != col);
@@ -152,8 +152,8 @@ public class BattleshipLogic {
 		 * */
 		int rowPosFront = convertStringToArrayVal(frontCoord.substring(0,1));
 		int rowPosBack = convertStringToArrayVal(backCoord.substring(0,1));
-		int colPosFront= convertStringToArrayVal(frontCoord.substring(1,3));
-		int colPosBack = convertStringToArrayVal(backCoord.substring(1,3));
+		int colPosFront= convertStringToArrayVal(frontCoord.substring(1,frontCoord.length()));
+		int colPosBack = convertStringToArrayVal(backCoord.substring(1,backCoord.length()));
 		
 		//Used for checking and filling out the board
 		int startLoc;
@@ -176,7 +176,7 @@ public class BattleshipLogic {
 		//Indicates that player wants the ship in the same row.
 		else if(rowPosFront == rowPosBack) {
 			//Checks the ends of the ship coordinates are properly distanced.
-			if(Math.abs(rowPosFront-rowPosBack) != (ship -1)) {
+			if(Math.abs(colPosFront-colPosBack) != (ship -1)) {
 				return false;
 			}
 			
@@ -200,7 +200,7 @@ public class BattleshipLogic {
 		//Indicates the player wants the ship in the same column
 		else{
 			//Checks the ends of the ship coordinates are properly distanced.
-			if(Math.abs(colPosFront-colPosBack) != (ship -1)) {
+			if(Math.abs(rowPosFront-rowPosBack) != (ship -1)) {
 				return false;
 			}
 			
@@ -260,7 +260,7 @@ public class BattleshipLogic {
 		}
 		
 		int row = convertStringToArrayVal(coordinate.substring(0,1));
-		int col = convertStringToArrayVal(coordinate.substring(1,3));
+		int col = convertStringToArrayVal(coordinate.substring(1,coordinate.length()));
 		coord = board[row][col];
 		
 		//
@@ -343,6 +343,30 @@ public class BattleshipLogic {
 		else {
 			return p2Lives;
 		}
+	}
+	
+	/***********************************************************************************************************************
+	 * 
+	 * Returns the value of a coordinate. (Used for testing).
+	 * 
+	 * @param coordinate the coordinate being looked at.
+	 * @param player the board being looked at (1 for player 1, else player 2).
+	 * @return the value of the coordinate (1,2,3), -1 if invalid.
+	 */
+	public int getCoordinateData(String coordinate, int player){
+		int[][] board = getBoard(2);
+		if(1 == player) {
+			board = getBoard(1);
+		}
+		
+		int row = convertStringToArrayVal(coordinate.substring(0,1));
+		int col = convertStringToArrayVal(coordinate.substring(1,coordinate.length()));
+		
+		if (-1 == row || -1 == col){
+			return -1;
+		}
+		return board[row][col];
+		
 	}
 	
 	
