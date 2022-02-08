@@ -35,6 +35,12 @@ public class BattleshipLogic {
 
 	/**Spot sum of carrier, destroyer, submarine, cruiser and patrol boat.*/
 	private static final int LIVES = 17;
+	
+	/**Smallest ship piece (patrol boat at length 2) */
+	private static final int MIN_SHIP_SIZE = 2;
+	
+	/**Largest ship piece (Cruiser at length 5) */
+	private static final int MAX_SHIP_SIZE = 5;
 
 	/**********************************************************************
 	 *
@@ -191,6 +197,15 @@ public class BattleshipLogic {
 			final int ship) {
 		//Uses private method to check validity.
 		if (!isInputValid(frontCoord) || !isInputValid(backCoord)) {
+			return false;
+		}
+		
+		/*Check if the ship is a valid ship from int
+		 * though the user won't be determining the ship size
+		 * Only the GUI, but just in case.
+		 */
+		
+		if (MIN_SHIP_SIZE > ship || MAX_SHIP_SIZE < ship) {
 			return false;
 		}
 		/*Convert user's coordinate to array location
