@@ -301,7 +301,24 @@ public class BattleshipLogicTest {
 	
 	@Test
 	public void testResetBoard() {
+	
 		
-	}*/
+	}
+	
+	@Test
+	public void testGetRowAndColIndex(){
+	
+	}
+	
+	@Test
+	public void testGetRowIndex(){
+	
+	}
+	
+	@Test
+	public void testGetColIndex(){
+	
+	}
+	*/
 
 }

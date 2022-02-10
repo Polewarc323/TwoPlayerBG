@@ -2,8 +2,10 @@
 /****************************************************************************
  *
  *Class serves as the logic for the Battleship Game for 2 player Board games.
- *The methods are designed to help with the implement of a GUI.
- *
+ *The methods are designed to help with the implement of a GUI
+ *such as getting the lives of the player, board data, if game is over,
+ *getting the row or column index from coordinates.
+ *The class contains method for unit testing.
  *@author Romandy Vu
  *@version January 28, 2022
  *
@@ -35,11 +37,11 @@ public class BattleshipLogic {
 
 	/**Spot sum of carrier, destroyer, submarine, cruiser and patrol boat.*/
 	private static final int LIVES = 17;
-	
-	/**Smallest ship piece (patrol boat at length 2) */
+
+	/**Smallest ship piece (patrol boat at length 2). */
 	private static final int MIN_SHIP_SIZE = 2;
-	
-	/**Largest ship piece (Cruiser at length 5) */
+
+	/**Largest ship piece (Cruiser at length 5). */
 	private static final int MAX_SHIP_SIZE = 5;
 
 	/**********************************************************************
@@ -47,7 +49,7 @@ public class BattleshipLogic {
 	 * The constructor for the Battleship game, serving as a session/game.
 	 *
 	 **********************************************************************/
-	public BattleshipLogic(){
+	public BattleshipLogic() {
 	p1ShipP2Hit = new int[ROWS][COLS];
 	p2ShipP1Hit = new int[ROWS][COLS];
 	p1Lives = LIVES;
@@ -153,8 +155,8 @@ public class BattleshipLogic {
 		if (!Character.isLetter(coordinate.charAt(0))) {
 			return false;
 		}
-		int row = convertStringToArrayVal(coordinate.substring(0, 1));
-		int col = convertStringToArrayVal(coordinate.substring(1, coordinate.length()));
+		int row = getRowIndex(coordinate);
+		int col = getColIndex(coordinate);
 
 		//Checks if input a valid coordinate.
 		return (-1 != row && -1 != col);
@@ -199,12 +201,12 @@ public class BattleshipLogic {
 		if (!isInputValid(frontCoord) || !isInputValid(backCoord)) {
 			return false;
 		}
-		
+
 		/*Check if the ship is a valid ship from int
 		 * though the user won't be determining the ship size
 		 * Only the GUI, but just in case.
 		 */
-		
+
 		if (MIN_SHIP_SIZE > ship || MAX_SHIP_SIZE < ship) {
 			return false;
 		}
@@ -214,10 +216,10 @@ public class BattleshipLogic {
 		 * colPosFront = column location for front of ship (1-10)
 		 * colPosBack = column location for back of ship(1-10)
 		 * */
-		int rowPosFront = convertStringToArrayVal(frontCoord.substring(0,1));
-		int rowPosBack = convertStringToArrayVal(backCoord.substring(0,1));
-		int colPosFront= convertStringToArrayVal(frontCoord.substring(1,frontCoord.length()));
-		int colPosBack = convertStringToArrayVal(backCoord.substring(1,backCoord.length()));
+		int rowPosFront = getRowIndex(frontCoord);
+		int rowPosBack = getRowIndex(backCoord);
+		int colPosFront = getColIndex(frontCoord);
+		int colPosBack = getColIndex(backCoord);
 
 		//Used for checking and filling out the board
 		int startLoc;
@@ -232,7 +234,8 @@ public class BattleshipLogic {
 		}
 
 		//Checks it input is valid (the ends are the same location)
-		if (!(rowPosFront == rowPosBack) ^ (colPosFront == colPosBack)){
+		if (!(rowPosFront == rowPosBack)
+				^ (colPosFront == colPosBack)) {
 			return false;
 
 		//Indicates that player wants the ship in the same row.
@@ -313,7 +316,7 @@ public class BattleshipLogic {
 			return 2;
 		}
 		//Determines which board to use.
-		if (1 == player){
+		if (1 == player) {
 			board = this.p2ShipP1Hit;
 			lives = p2Lives;
 		} else {
@@ -322,7 +325,8 @@ public class BattleshipLogic {
 		}
 
 		int row = convertStringToArrayVal(coordinate.substring(0, 1));
-		int col = convertStringToArrayVal(coordinate.substring(1,coordinate.length()));
+		int col = convertStringToArrayVal(coordinate.substring(
+				1, coordinate.length()));
 		coord = board[row][col];
 
 		//Player hit a ship
@@ -335,7 +339,7 @@ public class BattleshipLogic {
 		}
 
 		//Updates board
-		if (1 == player){
+		if (1 == player) {
 			this.p2ShipP1Hit = board;
 			p2Lives = lives;
 		} else {
@@ -393,9 +397,55 @@ public class BattleshipLogic {
 		return this.p2ShipP1Hit;
 	}
 
+	/****************************************************************
+	 *
+	 * Sends the row and column an array for the GUI to help with
+	 * updating.
+	 *
+	 * @param coordinate the coordinate to get the row and column
+	 * index from.
+	 * @return an array containing [row, column] respectively.
+	 ****************************************************************/
+	public int[] getRowAndColIndex(final String coordinate) {
+
+		int row = convertStringToArrayVal(coordinate.substring(0, 1));
+		int col = convertStringToArrayVal(coordinate.substring(
+				1, coordinate.length()));
+
+		int[] data = {row, col};
+
+		return data;
+
+	}
+
+	/*****************************************************************
+	 *
+	 * Returns the row index for the array from the given coordinate.
+	 * Used to help Battleship GUI.
+	 *
+	 * @param coordinate the coordinate to get the row index from.
+	 * @return the row index (integer)
+	 *****************************************************************/
+	public int getRowIndex(final String coordinate) {
+		return convertStringToArrayVal(coordinate.substring(0, 1));
+	}
+
+	/*********************************************************************
+	 *
+	 * Returns the column index for the array from the given coordinate.
+	 * Used to help Battleship GUI.
+	 *
+	 * @param coordinate the coordinate to get the column index from.
+	 * @return the column index (integer)
+	 *********************************************************************/
+	public int getColIndex(final String coordinate) {
+		return convertStringToArrayVal(coordinate.substring(
+				1, coordinate.length()));
+	}
+
 	/**********************************************************************
 	 *
-	 * Returns the lives of a player. (Used for testing)
+	 * Returns the lives of a player. ( Primarily used for testing)
 	 *
 	 * @param player the player's lives being looked
 	 * (1 for player 1, else for player 2)
@@ -417,16 +467,17 @@ public class BattleshipLogic {
 	 * @param player the board looked at (1 for player 1, else player 2).
 	 * @return the value of the coordinate (1,2,3), -1 if invalid.
 	 *************************************************************/
-	public int getCoordinateData(final String coordinate, final int player){
+	public int getCoordinateData(
+	final String coordinate, final int player) {
 		int[][] board = getBoard(2);
 		if (1 == player) {
 			board = getBoard(1);
 		}
 
-		int row = convertStringToArrayVal(coordinate.substring(0,1));
-		int col = convertStringToArrayVal(coordinate.substring(1,coordinate.length()));
+		int row = getRowIndex(coordinate);
+		int col = getColIndex(coordinate);
 
-		if (-1 == row || -1 == col){
+		if (-1 == row || -1 == col) {
 			return -1;
 		}
 		return board[row][col];
