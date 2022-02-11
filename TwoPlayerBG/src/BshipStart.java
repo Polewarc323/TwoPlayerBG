@@ -45,7 +45,8 @@ public class BshipStart implements ActionListener {
 		}
 		
 		if(e.getSource() == bShipStrt) {
-			
+			frame.dispose();
+			BshipPlaceP1 BshipPlaceP1 = new BshipPlaceP1();
 		}
 		
 	}
