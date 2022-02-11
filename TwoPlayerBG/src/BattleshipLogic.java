@@ -9,7 +9,7 @@
  *@author Romandy Vu
  *@version January 28, 2022
  *
- *
+ *Comment to check upload from GitHub is from Laptop.
  *****************************************************************************/
 public class BattleshipLogic {
 

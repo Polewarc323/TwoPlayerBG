@@ -272,12 +272,40 @@ public class BattleshipLogicTest {
 		
 		
 	}
-	/*
+	
 	@Test
 	public void testValidPlayer1PlaceHit() {
+		BattleshipLogic game = new BattleshipLogic();
+		game.placeShip(2, "A1", "A2", 2);
+		game.placeShip(2, "A3", "A5", 3);
+		game.placeShip(2, "A6", "A10", 5);
+		game.placeShip(2, "B1", "B3", 3);
+		game.placeShip(2, "B4", "B7", 4);
+		
+		assertTrue(game.placeHit("A1", 1) == 1);
+		assertTrue(game.placeHit("A2", 1) == 1);
+		assertTrue(game.placeHit("A3", 1) == 1);
+		assertTrue(game.placeHit("A4", 1) == 1);
+		assertTrue(game.placeHit("A5", 1) == 1);
+		assertTrue(game.placeHit("A6", 1) == 1);
+		assertTrue(game.placeHit("A7", 1) == 1);
+		assertTrue(game.placeHit("A8", 1) == 1);
+		assertTrue(game.placeHit("A9", 1) == 1);
+		assertTrue(game.placeHit("B1", 1) == 1);
+		assertTrue(game.placeHit("B2", 1) == 1);
+		assertTrue(game.placeHit("B3", 1) == 1);
+		assertTrue(game.placeHit("B4", 1) == 1);
+		assertTrue(game.placeHit("B5", 1) == 1);
+		assertTrue(game.placeHit("B6", 1) == 1);
+		assertTrue(game.placeHit("B7", 1) == 1);
+		
+		String[] row = {"A","B","C","D","E","F","G","H","I","J"};
+		String[] col = {"1","2","3","4","5","6","7","8","9","10"};
+		
+		
 		
 	}
-	
+	/*
 	@Test
 	public void testValidPlayer2PlaceHit() {
 		
@@ -301,22 +329,11 @@ public class BattleshipLogicTest {
 	
 	@Test
 	public void testResetBoard() {
-	
 		
 	}
 	
 	@Test
 	public void testGetRowAndColIndex(){
-	
-	}
-	
-	@Test
-	public void testGetRowIndex(){
-	
-	}
-	
-	@Test
-	public void testGetColIndex(){
 	
 	}
 	*/
