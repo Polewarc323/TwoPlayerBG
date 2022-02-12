@@ -339,14 +339,14 @@ public class BattleshipLogic {
 			board[row][col] = 2;
 		}
 
-		//Updates board
+
+		//Updates lives
 		if (1 == player) {
-			this.p2ShipP1Hit = board;
 			p2Lives = lives;
 		} else {
-			this.p1ShipP2Hit = board;
 			p1Lives = lives;
 		}
+
 
 		return coord;
 
@@ -392,10 +392,22 @@ public class BattleshipLogic {
 	 * @return the player's current board during ship placement.
 	 *************************************************************/
 	public int[][] getBoard(final int player) {
+		int[][] source;
+		int[][] copy = new int[ROWS][COLS];
+
 		if (1 == player) {
-			return this.p1ShipP2Hit;
+			source = this.p1ShipP2Hit;
+		} else {
+		source = this.p2ShipP1Hit;
 		}
-		return this.p2ShipP1Hit;
+
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				copy[i][j] = source[i][j];
+			}
+		}
+
+		return copy;
 	}
 
 	/****************************************************************
