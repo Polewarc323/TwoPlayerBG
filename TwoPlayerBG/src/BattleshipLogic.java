@@ -9,7 +9,7 @@
  *@author Romandy Vu
  *@version January 28, 2022
  *
- *Comment to check upload from GitHub is from Laptop.
+ *
  *****************************************************************************/
 public class BattleshipLogic {
 
@@ -334,7 +334,8 @@ public class BattleshipLogic {
 			board[row][col] = 2;
 			lives--;
 
-		} else if (0 == coord) {
+		}
+		if (0 == coord) {
 			board[row][col] = 2;
 		}
 
@@ -465,7 +466,7 @@ public class BattleshipLogic {
 	 *
 	 * @param coordinate the coordinate being looked at.
 	 * @param player the board looked at (1 for player 1, else player 2).
-	 * @return the value of the coordinate (1,2,3), -1 if invalid.
+	 * @return the value of the coordinate (0,1,2), -1 if invalid.
 	 *************************************************************/
 	public int getCoordinateData(
 	final String coordinate, final int player) {

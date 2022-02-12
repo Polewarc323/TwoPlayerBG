@@ -65,7 +65,7 @@ public class BattleshipLogicTest {
 		assertTrue(game.getCoordinateData("C10", 1) == 1);
 		assertTrue(game.getCoordinateData("d10", 1) == 1);
 		assertTrue(game.getCoordinateData("E10", 1) == 1);
-		
+
 		//Make sure it's not in Player 2 board
 		assertFalse(game.getCoordinateData("a01", 2) == 1);
 		assertFalse(game.getCoordinateData("A2", 2) == 1);
@@ -152,11 +152,11 @@ public class BattleshipLogicTest {
 
 
 	}
-	
+
 	@Test
 	public void testInvalidPlayer1PlaceShips() {
 		BattleshipLogic game = new BattleshipLogic();
-		
+
 		//1 Coordinate out of bounds
 		assertFalse(game.placeShip(1, "A1", "A0", 2));
 		//Both coordinate out of bounds
@@ -168,16 +168,21 @@ public class BattleshipLogicTest {
 		//1 invalid coordinate
 		assertFalse(game.placeShip(1, "E4", "asfdsfsd", 4));
 		//2 invalid coordinates
-		assertFalse(game.placeShip(1, "5453", "4Casdasd", 4));
+		assertFalse(game.placeShip(1, "Z4", "4Casdasd", 4));
 		//Swapped coordinates
 		assertFalse(game.placeShip(1, "4A", "5A", 2));
+		assertFalse(game.placeShip(1, "a", "a2", 3));
 		int[][] board = game.getBoard(1);
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				assertTrue(board[i][j] == 0);
 			}
 		}
-		//Test overlapping coordinates
+		//Ship doesn't exist.
+		assertFalse(game.placeShip(1, "A1", "A1", 1));
+		assertFalse(game.placeShip(1, "A1", "A6", 6));
+		
+		//Test overlapping coordinates (row)
 		assertTrue(game.placeShip(1, "E1", "E5", 5));
 		assertFalse(game.placeShip(1, "E1","F1", 2));
 		assertFalse(game.placeShip(1, "D3","F3",3));
@@ -235,52 +240,38 @@ public class BattleshipLogicTest {
 		assertFalse(game.getCoordinateData("F3", 2) == 1);
 	}
 
-	
+
 	@Test
 	public void testGameOver() {
 		BattleshipLogic game = new BattleshipLogic();
 		assertFalse(game.isGameOver());
-		
+
 		game.placeShip(1, "A1", "A2", 2);
 		game.placeShip(1, "A3", "A5", 3);
 		game.placeShip(1, "A6", "A10", 5);
 		game.placeShip(1, "B1", "B3", 3);
 		game.placeShip(1, "B4", "B7", 4);
-		
+
 		game.placeShip(2, "A1", "A2", 2);
 		game.placeShip(2, "A3", "A5", 3);
 		game.placeShip(2, "A6", "A10", 5);
 		game.placeShip(2, "B1", "B3", 3);
 		game.placeShip(2, "B4", "B7", 4);
-		
+
 		int[][] p1board = game.getBoard(1);
 		int[][] p2board = game.getBoard(2);
-		
-		
-		
+
+
+
 		for (int i = 0; i < 10; i++) {
 			assertTrue(p1board[0][i] == 1);
 			assertTrue(p2board[0][i] == 1);
 		}
-		
+
 		for (int i = 0; i < 7; i++) {
 			assertTrue(p1board[1][i] == 1);
 			assertTrue(p2board[1][i] == 1);
 		}
-		
-		
-		
-		
-	}
-	
-	@Test
-	public void testValidPlayer1PlaceHit() {
-		BattleshipLogic game = new BattleshipLogic();
-		game.placeShip(2, "A1", "A2", 2);
-		game.placeShip(2, "A3", "A5", 3);
-		game.placeShip(2, "A6", "A10", 5);
-		game.placeShip(2, "B1", "B3", 3);
-		game.placeShip(2, "B4", "B7", 4);
 		
 		assertTrue(game.placeHit("A1", 1) == 1);
 		assertTrue(game.placeHit("A2", 1) == 1);
@@ -291,36 +282,211 @@ public class BattleshipLogicTest {
 		assertTrue(game.placeHit("A7", 1) == 1);
 		assertTrue(game.placeHit("A8", 1) == 1);
 		assertTrue(game.placeHit("A9", 1) == 1);
+		assertTrue(game.placeHit("A10", 1) == 1);
 		assertTrue(game.placeHit("B1", 1) == 1);
 		assertTrue(game.placeHit("B2", 1) == 1);
-		assertTrue(game.placeHit("B3", 1) == 1);
+		assertTrue(game.placeHit("B03", 1) == 1);
 		assertTrue(game.placeHit("B4", 1) == 1);
 		assertTrue(game.placeHit("B5", 1) == 1);
 		assertTrue(game.placeHit("B6", 1) == 1);
 		assertTrue(game.placeHit("B7", 1) == 1);
+		assertTrue(game.placeHit("B8", 1) == 0);
+		assertTrue(game.placeHit("B09", 1) == 0);
+		assertTrue(game.placeHit("B10", 1) == 0);
+		assertTrue(game.isGameOver());
+		assertTrue(game.placeHit("A1", 2) == 1);
+		assertTrue(game.placeHit("A2", 2) == 1);
+		assertTrue(game.placeHit("A3", 2) == 1);
+		assertTrue(game.placeHit("A4", 2) == 1);
+		assertTrue(game.placeHit("A5", 2) == 1);
+		assertTrue(game.placeHit("A6", 2) == 1);
+		assertTrue(game.placeHit("A7", 2) == 1);
+		assertTrue(game.placeHit("A8", 2) == 1);
+		assertTrue(game.placeHit("A9", 2) == 1);
+		assertTrue(game.placeHit("A10", 2) == 1);
+		assertTrue(game.placeHit("B1", 2) == 1);
+		assertTrue(game.placeHit("B2", 2) == 1);
+		assertTrue(game.placeHit("B3", 2) == 1);
+		assertTrue(game.placeHit("B4", 2) == 1);
+		assertTrue(game.placeHit("B5", 2) == 1);
+		assertTrue(game.placeHit("B6", 2) == 1);
+		assertTrue(game.placeHit("B7", 2) == 1);
+		assertTrue(game.placeHit("B8", 2) == 0);
+		assertTrue(game.placeHit("B9", 2) == 0);
+		assertTrue(game.placeHit("B10", 2) == 0);
+		assertTrue(game.isGameOver());
 		
-		String[] row = {"A","B","C","D","E","F","G","H","I","J"};
-		String[] col = {"1","2","3","4","5","6","7","8","9","10"};
+		game = new BattleshipLogic();
 		
+		game.placeShip(1, "A1", "A2", 2);
+		game.placeShip(1, "A3", "A5", 3);
+		game.placeShip(1, "A6", "A10", 5);
+		game.placeShip(1, "B1", "B3", 3);
+		game.placeShip(1, "B4", "B7", 4);
+		assertTrue(game.placeHit("A1", 2) == 1);
+		assertTrue(game.placeHit("A2", 2) == 1);
+		assertTrue(game.placeHit("A3", 2) == 1);
+		assertTrue(game.placeHit("A4", 2) == 1);
+		assertTrue(game.placeHit("A5", 2) == 1);
+		assertTrue(game.placeHit("A6", 2) == 1);
+		assertTrue(game.placeHit("A7", 2) == 1);
+		assertTrue(game.placeHit("A8", 2) == 1);
+		assertTrue(game.placeHit("A9", 2) == 1);
+		assertTrue(game.placeHit("A10", 2) == 1);
+		assertTrue(game.placeHit("B1", 2) == 1);
+		assertTrue(game.placeHit("B2", 2) == 1);
+		assertTrue(game.placeHit("B3", 2) == 1);
+		assertTrue(game.placeHit("B4", 2) == 1);
+		assertTrue(game.placeHit("B5", 2) == 1);
+		assertTrue(game.placeHit("B6", 2) == 1);
+		assertTrue(game.placeHit("B7", 2) == 1);
+		assertTrue(game.placeHit("B8", 2) == 0);
+		assertTrue(game.placeHit("B9", 2) == 0);
+		assertTrue(game.placeHit("B10", 2) == 0);
+		assertTrue(game.isGameOver());
 		
-		
+
+
+
+
 	}
-	/*
+
+	@Test
+	public void testValidPlayer1PlaceHit() {
+		BattleshipLogic game = new BattleshipLogic();
+		game.placeShip(2, "A1", "A2", 2);
+		game.placeShip(2, "A3", "A5", 3);
+		game.placeShip(2, "A6", "A10", 5);
+		game.placeShip(2, "B1", "B3", 3);
+		game.placeShip(2, "B4", "B7", 4);
+
+		assertTrue(game.placeHit("A1", 1) == 1);
+		assertTrue(game.placeHit("A2", 1) == 1);
+		assertTrue(game.placeHit("A3", 1) == 1);
+		assertTrue(game.placeHit("A4", 1) == 1);
+		assertTrue(game.placeHit("A5", 1) == 1);
+		assertTrue(game.placeHit("A6", 1) == 1);
+		assertTrue(game.placeHit("A7", 1) == 1);
+		assertTrue(game.placeHit("A8", 1) == 1);
+		assertTrue(game.placeHit("A9", 1) == 1);
+		assertTrue(game.placeHit("A10", 1) == 1);
+		assertTrue(game.placeHit("B1", 1) == 1);
+		assertTrue(game.placeHit("B2", 1) == 1);
+		assertTrue(game.placeHit("B03", 1) == 1);
+		assertTrue(game.placeHit("B4", 1) == 1);
+		assertTrue(game.placeHit("B5", 1) == 1);
+		assertTrue(game.placeHit("B6", 1) == 1);
+		assertTrue(game.placeHit("B7", 1) == 1);
+		assertTrue(game.placeHit("B8", 1) == 0);
+		assertTrue(game.placeHit("B09", 1) == 0);
+		assertTrue(game.placeHit("B10", 1) == 0);
+		assertTrue(game.getLives(2) == 0);
+		
+
+		String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+		String[] col = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		String coord;
+		for (int i = 3; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				coord = row[i] + row[j];
+				assertTrue(game.placeHit(coord, 1) == 0);
+			}
+		}
+		assertTrue(game.getLives(2) == 0);
+	}
+	
 	@Test
 	public void testValidPlayer2PlaceHit() {
-		
+		BattleshipLogic game = new BattleshipLogic();
+		game.placeShip(1, "A1", "A2", 2);
+		game.placeShip(1, "A3", "A5", 3);
+		game.placeShip(1, "A6", "A10", 5);
+		game.placeShip(1, "B1", "B3", 3);
+		game.placeShip(1, "B4", "B7", 4);
+
+		assertTrue(game.placeHit("A1", 2) == 1);
+		assertTrue(game.placeHit("A2", 2) == 1);
+		assertTrue(game.placeHit("A3", 2) == 1);
+		assertTrue(game.placeHit("A4", 2) == 1);
+		assertTrue(game.placeHit("A5", 2) == 1);
+		assertTrue(game.placeHit("A6", 2) == 1);
+		assertTrue(game.placeHit("A7", 2) == 1);
+		assertTrue(game.placeHit("A8", 2) == 1);
+		assertTrue(game.placeHit("A9", 2) == 1);
+		assertTrue(game.placeHit("A10", 2) == 1);
+		assertTrue(game.placeHit("B1", 2) == 1);
+		assertTrue(game.placeHit("B2", 2) == 1);
+		assertTrue(game.placeHit("B3", 2) == 1);
+		assertTrue(game.placeHit("B4", 2) == 1);
+		assertTrue(game.placeHit("B5", 2) == 1);
+		assertTrue(game.placeHit("B6", 2) == 1);
+		assertTrue(game.placeHit("B7", 2) == 1);
+		assertTrue(game.placeHit("B8", 2) == 0);
+		assertTrue(game.placeHit("B9", 2) == 0);
+		assertTrue(game.placeHit("B10", 2) == 0);
+		assertTrue(game.getLives(1) == 0);
+		String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+		String[] col = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		String coord;
+		for (int i = 3; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				coord = row[i] + row[j];
+				assertTrue(game.placeHit(coord, 1) == 0);
+			}
+		}
+		assertTrue(game.getLives(1) == 0);
 	}
 	
 	@Test
 	public void testInvalidPlayer1PlaceHit() {
+		BattleshipLogic game = new BattleshipLogic();
+		String coord;
+		String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+		String[] col = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		for (int i = 0; i < row.length; i++) {
+			for (int j = 0; j <col.length; j++) {
+				coord = row[i] + col[j];
+				game.placeHit(coord, 1);
+			}
+		}
 		
+		for (int i = 0; i < row.length; i++) {
+			for (int j = 0; j <col.length; j++) {
+				coord = row[i] + col[j];
+				assertTrue(game.placeHit(coord, 1) == 2);
+			}
+		}
+		assertTrue(game.placeHit("43", 1) == 2);
+		assertTrue(game.placeHit("3", 1) == 2);
+		assertTrue(game.placeHit("Z10", 1) == 2);
+
 	}
+
 	
 	@Test
 	public void testInvalidPlayer2PlaceHit() {
+		BattleshipLogic game = new BattleshipLogic();
+		String coord;
+		String[] row = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+		String[] col = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
+		for (int i = 0; i < row.length; i++) {
+			for (int j = 0; j <col.length; j++) {
+				coord = row[i] + col[j];
+				game.placeHit(coord, 2);
+			}
+		}
 		
+		for (int i = 0; i < row.length; i++) {
+			for (int j = 0; j <col.length; j++) {
+				coord = row[i] + col[j];
+				assertTrue(game.placeHit(coord, 2) == 2);
+			}
+		}
+		assertTrue(game.placeHit("43", 2) == 2);
+		assertTrue(game.placeHit("3", 2) == 2);
+		assertTrue(game.placeHit("Z10", 2) == 2);
 	}
-	
+
 	@Test
 	public void testBoardData() {
 		
@@ -336,6 +502,5 @@ public class BattleshipLogicTest {
 	public void testGetRowAndColIndex(){
 	
 	}
-	*/
 
 }
