@@ -1,4 +1,3 @@
-package connect4Stuff;
 
 public class Board {
 	private int rows;

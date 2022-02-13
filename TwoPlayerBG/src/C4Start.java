@@ -47,7 +47,8 @@ public class C4Start implements ActionListener{
 		}
 		
 		if(e.getSource() == c4Start) {
-			
+			frame.dispose();
+			Connect4GUI Connect4GUI = new Connect4GUI();
 		}
 	}
 }

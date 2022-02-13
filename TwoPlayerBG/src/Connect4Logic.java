@@ -1,8 +1,5 @@
-package connect4Stuff;
-import java.util.Random;
-import connect4Stuff.Board;
-import connect4Stuff.Piece;
 
+import java.util.Random;
 /****************************************************************************
 *
 *Class serves as the logic for the Connect 4 game for 2 player Board games.
@@ -121,4 +118,3 @@ public class Connect4Logic {
 	    }
 	
 }
-

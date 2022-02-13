@@ -1,4 +1,3 @@
-package connect4Stuff;
 
 public class Piece {
 	private String color;
