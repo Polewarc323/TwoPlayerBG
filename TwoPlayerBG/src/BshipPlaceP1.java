@@ -52,8 +52,13 @@ public class BshipPlaceP1 implements ActionListener{
 	
 	static JTextField fireCo = new JTextField (1);
 	static JButton fireBtn = new JButton ("Fire");
-
-
+	
+	JLabel[] colLabels = new JLabel[10];
+	JLabel[] rowLabels = new JLabel[10]; 
+	
+	String[] rowLbl =  {"A","B","C","D","E","F","G","H","I","J"};
+	String[] colLbl =  {"1","2","3","4","5","6","7","8","9","10"};
+	
 	private JButton[][] grid = new JButton[10][10];
 	
 	public static BattleshipLogic bsl = new BattleshipLogic();
@@ -103,6 +108,17 @@ public class BshipPlaceP1 implements ActionListener{
 		fireBtn.setBounds(100, 330, 100, 50);
 		fireCo.setBounds(100, 250, 100, 50);
 		
+		for(int i = 0; i < rowLbl.length; i++) {
+			rowLabels[i] = new JLabel(rowLbl[i]);
+			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
+			frame.add(rowLabels[i]);
+		}
+		
+		for(int i = 0; i < colLbl.length; i++) {	
+			colLabels[i] = new JLabel(colLbl[i]);
+			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
+			frame.add(colLabels[i]);
+		}
 		for(int row = 0; row < 10; row++)
 		     for(int col = 0; col < 10; col++){
 		    	 
@@ -141,7 +157,7 @@ public class BshipPlaceP1 implements ActionListener{
 			}
 			if(shipSel.getSelectedItem() == "Battleship") {
 				ship = 4;
-				shipSel.removeItem("Battleship");
+				
 			}
 			if(shipSel.getSelectedItem() == "Cruiser") {
 				ship = 3;
@@ -158,7 +174,7 @@ public class BshipPlaceP1 implements ActionListener{
 			if(ship == 0) {
 				//throw some shit I dont know
 			}
-			shipSel.removeItem(shipSel.getSelectedItem());
+			
 		}
 		
 		if(e.getSource() == placeBtn) {
@@ -175,7 +191,7 @@ public class BshipPlaceP1 implements ActionListener{
 			System.out.println(bsl.getRowIndex(rear));
 			
 			bsl.placeShip( player,  front,  rear,  ship);
-			
+			shipSel.removeItem(shipSel.getSelectedItem());
 			
 			
 			
@@ -196,7 +212,7 @@ public class BshipPlaceP1 implements ActionListener{
 	
 			}
 
-			this.frame.setVisible(false);
+			frame.setVisible(false);
 
 			BshipPlaceP2.frame.setVisible(true);
 

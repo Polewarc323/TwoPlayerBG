@@ -17,7 +17,7 @@ public class Connect4GUI implements ActionListener {
 	
 	Connect4GUI() {
 		
-		JOEY.setText("JOEY IS GAY");
+		JOEY.setText("Connect Four");
 		JOEY.setBounds(10, 10, 100, 100);
 		frame.add(JOEY);
 		

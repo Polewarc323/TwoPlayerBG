@@ -36,6 +36,12 @@ public class BshipPlaceP2 implements ActionListener{
     static JTextField fireCoP2 = new JTextField (1);
     static JButton fireBtnP2 = new JButton ("Fire");
     
+    JLabel[] colLabels = new JLabel[10];
+	JLabel[] rowLabels = new JLabel[10]; 
+	
+	String[] rowLbl =  {"A","B","C","D","E","F","G","H","I","J"};
+	String[] colLbl =  {"1","2","3","4","5","6","7","8","9","10"};
+    
     private JButton[][] grid = new JButton[10][10];
 	
     private int ship = 0;
@@ -80,11 +86,23 @@ public class BshipPlaceP2 implements ActionListener{
         fireCoP2.setBounds(100, 250, 100, 50);
         fireBtnP2.setBounds(100,330, 100, 50);
         
+        for(int i = 0; i < rowLbl.length; i++) {
+			rowLabels[i] = new JLabel(rowLbl[i]);
+			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
+			frame.add(rowLabels[i]);
+		}
+		
+		for(int i = 0; i < colLbl.length; i++) {	
+			colLabels[i] = new JLabel(colLbl[i]);
+			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
+			frame.add(colLabels[i]);
+		}
+        
         for(int row = 0; row < 10; row++)
         	for(int col = 0; col < 10; col++){
 
         		grid[row][col] = new JButton("");
-        		grid[row][col].setBounds(500 + (25*row),200 + (25*col),25,25);
+        		grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
         		grid[row][col].addActionListener(this);
         		frame.add(grid[row][col]);
         	}
@@ -135,7 +153,7 @@ public class BshipPlaceP2 implements ActionListener{
 			}
 			if(shipSel.getSelectedItem() == "Battleship") {
 				ship = 4;
-				shipSel.removeItem("Battleship");
+				
 			}
 			if(shipSel.getSelectedItem() == "Cruiser") {
 				ship = 3;
@@ -152,7 +170,7 @@ public class BshipPlaceP2 implements ActionListener{
 			if(ship == 0) {
 				//throw some shit I dont know
 			}
-			shipSel.removeItem(shipSel.getSelectedItem());
+			
 		}
 		
 		
@@ -165,6 +183,7 @@ public class BshipPlaceP2 implements ActionListener{
 			
 			
 			BshipPlaceP1.bsl.placeShip( player2,  front,  rear,  ship);
+			shipSel.removeItem(shipSel.getSelectedItem());
 		}
 		
 		if(e.getSource() == fireBtnP2) {
