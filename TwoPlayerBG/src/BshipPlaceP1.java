@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 public class BshipPlaceP1 implements ActionListener{
 
 	
-
+	
 	static JFrame frame = new JFrame();
 
 
@@ -36,7 +36,7 @@ public class BshipPlaceP1 implements ActionListener{
 	static JLabel rear = new JLabel("Rear");
 
 	//construct preComponents
-	static String[] shipSelItems = {"  ", "Carrier", "Battleship", "Cruiser", "Submarine", "Patrol Boat"};
+	static String[] shipSelItems = {"Carrier", "Battleship", "Cruiser", "Submarine", "Patrol Boat"};
 
 	//construct components
 
@@ -63,7 +63,11 @@ public class BshipPlaceP1 implements ActionListener{
 	
 	public static BattleshipLogic bsl = new BattleshipLogic();
 	
-	private int ship = 0;
+	private static int lives = bsl.getLives(1 );
+	
+	static JLabel Player1Lives = new JLabel("Player One Lives Left: " + lives);
+	
+	private int ship;
 	private int player = 1;
 	
 	BshipPlaceP1(){
@@ -85,6 +89,15 @@ public class BshipPlaceP1 implements ActionListener{
 		frame.add (p1Place);
 		frame.add (directions);
 		
+		donBtn.setVisible(true);
+		placeBtn.setVisible(true);
+		frontCo.setVisible(true);
+		rearCo.setVisible(true);
+		p1Place.setVisible(true);
+		front.setVisible(true);
+		rear.setVisible(true);
+		directions.setVisible(true);
+		shipSel.setVisible(true);
 		
 		placeBtn.addActionListener(this);
 		donBtn.addActionListener(this);
@@ -103,10 +116,15 @@ public class BshipPlaceP1 implements ActionListener{
 		p1Place.setBounds (370, 35, 165, 45);
 		directions.setBounds (5, 65, 460, 110);
 		
-
-		Player2Fire.setBounds(370,35,165,45);
+		Player2Fire.setVisible(false);
+		fireBtn.setVisible(false);
+		fireCo.setVisible(false);
+		Player1Lives.setVisible(false);
+		
+		Player2Fire.setBounds(370,35,300,45);
 		fireBtn.setBounds(100, 330, 100, 50);
 		fireCo.setBounds(100, 250, 100, 50);
+		Player1Lives.setBounds (100, 200, 250, 50);
 		
 		for(int i = 0; i < rowLbl.length; i++) {
 			rowLabels[i] = new JLabel(rowLbl[i]);
@@ -143,55 +161,36 @@ public class BshipPlaceP1 implements ActionListener{
 		if(e.getSource() == donBtn) {
 			frame.setVisible(false);
 			BshipPlaceP2 BshipPlaceP2 = new BshipPlaceP2();
-			
-			
+			frame.add(Player1Lives);
 		}
 		
-		if(e.getSource() == shipSel) {
 
-			int ship = 0;
-
+		if(e.getSource() == placeBtn) {
+			
 			if(shipSel.getSelectedItem() == "Carrier") {
 				ship = 5;
 
-			}
-			if(shipSel.getSelectedItem() == "Battleship") {
+			}else if(shipSel.getSelectedItem() == "Battleship") {
 				ship = 4;
 				
-			}
-			if(shipSel.getSelectedItem() == "Cruiser") {
+			}else if(shipSel.getSelectedItem() == "Cruiser") {
 				ship = 3;
 
-			}
-			if(shipSel.getSelectedItem() == "Submarine") {
+			}else if(shipSel.getSelectedItem() == "Submarine") {
 				ship = 3;
 
-			}
-			if(shipSel.getSelectedItem() == "Patrol Boat") {
+			}else if(shipSel.getSelectedItem() == "Patrol Boat") {
 				ship = 2;
 			}
-
-			if(ship == 0) {
-				//throw some shit I dont know
-			}
-			
-		}
-		
-		if(e.getSource() == placeBtn) {
-			
-			
+	
 			String front = frontCo.getText();
 			String rear = rearCo.getText();
-			
-			System.out.println(shipSel.getSelectedItem() + "" + ship);
-			
-			System.out.println(bsl.getColIndex(front));
-			System.out.println(bsl.getRowIndex(front));
-			System.out.println(bsl.getColIndex(rear));
-			System.out.println(bsl.getRowIndex(rear));
-			
+
 			bsl.placeShip( player,  front,  rear,  ship);
 			shipSel.removeItem(shipSel.getSelectedItem());
+			lives = BshipPlaceP1.bsl.getLives(2);
+			Player1Lives.setText("Player One Lives Left: " + lives);
+			
 			
 			
 			
@@ -199,24 +198,11 @@ public class BshipPlaceP1 implements ActionListener{
 		
 		if(e.getSource() == fireBtn) {
 			bsl.placeHit(fireCo.getText(), player);
-			
-			//bsl.placeHit(, player);
-			
-			if(bsl.isGameOver() == true) {
-				if(bsl.getLives(1) == 0) {
-					System.out.println("Player Two Won");
-					frame.dispose();
-					bShipGOScreen gameOver = new bShipGOScreen();
-				}
-				
-	
-			}
+			lives = BshipPlaceP1.bsl.getLives(2);
+			Player1Lives.setText("Player One Lives Left: " + lives);
 
 			frame.setVisible(false);
-
-			BshipPlaceP2.frame.setVisible(true);
-
-
+//			BshipPlaceP2.frame.setVisible(true);
 			BshipPlaceP2.strtBtn.setVisible(false);
 			BshipPlaceP2.placeBtn.setVisible(false);
 			BshipPlaceP2.frontCo.setVisible(false);
@@ -227,10 +213,33 @@ public class BshipPlaceP1 implements ActionListener{
 			BshipPlaceP2.directions.setVisible(false);
 			BshipPlaceP2.shipSel.setVisible(false);
 
-			BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
-			BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
-			BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
 
+			
+			if(bsl.isGameOver() == true) {
+				if(bsl.getLives(1) == 0) {
+					System.out.println("Player Two Won");
+					this.frame.dispose();
+					BshipPlaceP2.frame.dispose();
+					bShipGOScreen bShipGOScreen = new bShipGOScreen();
+				}else {
+					System.out.println("Player One Won");
+					bShipGOScreen bShipGOScreen = new bShipGOScreen();
+					frame.dispose();
+					
+				}
+	
+			}else {
+				
+				BshipPlaceP2.Player1Fire.setVisible(true);
+				BshipPlaceP2.fireCoP2.setVisible(true);
+				BshipPlaceP2.fireBtnP2.setVisible(true);
+				BshipPlaceP2.Player2Lives.setVisible(true);
+				
+				BshipPlaceP2.frame.setVisible(true);
+				BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
+				BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
+				BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+			}
 		}
 	}
 }

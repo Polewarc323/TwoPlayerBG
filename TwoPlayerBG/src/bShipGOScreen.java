@@ -20,6 +20,11 @@ public class bShipGOScreen implements ActionListener{
 		bShipEnd.setBounds(50, 210, 300, 50);
 		backToHub.setBounds(50, 260, 300, 50);
 		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(420,420);
+		frame.setLayout(null);
+		frame.setVisible(true); 
+		
 		frame.add(label);
 		frame.add(bShipEnd);
 		frame.add(backToHub);
@@ -27,10 +32,7 @@ public class bShipGOScreen implements ActionListener{
 		backToHub.addActionListener(this);
 		bShipEnd.addActionListener(this); 
 	
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(420,420);
-		frame.setLayout(null);
-		frame.setVisible(true); 
+		
 		
 	}
 
@@ -46,6 +48,7 @@ public class bShipGOScreen implements ActionListener{
 		if(e.getSource() == bShipEnd) {
 			frame.dispose();
 			BshipStart BshipStart = new BshipStart();
+			
 		}
 		
 	}
