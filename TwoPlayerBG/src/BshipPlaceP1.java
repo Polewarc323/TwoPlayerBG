@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -56,16 +57,21 @@ public class BshipPlaceP1 implements ActionListener{
 	JLabel[] colLabels = new JLabel[10];
 	JLabel[] rowLabels = new JLabel[10]; 
 	
-	String[] rowLbl =  {"A","B","C","D","E","F","G","H","I","J"};
-	String[] colLbl =  {"1","2","3","4","5","6","7","8","9","10"};
+	/**FIXME: Note that the labels are switched around (but it's for the grid itself) */
+	String[] colLbl =  {"A","B","C","D","E","F","G","H","I","J"};
+	String[] rowLbl =  {"1","2","3","4","5","6","7","8","9","10"};
 	
 	private JButton[][] grid = new JButton[10][10];
 	
 	public static BattleshipLogic bsl = new BattleshipLogic();
 	
-	private static int lives = bsl.getLives(1 );
+	private static int lives = bsl.getLives(1);
 	
 	static JLabel Player1Lives = new JLabel("Player One Lives Left: " + lives);
+	
+	//FIXME: ADDED
+	/**Used to make sure all ships are placed before the done button can work as intended*/
+	private static int shipsToBePlaced = 5;
 	
 	private int ship;
 	private int player = 1;
@@ -159,9 +165,20 @@ public class BshipPlaceP1 implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == donBtn) {
-			frame.setVisible(false);
-			BshipPlaceP2 BshipPlaceP2 = new BshipPlaceP2();
-			frame.add(Player1Lives);
+			//FIXME: ADDED
+			if(0 == shipsToBePlaced) {
+				for(int row = 0; row < 10; row++)
+				     for(int col = 0; col < 10; col++){
+				    	 grid[row][col].setBackground(Color.WHITE);
+				     }
+				
+				//Code below was already here.
+				frame.setVisible(false);
+				BshipPlaceP2 BshipPlaceP2 = new BshipPlaceP2();
+				frame.add(Player1Lives);
+			}
+		} else {
+			//FIXME: Prompt an error message.
 		}
 		
 
@@ -186,10 +203,37 @@ public class BshipPlaceP1 implements ActionListener{
 			String front = frontCo.getText();
 			String rear = rearCo.getText();
 
-			bsl.placeShip( player,  front,  rear,  ship);
-			shipSel.removeItem(shipSel.getSelectedItem());
-			lives = BshipPlaceP1.bsl.getLives(2);
-			Player1Lives.setText("Player One Lives Left: " + lives);
+			//FIXME: ADDED
+			if(bsl.placeShip( player,  front,  rear,  ship)) {
+				shipsToBePlaced--;
+				shipSel.removeItem(shipSel.getSelectedItem());
+				//Get the lives of player 1, not player 2.
+				lives = BshipPlaceP1.bsl.getLives(1);
+				Player1Lives.setText("Player One Lives Left: " + lives);
+				String coord;
+				int id;
+				
+				for (int row = 0; row < rowLbl.length; row++) {
+					for (int col = 0; col < colLbl.length; col++) {
+						//Because the ordering is messed up.
+						coord = colLbl[row] + rowLbl[col];
+						id = bsl.getCoordinateData(coord, player);
+						if (1 == id) {
+							grid[row][col].setBackground(Color.BLACK);
+						} else {
+							//Do nothing
+						}
+						
+				    	grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+				    	grid[row][col].addActionListener(this);
+				    	frame.add(grid[row][col]);	
+					}
+				}
+			}
+			else {
+				//FIXME: Display message that prompts user to try again.
+			}
+			
 			
 			
 			
@@ -197,9 +241,26 @@ public class BshipPlaceP1 implements ActionListener{
 		}
 		
 		if(e.getSource() == fireBtn) {
-			bsl.placeHit(fireCo.getText(), player);
-			lives = BshipPlaceP1.bsl.getLives(2);
+			//FIXME: ADDED
+			int hitResult;
+			lives = BshipPlaceP1.bsl.getLives(1);
 			Player1Lives.setText("Player One Lives Left: " + lives);
+			
+			hitResult = bsl.placeHit(fireCo.getText(), 2);
+			//Indicates invalid coordinate new to wrong coordinate or coordinate already hit.
+			if(2 == hitResult) {
+				//FIXME: Prompt an error message
+			}
+			else {
+			if(0 == hitResult) {
+				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.RED);
+				//FIXME: Prompt message that they missed
+			}
+			if(1 == hitResult) {
+				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.GREEN);
+				//FIXME: Prompt message that they hit a ship
+			}
+			
 
 			frame.setVisible(false);
 //			BshipPlaceP2.frame.setVisible(true);
@@ -239,6 +300,7 @@ public class BshipPlaceP1 implements ActionListener{
 				BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
 				BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
 				BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+			}
 			}
 		}
 	}

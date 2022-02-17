@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -39,14 +40,19 @@ public class BshipPlaceP2 implements ActionListener{
     JLabel[] colLabels = new JLabel[10];
 	JLabel[] rowLabels = new JLabel[10]; 
 	
-	String[] rowLbl =  {"A","B","C","D","E","F","G","H","I","J"};
-	String[] colLbl =  {"1","2","3","4","5","6","7","8","9","10"};
+	/**FIXME: I swapped this to match the board update)**/
+	String[] colLbl =  {"A","B","C","D","E","F","G","H","I","J"};
+	String[] rowLbl =  {"1","2","3","4","5","6","7","8","9","10"};
     
     private JButton[][] grid = new JButton[10][10];
     
     private static int lives = BshipPlaceP1.bsl.getLives(2);
 	
 	static JLabel Player2Lives = new JLabel("Player Two Lives Left: " + lives);
+	
+	//FIXME: ADDED
+	/**Can't start game until All of Player's 2 ships are placed */
+	private static int shipsToBePlaced = 5;
 	
 	int ship;
     private int player2 = 2;
@@ -140,6 +146,14 @@ public class BshipPlaceP2 implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if(e.getSource() == strtBtn) {
+			//FIXME: If statement to check if all ships are placed to start game.
+			if(0 == shipsToBePlaced) {
+			for (int row = 0; row < rowLbl.length; row++) {
+				for (int col = 0; col < colLbl.length; col++) {
+						grid[row][col].setBackground(Color.WHITE);
+					}
+			}
+			
 			this.frame.setVisible(false);
 			BshipPlaceP1.frame.setVisible(true);
 			
@@ -171,6 +185,9 @@ public class BshipPlaceP2 implements ActionListener{
 	        BshipPlaceP1.Player1Lives.setVisible(true);
 
 			
+		} else {
+			//FIXME: Prompt Error message.
+		}
 		}
 		
 		
@@ -197,16 +214,52 @@ public class BshipPlaceP2 implements ActionListener{
 			String front = frontCo.getText();
 			String rear = rearCo.getText();
 			
+			String coord;
+			int id;
 			
-			BshipPlaceP1.bsl.placeShip( player2,  front,  rear,  ship);
-			shipSel.removeItem(shipSel.getSelectedItem());
+			if(BshipPlaceP1.bsl.placeShip( player2,  front,  rear,  ship)) {
+				shipsToBePlaced--;
+			
+				for (int row = 0; row < rowLbl.length; row++) {
+					for (int col = 0; col < colLbl.length; col++) {
+						coord = colLbl[row] + rowLbl[col];
+						id = BshipPlaceP1.bsl.getCoordinateData(coord, player2);
+						if (1 == id) {
+							grid[row][col].setBackground(Color.BLUE);
+						} else {
+							//Do nothing
+						}
+						
+				    	grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+				    	grid[row][col].addActionListener(this);
+				    	frame.add(grid[row][col]);	
+					}
+				}
+				
+				shipSel.removeItem(shipSel.getSelectedItem());
+			} else {
+				//FIXME: Prompt Error message
+			}
 		}
 		
 		if(e.getSource() == fireBtnP2) {
 			
-			BshipPlaceP1.bsl.placeHit(fireCoP2.getText(), player2);
+			int hitResult = BshipPlaceP1.bsl.placeHit(fireCoP2.getText(), 1);
 			lives = BshipPlaceP1.bsl.getLives(2);
 			Player2Lives.setText("Player Two Lives Left: " + lives);
+			//FIXME: Added Conditional if placeHit coord is valid.
+			if(2 == hitResult) {
+				//FIXME: Prompt error message
+			}
+			else {
+				if(0 == hitResult) {
+					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.RED);
+					//FIXME: Prompt message that they missed.
+				}
+				if(1 == hitResult) {
+					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
+					//FIXME: Prompt message that they hit a ship.
+				}
 			this.frame.setVisible(false);
 //			BshipPlaceP1.frame.setVisible(true);
 			
@@ -238,6 +291,7 @@ public class BshipPlaceP2 implements ActionListener{
 				BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
 				BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
 				BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+			}
 			}
 			
 
