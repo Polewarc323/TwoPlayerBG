@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class BshipPlaceP2 implements ActionListener{
@@ -187,6 +188,7 @@ public class BshipPlaceP2 implements ActionListener{
 			
 		} else {
 			//FIXME: Prompt Error message.
+			JOptionPane.showMessageDialog(frame, "Player 2, place all ships before proceeding", null, JOptionPane.ERROR_MESSAGE, null);
 		}
 		}
 		
@@ -239,6 +241,7 @@ public class BshipPlaceP2 implements ActionListener{
 				shipSel.removeItem(shipSel.getSelectedItem());
 			} else {
 				//FIXME: Prompt Error message
+				JOptionPane.showMessageDialog(frame, "Player 2, invalid ship placement, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 		}
 		
@@ -250,15 +253,18 @@ public class BshipPlaceP2 implements ActionListener{
 			//FIXME: Added Conditional if placeHit coord is valid.
 			if(2 == hitResult) {
 				//FIXME: Prompt error message
+				JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 			else {
 				if(0 == hitResult) {
 					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.RED);
 					//FIXME: Prompt message that they missed.
+					JOptionPane.showMessageDialog(frame, "Player 2, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
 				}
 				if(1 == hitResult) {
 					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
 					//FIXME: Prompt message that they hit a ship.
+					JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
 				}
 			this.frame.setVisible(false);
 //			BshipPlaceP1.frame.setVisible(true);

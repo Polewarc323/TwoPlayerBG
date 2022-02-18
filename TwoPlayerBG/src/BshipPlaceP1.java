@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.Color;
@@ -177,8 +178,10 @@ public class BshipPlaceP1 implements ActionListener{
 				BshipPlaceP2 BshipPlaceP2 = new BshipPlaceP2();
 				frame.add(Player1Lives);
 			}
-		} else {
+		 else {
 			//FIXME: Prompt an error message.
+			JOptionPane.showMessageDialog(frame, "Player 1, Place all ships before proceeding", null, JOptionPane.ERROR_MESSAGE, null);
+		}
 		}
 		
 
@@ -231,13 +234,10 @@ public class BshipPlaceP1 implements ActionListener{
 				}
 			}
 			else {
-				//FIXME: Display message that prompts user to try again.
+				//FIXME: ADDED Display message that prompts user to try again.
+				JOptionPane.showMessageDialog(frame, "Player 1, invalid ship placement, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
-			
-			
-			
-			
-			
+				
 		}
 		
 		if(e.getSource() == fireBtn) {
@@ -250,15 +250,18 @@ public class BshipPlaceP1 implements ActionListener{
 			//Indicates invalid coordinate new to wrong coordinate or coordinate already hit.
 			if(2 == hitResult) {
 				//FIXME: Prompt an error message
+				JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 			else {
 			if(0 == hitResult) {
 				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.RED);
-				//FIXME: Prompt message that they missed
+				//FIXME: ADDED Prompt message that they missed
+				JOptionPane.showMessageDialog(frame, " Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
 			}
 			if(1 == hitResult) {
 				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.GREEN);
 				//FIXME: Prompt message that they hit a ship
+				JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
 			}
 			
 
