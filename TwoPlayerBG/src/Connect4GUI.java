@@ -19,11 +19,9 @@ public class Connect4GUI implements ActionListener {
 	
 	JLabel c4Lbl = new JLabel();
 	
-	JButton[][] grid = new JButton[6][7];
+	JButton[][] grid = new JButton[7][6];
 	
-	Board Board = new Board(6,7);
-	
-	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 6, 7);
+	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 7, 6);
 	
 	Connect4GUI() {
 		
@@ -32,8 +30,8 @@ public class Connect4GUI implements ActionListener {
 		frame.add(c4Lbl);
 		
 		
-		for(int row = 0; row < 6; row++)
-        	for(int col = 0; col< 7; col++){
+		for(int row = 0; row < 7; row++)
+        	for(int col = 0; col< 6; col++){
 
         		grid[row][col] = new JButton("");
         		grid[row][col].setBounds(10 + (40*row),100 + (40*col),40,40);
@@ -49,13 +47,13 @@ public class Connect4GUI implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		for(int i = 0; i < 6; i++) {
-			for(int j = 0; j < 7; j++) {
+		for(int i = 0; i < 7; i++) {
+			for(int j = 0; j < 6; j++) {
 				if(e.getSource() == grid[i][j]) {
 					turn++;
 					System.out.println("i, j " + i  + ", " + j);
 					System.out.println("Clicked");
-					Board.addPiece(j, curPlayer);
+					ConnectFour.board.addPiece(j, curPlayer);
 					if(curPlayer == "Red") {
 						grid[i][j].setBackground(Color.RED);
 						grid[i][j].setBorder(null);

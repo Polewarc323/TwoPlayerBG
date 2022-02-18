@@ -12,7 +12,7 @@ import java.util.Random;
 *****************************************************************************/
 public class Connect4Logic {
 	    
-	    private Board board;
+	    public Board board;
 	    private final String color1;
 	    private final String color2;
 
@@ -78,8 +78,10 @@ public class Connect4Logic {
 	        int columns = board.getColumns();
 	        Piece[][] ourBoard = board.getOurBoard();
 
+	        //FIX ME: index out of bounds
 	        for(int row = 0; row < rows; row++) {
 	            if(ourBoard[row][col] != null) {
+	            	
 	                // if this reaches 0, we have won
 	                int winningStreak = 3;
 
