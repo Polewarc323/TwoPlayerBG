@@ -48,6 +48,19 @@ public class Connect4Logic {
 
 	        return row;
 	    }
+	    
+	    public boolean checkForWinnerInGUI(int column) {
+	        String winningColor;
+
+	        // inversion because of late information
+	        if(!is1playing) {
+	            winningColor = color1;
+	        } else {
+	            winningColor = color2;
+	        }
+
+	        return checkForWinner(column, winningColor);
+	    }
 
 
 	    private boolean checkDiagonal(int row, int col, String winningColor, boolean rightDiagonal) {
