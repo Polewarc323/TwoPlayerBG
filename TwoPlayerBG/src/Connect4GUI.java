@@ -18,23 +18,27 @@ public class Connect4GUI implements ActionListener {
 	JFrame frame = new JFrame();
 	
 	JLabel c4Lbl = new JLabel();
+	JLabel CurrentPlayer = new JLabel();
 	
-	JButton[][] grid = new JButton[7][6];
+	JButton[][] grid = new JButton[6][7];
 	
-	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 7, 6);
+	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 6, 7);
 	
 	Connect4GUI() {
 		
 		c4Lbl.setText("Connect Four");
 		c4Lbl.setBounds(10, 10, 100, 100);
 		frame.add(c4Lbl);
+		CurrentPlayer.setText(curPlayer + "'s turn");
+		CurrentPlayer.setBounds(30, 30, 100, 100);
+		frame.add(CurrentPlayer);
 		
 		
-		for(int row = 0; row < 7; row++)
-        	for(int col = 0; col< 6; col++){
+		for(int row = 0; row < 6; row++)
+        	for(int col = 0; col< 7; col++){
 
         		grid[row][col] = new JButton("");
-        		grid[row][col].setBounds(10 + (40*row),100 + (40*col),40,40);
+        		grid[row][col].setBounds(10 + (40*col),100 + (40*row),40,40);
         		grid[row][col].addActionListener(this);
         		frame.add(grid[row][col]);
         	}
@@ -47,13 +51,14 @@ public class Connect4GUI implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		for(int i = 0; i < 7; i++) {
-			for(int j = 0; j < 6; j++) {
+		for(int i = 0; i < 6; i++) {
+			for(int j = 0; j < 7; j++) {
 				if(e.getSource() == grid[i][j]) {
-					turn++;
+					
 					System.out.println("i, j " + i  + ", " + j);
 					System.out.println("Clicked");
 					ConnectFour.board.addPiece(j, curPlayer);
+					
 					if(curPlayer == "Red") {
 						grid[i][j].setBackground(Color.RED);
 						grid[i][j].setBorder(null);
@@ -61,21 +66,22 @@ public class Connect4GUI implements ActionListener {
 						grid[i][j].setBackground(Color.YELLOW);
 						grid[i][j].setBorder(null);
 					}
-					ConnectFour.checkForWinner(j, curPlayer);
-					if(ConnectFour.checkForWinner(i, curPlayer) == true) {
+					if(ConnectFour.checkForWinner(j, curPlayer) == true) {
 						System.out.println(curPlayer + " Wins!!");
-						ConnectFour.reset(7,6);
+						ConnectFour.reset(6,7);
 						frame.dispose();
-						cFourGOscreen gameOver = new cFourGOscreen();
+						new cFourGOscreen();
 					}else {
-
+						turn++;
 						if((turn % 2) == 1) {
 							curPlayer = yellow;
 						}else {
 							curPlayer = red; //this is unnecessary
 						}
+						CurrentPlayer.setText(curPlayer + "'s turn");
 
-				
+
+
 					}
 				}
 			}
