@@ -46,7 +46,7 @@ public class cFourGOscreen implements ActionListener {
 		
 		if(e.getSource() == newC4) {
 			frame.dispose();
-			BshipStart BshipStart = new BshipStart();
+			C4Start C4Start = new C4Start();
 			
 		}
 		
