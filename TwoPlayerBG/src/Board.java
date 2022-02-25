@@ -1,29 +1,55 @@
 
+
 public class Board {
-	private int rows;
+
+    private int rows;
     private int columns;
 
     Piece [][]ourBoard;
 
+    
+	/***********************************************************************
+	*
+	* Get board method
+	*
+	* @return returns the board
+	**********************************************************************/
+    
     public Piece[][] getOurBoard() {
         return ourBoard;
     }
 
+    
+	/***********************************************************************
+	*
+	* Get columns method
+	*
+	* @return returns columns
+	**********************************************************************/
+    
     public int getColumns() {
         return columns;
     }
 
+	/***********************************************************************
+	*
+	* Get rows method
+	*
+	* @return returns rows
+	**********************************************************************/
+    
     public int getRows() {
         return rows;
     }
 
-    /**
+    /*********************************************************************
      *
      * @param colToAdd which column did the user try to add a piece to
+     * @param color what is the piece color
      * @return
      *      -1: if unsuccessful
      *      an int of which row it was added to if successful
-     */
+     ********************************************************************/
     public int addPiece(int colToAdd, String color) {
         // within normal range
         if(colToAdd >= 0 && colToAdd < columns) {
@@ -42,16 +68,25 @@ public class Board {
                 return addedRow;
             } else {
                 // that row is full
-                System.err.println("This column is full, dummy.");
+                System.err.println("This column is full, please choose another, dummy.");
                 return -1;
             }
         } else {
             // outside normal range
-            System.err.println("You are trying to add somewhere that is not supported fool.");
+            System.err.println("You are trying to add somewhere that is not supported, fool.");
             return -1;
         }
     }
 
+	/***********************************************************************
+	*
+	* Method that displays the board
+	*
+	* @param rows An int that displays rows
+	* @param colums An int that displays columns
+	* @return returns the board
+	**********************************************************************/
+    
     public Board(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -61,5 +96,4 @@ public class Board {
             for(int col = 0; col < columns; col++)
                 ourBoard[row][col] = null;
     }
-
 }
