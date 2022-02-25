@@ -253,24 +253,25 @@ public class BshipPlaceP2 implements ActionListener{
 			//FIXME: Added Conditional if placeHit coord is valid.
 			if(2 == hitResult) {
 				//FIXME: Prompt error message
-				JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
+				JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 			else {
 				if(0 == hitResult) {
 					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.RED);
 					//FIXME: Prompt message that they missed.
-					JOptionPane.showMessageDialog(frame, "Player 2, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
+					JOptionPane.showMessageDialog(frame, "Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
 				}
 				if(1 == hitResult) {
 					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
 					//FIXME: Prompt message that they hit a ship.
-					JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
+					JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
 				}
 			this.frame.setVisible(false);
 //			BshipPlaceP1.frame.setVisible(true);
 			
 			if(BshipPlaceP1.bsl.isGameOver() == true) {
 				if(BshipPlaceP1.bsl.getLives(1) == 0) {
+					JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 					System.out.println("Player Two Won");
 					this.frame.dispose();
 					BshipPlaceP2.frame.dispose();
@@ -278,6 +279,7 @@ public class BshipPlaceP2 implements ActionListener{
 					BshipPlaceP2.frame.removeAll();
 					bShipGOScreen bShipGOScreen = new bShipGOScreen();
 				}else {
+					JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 					System.out.println("Player One Won");
 					bShipGOScreen bShipGOScreen = new bShipGOScreen();
 					frame.dispose();

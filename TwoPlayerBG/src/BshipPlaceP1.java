@@ -250,18 +250,18 @@ public class BshipPlaceP1 implements ActionListener{
 			//Indicates invalid coordinate new to wrong coordinate or coordinate already hit.
 			if(2 == hitResult) {
 				//FIXME: Prompt an error message
-				JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
+				JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 			else {
 			if(0 == hitResult) {
 				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.RED);
 				//FIXME: ADDED Prompt message that they missed
-				JOptionPane.showMessageDialog(frame, " Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
+				JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
 			}
 			if(1 == hitResult) {
 				grid[bsl.getRowIndex(fireCo.getText())][bsl.getColIndex(fireCo.getText())].setBackground(Color.GREEN);
 				//FIXME: Prompt message that they hit a ship
-				JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
+				JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
 			}
 			
 
@@ -281,11 +281,13 @@ public class BshipPlaceP1 implements ActionListener{
 			
 			if(bsl.isGameOver() == true) {
 				if(bsl.getLives(1) == 0) {
+					JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 					System.out.println("Player Two Won");
 					this.frame.dispose();
 					BshipPlaceP2.frame.dispose();
 					bShipGOScreen bShipGOScreen = new bShipGOScreen();
 				}else {
+					JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 					System.out.println("Player One Won");
 					bShipGOScreen bShipGOScreen = new bShipGOScreen();
 					frame.dispose();

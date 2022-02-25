@@ -44,7 +44,7 @@ class BattleshipLogicTests {
 		assertTrue(game.getLives(1) == 17 && game.getLives(2) == 17);
 		assertFalse(game.isGameOver());
 	}
-	
+
 	@Test
 	void testValidPlayer1PlaceShips() {
 		//Valid placement of patrol boat
