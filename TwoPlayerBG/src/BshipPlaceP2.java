@@ -246,7 +246,7 @@ public class BshipPlaceP2 implements ActionListener{
 
 
 			} else {
-				//FIXME: Prompt Error message.
+				//Prompt Error message.
 				JOptionPane.showMessageDialog(frame, "Player 2, place all ships before proceeding", null, JOptionPane.ERROR_MESSAGE, null);
 			}
 		}
@@ -343,7 +343,7 @@ public class BshipPlaceP2 implements ActionListener{
 				}
 				if(1 == hitResult) {
 					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
-					//FIXME: Prompt message that they hit a ship.
+					//Prompt message that they hit a ship.
 					JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
 				}
 				this.frame.setVisible(false);
