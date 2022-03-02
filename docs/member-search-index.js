@@ -1,1 +1,1 @@
-memberSearchIndex = [{"p":"<Unnamed>","c":"Main","l":"Main()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Main","l":"main(String[])","u":"main(java.lang.String[])"}];updateSearchResults();
+memberSearchIndex = [{"p":"<Unnamed>","c":"Piece","l":"getColor()"},{"p":"<Unnamed>","c":"Piece","l":"Piece()","u":"%3Cinit%3E()"},{"p":"<Unnamed>","c":"Piece","l":"setColor(String)","u":"setColor(java.lang.String)"}];updateSearchResults();
