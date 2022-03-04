@@ -1,11 +1,23 @@
 
-
 import java.util.Random;
+
+
+/****************************************************************************
+*
+*Class serves as the logic for the Connect Four Game for 2 player Board games.
+*The methods are designed to help with the implement of a GUI
+*The class contains method for unit testing.
+*@author Calab Bahlbi
+*@version January 28, 2022
+*
+*
+*****************************************************************************/
 
 public class Connect4Logic {
     public Board board;
     private final String color1;
     private final String color2;
+    
 
     // true if player1's turn
     // false if player2's turn
@@ -32,7 +44,7 @@ public class Connect4Logic {
 	* @param color1 A string that determines color of piece 1
 	* @param color2 A string that determines color of piece 2
 	* @param rows An in that displays rows
-	* @param colums An int that displays columns
+	* @param columns An int that displays columns
 	* @return returns the game
 	**********************************************************************/
     
@@ -66,7 +78,7 @@ public class Connect4Logic {
 	*
 	* Checks for the winner in the GUI
 	*
-	* @param col which column did the user try to add a piece to
+	* @param column which column did the user try to add a piece to
 	* @return the winner and winning color
 	**********************************************************************/
     
@@ -165,7 +177,7 @@ public class Connect4Logic {
         }
         return false;
     }
-
+    
     
 	/***********************************************************************
 	*
@@ -180,4 +192,5 @@ public class Connect4Logic {
         this.board = new Board(rows, columns);
         is1playing = (new Random()).nextBoolean();
     }
+    
 }

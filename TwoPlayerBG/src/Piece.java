@@ -1,5 +1,16 @@
 
 
+/****************************************************************************
+*
+*Class serves as the pieces for the connect four game
+*The methods are designed to help with the implement of a GUI
+
+*@author Calab Bahlbi
+*@version January 28, 2022
+*
+*
+*****************************************************************************/
+
 public class Piece {
     private String color;
 
@@ -17,7 +28,7 @@ public class Piece {
 	/***********************************************************************
 	*
 	* Set color method
-	*
+	* @param color sets color
 	* @return sets the piece color
 	**********************************************************************/
     

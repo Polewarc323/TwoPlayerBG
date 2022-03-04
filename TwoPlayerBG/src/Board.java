@@ -1,11 +1,28 @@
 
 
+/****************************************************************************
+*
+*Class serves as the board for the connect four game
+*The methods are designed to help with the implement of a GUI
+
+*@author Calab Bahlbi
+*@version January 28, 2022
+*
+*
+*****************************************************************************/
+
 public class Board {
 
     private int rows;
     private int columns;
 
     Piece [][]ourBoard;
+	public static final int NUM_COLUMNS = 7;
+	public static final int NUM_ROWS = 6;
+	public static final int SEGMENT_LENGTH = 4;
+	private int[][] position; // 0 = empty, 1 is player 1, 2 is player 2
+	private int[] columnCount; // number of pieces in each column
+	private int turn; // which player's turn is it, 1 or 2
 
     
 	/***********************************************************************
@@ -83,7 +100,7 @@ public class Board {
 	* Method that displays the board
 	*
 	* @param rows An int that displays rows
-	* @param colums An int that displays columns
+	* @param columns An int that displays columns
 	* @return returns the board
 	**********************************************************************/
     
@@ -95,5 +112,38 @@ public class Board {
         for(int row = 0; row < rows; row++)
             for(int col = 0; col < columns; col++)
                 ourBoard[row][col] = null;
+		
     }
+    
+	/***********************************************************************
+	*
+	* Constructor used for test cases
+	*
+	* @param position displays position
+	* @param turn displays turns
+	* @return turn
+	**********************************************************************/
+    
+	public Board(int[][] position, int turn) {
+        position = new int[NUM_COLUMNS][NUM_ROWS];
+		columnCount = new int[NUM_COLUMNS];
+		turn = 1; // 1 goes first
+		this.position = position;
+		columnCount = new int[NUM_COLUMNS];
+		for (int c = 0; c < Board.NUM_COLUMNS; c++) {
+			int piecesInColumn = 0;
+			for (int r = 0; r < Board.NUM_ROWS; r++) {
+				if (position[c][r] != 0) {
+					piecesInColumn++;
+				}
+			}
+			columnCount[c] = piecesInColumn;
+		}
+		
+		this.turn = turn;
+	}
+	
+	
+	
+	
 }
