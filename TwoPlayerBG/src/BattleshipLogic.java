@@ -1,3 +1,6 @@
+//Used to help computer place ships and hits.
+import java.util.random.*;
+import java.util.ArrayList;
 
 /****************************************************************************
  *
@@ -43,6 +46,12 @@ public class BattleshipLogic {
 
 	/**Largest ship piece (Cruiser at length 5). */
 	private static final int MAX_SHIP_SIZE = 5;
+	
+	/**Helps computer keep track of coordinate of a ship hit.*/
+	private ArrayList<String> lastShipHitCoord;
+	
+	/**The board of computer if option is to play against computer.*/
+	private static final int COMPUTER_BOARD = 2;
 
 	/**********************************************************************
 	 *
@@ -54,6 +63,7 @@ public class BattleshipLogic {
 	p2ShipP1Hit = new int[ROWS][COLS];
 	p1Lives = LIVES;
 	p2Lives = LIVES;
+	lastShipHitCoord = new ArrayList<String>();
 
 	//Fills board with 0 to help with ship placement.
 	for (int i = 0; i < ROWS; i++) {
@@ -496,6 +506,35 @@ public class BattleshipLogic {
 		return board[row][col];
 
 	}
+	
+	/***********************************************************
+	 * 
+	 * @param row the row index (row - 1) the player pressed.
+	 * @param col the column index (column - 1) the player pressed.
+	 * @param player the player who is placing the hit.
+	 * @return an integer value where 0 is a miss, 1 is a hit,
+	 * 2 is an error by entering a location they already hit
+	 * or invalid coordinate.
+	 **********************************************************/
+	public int placeHit(final int row, final int col, final int player){
+		//Check if parameters are valid
+		if (row < 0 || row >= ROWS || col < 0 || col >= COLS){
+			return 2;
+		}
+
+	int returnValue;
+
+	int[][] board = p1ShipP2Hit;
+		
+	if(1 == player) {
+		board = p2ShipP1Hit;
+	}
+
+	returnValue = board[row][col];
+	board[row][col] = 2;
+	return returnValue;
+	}
+
 
 
 
