@@ -1,6 +1,5 @@
 //Used to help computer place ships and hits.
-import java.util.random.*;
-import java.util.ArrayList;
+import java.util.Random;
 
 /****************************************************************************
  *
@@ -48,10 +47,16 @@ public class BattleshipLogic {
 	private static final int MAX_SHIP_SIZE = 5;
 	
 	/**Helps computer keep track of coordinate of a ship hit.*/
-	private ArrayList<String> lastShipHitCoord;
+	private int[] lastShipHitCoord;
 	
 	/**The board of computer if option is to play against computer.*/
 	private static final int COMPUTER_BOARD = 2;
+	
+	/**A row offset from lastShipHit for the computer's next hit.*/
+	private int nextCompRow;
+	
+	/**Column offset from lastShipHit for the computer's next hit.*/
+	private int nextCompCol;
 
 	/**********************************************************************
 	 *
@@ -63,7 +68,6 @@ public class BattleshipLogic {
 	p2ShipP1Hit = new int[ROWS][COLS];
 	p1Lives = LIVES;
 	p2Lives = LIVES;
-	lastShipHitCoord = new ArrayList<String>();
 
 	//Fills board with 0 to help with ship placement.
 	for (int i = 0; i < ROWS; i++) {
@@ -509,8 +513,8 @@ public class BattleshipLogic {
 	
 	/***********************************************************
 	 * 
-	 * @param row the row index (row - 1) the player pressed.
-	 * @param col the column index (column - 1) the player pressed.
+	 * @param row the row index (row # - 1) the player pressed.
+	 * @param col the column index (column # - 1) the player pressed.
 	 * @param player the player who is placing the hit.
 	 * @return an integer value where 0 is a miss, 1 is a hit,
 	 * 2 is an error by entering a location they already hit
@@ -534,6 +538,59 @@ public class BattleshipLogic {
 	board[row][col] = 2;
 	return returnValue;
 	}
+	
+	/********************************************************
+	 * 
+	 * A helper method to place the computer's ship randomly
+	 * on the board.
+	 * 
+	 * @param shipSize the length of the ship being placed.
+	 * 
+	 ********************************************************/
+	private void computerPlaceShip(final int shipSize) {
+		Random random = new Random();
+		String frontCoord;
+		String backCoord;
+		char charPos;
+		int numPos; 
+		int direction;
+		
+		do{
+			charPos = (char)(random.nextInt(10) + 65);
+			numPos = random.nextInt(10);
+			direction = random.nextInt(4);
+			frontCoord = charPos +"" + numPos; 
+			if (0 == direction){
+				backCoord = ((char)(charPos - shipSize) + "" + numPos);
+			}
+			else if (1 == direction){
+				backCoord = charPos + "" + (numPos + shipSize); 
+			}
+			else if (2 == direction){
+				backCoord = (char)(charPos + shipSize)+ "" + numPos;
+			}
+			else {
+				backCoord = charPos + "" + (numPos - shipSize);
+			}
+		
+			} while(!placeShip(COMPUTER_BOARD, frontCoord, backCoord,  shipSize));
+	
+	}
+	
+	/********************************************************
+	 * 
+	 * A method that places all the ships in the Battleship
+	 * game.
+	 ********************************************************/
+	public void computerPlaceShips() {
+		computerPlaceShip(5);
+		computerPlaceShip(4);
+		computerPlaceShip(3);
+		computerPlaceShip(3);
+		computerPlaceShip(2);
+	}
+
+
 
 
 
