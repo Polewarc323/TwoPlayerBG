@@ -1,15 +1,11 @@
 
 
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import connect4Stuff.Models.Board;
-import connect4Stuff.Controller.Connect4Logic;
+
 
 /*************************************************
 *
@@ -19,131 +15,111 @@ import connect4Stuff.Controller.Connect4Logic;
 *************************************************/
 class Connect4LogicTest {
 	
-
-
+String red = "red";
+String yellow = "yellow";
 	@Test
 	void testWin1() {
-		int[][] position = {
-		        {2, 1, 1, 1, 2, 2},
-				{2, 1, 2, 1, 2, 1},
-				{1, 2, 1, 2, 1, 2},
-				{1, 2, 1, 2, 1, 2},
-				{2, 2, 1, 2, 1, 2},
-				{1, 1, 2, 1, 2, 1},
-				{2, 1, 2, 1, 2, 1}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkForWinner()); 
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red)); 
 	}
 	
 	@Test
 	void testWin2() {
-		int[][] position = {
-		        {2, 1, 2, 1, 2, 1},
-				{2, 1, 2, 1, 2, 2},
-				{1, 2, 1, 2, 1, 2},
-				{1, 2, 1, 2, 1, 2},
-				{2, 2, 1, 2, 1, 2},
-				{1, 1, 2, 1, 2, 1},
-				{2, 1, 2, 1, 1, 1}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkForWinner());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, yellow);
+		c.board.addPiece(2, yellow);
+		c.board.addPiece(3, yellow);
+		c.board.addPiece(4, yellow);
+		assertTrue(c.checkForWinner(4, yellow));
 	}
 	
 	@Test
 	void testWin3() {
-		int[][] position = {
-		        {2, 1, 1, 1, 2, 2},
-				{2, 1, 2, 1, 2, 2},
-				{1, 2, 1, 2, 1, 2},
-				{1, 2, 1, 2, 1, 1},
-				{2, 2, 1, 2, 1, 2},
-				{1, 1, 2, 1, 2, 1},
-				{2, 1, 2, 1, 1, 2}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkForWinner());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(2, yellow);
+		c.board.addPiece(2, red);
+		c.board.addPiece(3, yellow);
+		c.board.addPiece(3, red);
+		c.board.addPiece(4, yellow);
+		c.board.addPiece(3, red);
+		c.board.addPiece(4, yellow);
+		c.board.addPiece(4, red);
+		c.board.addPiece(1,yellow);
+		c.board.addPiece(4, red);
+		
+		assertTrue(c.checkForWinner(4, red));
 	}
 	
 	@Test
 	void testWin4() {
-		int[][] position = {
-		        {2, 2, 2, 1, 2, 1},
-				{2, 1, 2, 1, 2, 2},
-				{1, 2, 1, 2, 1, 2},
-				{1, 2, 1, 2, 1, 1},
-				{2, 2, 1, 2, 1, 2},
-				{1, 1, 2, 1, 2, 1},
-				{2, 2, 1, 1, 1, 2}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkForWinner());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(7, red);
+		c.board.addPiece(6, yellow);
+		c.board.addPiece(6, red);
+		c.board.addPiece(5, yellow);
+		c.board.addPiece(5, red);
+		c.board.addPiece(4, yellow);
+		c.board.addPiece(4, red);
+		c.board.addPiece(4, yellow);
+		c.board.addPiece(5, red);
+		c.board.addPiece(7, yellow);
+		c.board.addPiece(4, red);
+	
+		assertFalse(c.checkForWinner(4, yellow));
 	}
 	
 	@Test
 	void testWin5() {
-		int[][] position = {
-		        {2, 2, 2, 2, 0, 0},
-				{1, 1, 1, 0, 0, 0},
-				{1, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkForWinner());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red));
 	}
 	
 	@Test
 	void testWinDiagonal() {
-		int[][] position = {
-		        {2, 0, 0, 0, 0, 0},
-				{1, 1, 1, 0, 0, 0},
-				{1, 1, 0, 0, 0, 0},
-				{0, 0, 1, 0, 0, 0},
-				{0, 0, 0, 1, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkDiagonal());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red));
 	}
 	
 	@Test
 	void testWinDiagonal2() {
-		int[][] position = {
-		        {2, 0, 0, 1, 0, 0},
-				{1, 1, 1, 0, 0, 0},
-				{1, 1, 0, 0, 0, 0},
-				{1, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0},
-				{0, 0, 0, 0, 0, 0}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkDiagonal());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red));
 	}
 	
 	@Test
 	void testWinDiagonal3() {
-		int[][] position = {
-		        {2, 0, 0, 0, 0, 0},
-				{1, 1, 1, 0, 0, 0},
-				{1, 1, 0, 0, 0, 0},
-				{1, 0, 2, 0, 0, 0},
-				{0, 0, 0, 2, 0, 0},
-				{0, 0, 0, 0, 2, 0},
-				{0, 0, 0, 0, 0, 2}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkDiagonal());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red));
 	}
 	
 	@Test
 	void testWinDiagonal4() {
-		int[][] position = {
-		        {2, 0, 0, 1, 0, 0},
-				{1, 1, 1, 0, 0, 0},
-				{1, 1, 0, 0, 0, 0},
-				{1, 0, 0, 2, 0, 0},
-				{0, 0, 2, 0, 0, 0},
-				{0, 2, 0, 0, 0, 0},
-				{2, 0, 0, 0, 0, 0}};
-		Board b = new Board(position, 1);
-		assertTrue(b.checkDiagonal());
+		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		c.board.addPiece(1, red);
+		assertTrue(c.checkForWinner(1, red));
 	}
 }
