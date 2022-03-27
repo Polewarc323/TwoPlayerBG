@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 *
 *
 *****************************************************************************/
+
 public class Connect4GUI implements ActionListener {
 	
 	/*used to determine player*/

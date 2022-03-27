@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 *
 *
 *****************************************************************************/
+
 public class bShipGOScreen implements ActionListener{
 	
 	/**Instantiates frame*/

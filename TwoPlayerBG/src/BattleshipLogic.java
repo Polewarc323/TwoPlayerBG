@@ -17,6 +17,7 @@ public class BattleshipLogic {
 
 	/**Board of player 1 ship placement and player 2 hit placement.
 	 *0 for an empty, 1 for a ship, 2 for a damaged ship location*/
+	
 	private int[][] p1ShipP2Hit;
 
 	/**Board of player 2 ship placement and player 1 hit placement.

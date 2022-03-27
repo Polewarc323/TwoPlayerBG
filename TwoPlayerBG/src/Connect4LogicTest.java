@@ -18,8 +18,9 @@ class Connect4LogicTest {
 String red = "red";
 String yellow = "yellow";
 	@Test
+	
 	void testWin1() {
-		Connect4Logic c = new Connect4Logic(red, yellow, 6,7);
+		Connect4Logic c = new Connect4Logic(red, yellow, 6, 7);
 		c.board.addPiece(1, red);
 		c.board.addPiece(1, red);
 		c.board.addPiece(1, red);

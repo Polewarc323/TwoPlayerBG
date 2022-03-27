@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 *
 *
 *****************************************************************************/
+
 public class cFourGOscreen implements ActionListener {
 	
 	/**Instantiates frame*/
@@ -34,7 +35,7 @@ public class cFourGOscreen implements ActionListener {
 	cFourGOscreen(){
 		
 		/**Set Placement of items*/
-		label.setBounds(75,160,100,50);
+		label.setBounds(75, 160, 100, 50);
 		newC4.setBounds(50, 210, 300, 50);
 		backToHub.setBounds(50, 260, 300, 50);
 		
