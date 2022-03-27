@@ -8,7 +8,7 @@ import java.util.Random;
  *such as getting the lives of the player, board data, if game is over,
  *getting the row or column index from coordinates.
  *The class contains method for unit testing.
- *@author Romandy Vu
+ *@author Romandy Vu 
  *@version January 28, 2022
  *
  *
@@ -556,6 +556,7 @@ public class BattleshipLogic {
 		int direction;
 		
 		do{
+			//Get letter
 			charPos = (char)(random.nextInt(10) + 65);
 			numPos = random.nextInt(10);
 			direction = random.nextInt(4);
