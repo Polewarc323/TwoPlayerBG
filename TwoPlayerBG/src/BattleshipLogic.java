@@ -1,5 +1,6 @@
 //Used to help computer place ships and hits.
 import java.util.Random;
+import java.util.ArrayList;
 
 /****************************************************************************
  *
@@ -8,7 +9,7 @@ import java.util.Random;
  *such as getting the lives of the player, board data, if game is over,
  *getting the row or column index from coordinates.
  *The class contains method for unit testing.
- *@author Romandy Vu
+ *@author Romandy Vu 
  *@version January 28, 2022
  *
  *
@@ -48,16 +49,11 @@ public class BattleshipLogic {
 	private static final int MAX_SHIP_SIZE = 5;
 	
 	/**Helps computer keep track of coordinate of a ship hit.*/
-	private int[] lastShipHitCoord;
+	ArrayList<int[]> compHitList;
 	
-	/**The board of computer if option is to play against computer.*/
-	private static final int COMPUTER_BOARD = 2;
-	
-	/**A row offset from lastShipHit for the computer's next hit.*/
-	private int nextCompRow;
-	
-	/**Column offset from lastShipHit for the computer's next hit.*/
-	private int nextCompCol;
+	/**Represents the player number of the computer, 
+	 * if option is to play against computer.*/
+	private static final int COMPUTER = 2;
 
 	/**********************************************************************
 	 *
@@ -69,6 +65,8 @@ public class BattleshipLogic {
 	p2ShipP1Hit = new int[ROWS][COLS];
 	p1Lives = LIVES;
 	p2Lives = LIVES;
+	compHitList = new ArrayList<int[]>();
+	
 
 	//Fills board with 0 to help with ship placement.
 	for (int i = 0; i < ROWS; i++) {
@@ -557,6 +555,7 @@ public class BattleshipLogic {
 		int direction;
 		
 		do{
+			//Get letter
 			charPos = (char)(random.nextInt(10) + 65);
 			numPos = random.nextInt(10);
 			direction = random.nextInt(4);
@@ -590,10 +589,207 @@ public class BattleshipLogic {
 		computerPlaceShip(3);
 		computerPlaceShip(2);
 	}
-
-
-
-
+	
+	/*******************************************************
+	 * Places the ship onto the board (array) for the player.
+	 * This is an alternative to inputting the coordinates by
+	 * click on the grid itself.
+	 * 
+	 * Return value helps GUI determine to prompt user to try again.
+	 * due to an invalid input.
+	 * There should be:
+	 * 1 carrier
+	 * 1 battleship
+	 * 1 cruiser
+	 * 1 submarine
+	 * 1 patrol boat for each board.
+	 * 
+	 * @param player the player who is placing the ships.
+	 * @param frontRowIndex the row index of where the player
+	 * wants the front of the ship to be.
+	 * @param frontColIndex the column index where the player
+	 * wants the front of the ship to be.
+	 * @param backRowIndex the the row index where the player
+	 * wants the back of the ship to be.
+	 * @param backColIndex the column index where the player
+	 * wants the back of the ship to be.
+	 * @param ship the ship being placed.
+	 * @return True if ship placement is successful, false
+	 * otherwise.
+	 ********************************************************/
+	public boolean placeShip(final int player,
+			final int frontRowIndex, final int frontColIndex,
+			final int backRowIndex, final int backColIndex,
+			final int ship) {
+		String frontCoord;
+		String backCoord;
+		char frontLetter;
+		char backLetter;
+		
+		frontLetter = (char)(65 + frontRowIndex);
+		backLetter = (char)(65 + backRowIndex);
+		
+		frontCoord = frontLetter + "" + frontColIndex;
+		backCoord = backLetter + "" + backColIndex;
+		
+		return placeShip(player, frontCoord, backCoord, ship);
+	}
+	
+	
+	public int computerPlaceHit(){
+		Random random = new Random();
+		int row;
+		int col;
+		int[] previousHit;
+		int[] baseHit;
+		
+		boolean upOk;
+		boolean downOk;
+		boolean leftOk;
+		boolean rightOk;
+		
+		if (compHitList.size() == 0) {
+			return randomComputerHit();
+		}
+		else if (compHitList.size() == 1) {
+			baseHit = compHitList.get(0);
+			row = baseHit[0];
+			col = baseHit[1];
+			
+			upOk = upOk(row, col);
+			downOk = downOk(row, col);
+			leftOk = leftOk(row, col);
+			rightOk = rightOk(row, col);
+			
+			int decider;
+			int chosen = 0;
+			
+			do {
+				decider = random.nextInt(4);
+				
+				if(!upOk && !downOk && !leftOk && !rightOk) {
+					chosen = -1;
+				}
+					
+				else if (0 == decider && upOk) {
+					row++;
+					chosen = 1;
+				}
+				
+				else if (1 == decider && downOk) {
+					row--;
+					chosen = 1;
+				}
+					
+				else if (2 == decider && rightOk) {
+					col++;
+					chosen = 1;
+				}
+					
+				else if (3 == decider && leftOk){
+					col--;
+					chosen = 1;
+				}
+			} while(0 != chosen);
+			
+			if (-1 == chosen) {
+				compHitList.clear();
+				return randomComputerHit();
+			}
+			else if (1 == chosen) {
+				return placeHit(row, col, COMPUTER);
+			}	
+			
+		}
+		//FIXME: Finish the rest.
+		else if (compHitList.size() == 2) {
+			baseHit = compHitList.get(0);
+			previousHit = compHitList.get(1);
+			
+			if (previousHit[0] == baseHit[0] && previousHit[1] > baseHit[1]) {
+				
+			}
+			
+			else if (previousHit[0] == baseHit[0] && previousHit[1] < baseHit[1]) {
+				
+			}
+			
+			else if (previousHit[0] > baseHit[0] && previousHit[1] == baseHit[1]) {
+				
+			}
+			
+			else if (previousHit[0] < baseHit[0] && previousHit[1] == baseHit[1]) {
+				
+			}
+			
+		}
+		
+		System.out.println("An issue with the computer player has occured.");
+		compHitList.clear();
+		return randomComputerHit();
+		
+	}
+	
+	private int randomComputerHit() {
+		Random random = new Random();
+		int row;
+		int col;
+		int result;
+		
+		do {
+			row = random.nextInt(10);
+			col = random.nextInt(10);
+			result = placeHit(row, col, COMPUTER);
+		}while(2 != result);
+		
+		if(1 == result) {
+			int[] toHitList = {row, col};
+			compHitList.add(toHitList);
+		}
+		
+		return result;
+		
+	}
+	
+	private boolean upOk(final int rowIndex, final int colIndex) {
+		if (rowIndex == 0) {
+			return false;
+		}
+		else if (p1ShipP2Hit[rowIndex - 1][colIndex] == 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean downOk(final int rowIndex, final int colIndex) {
+		if (rowIndex == 9) {
+			return false;
+		}
+		else if (p1ShipP2Hit[rowIndex + 1][colIndex] == 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean rightOk(final int rowIndex, final int colIndex) {
+		if (colIndex == 9) {
+			return false;
+		}
+		else if (p1ShipP2Hit[rowIndex][colIndex + 1] == 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean leftOk(final int rowIndex, final int colIndex) {
+		if (rowIndex == 0) {
+			return false;
+		}
+		else if (p1ShipP2Hit[rowIndex][colIndex - 1] == 2) {
+			return false;
+		}
+		return true;
+	}
 
 
 }

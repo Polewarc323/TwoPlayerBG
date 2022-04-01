@@ -182,7 +182,7 @@ public class BshipPlaceP1 implements ActionListener{
 		     for(int col = 0; col < 10; col++){
 		    	 
 		    	 grid[row][col] = new JButton("");
-		    	 grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+		    	 grid[row][col].setBounds(600 + (25*col),200 + (25*row),25,25);
 		    	 grid[row][col].addActionListener(this);
 		    	 frame.add(grid[row][col]);
 		    }
