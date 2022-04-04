@@ -1,11 +1,11 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 /****************************************************************************
 *
 *This Class is for the GUI of Connect Four
@@ -43,6 +43,8 @@ public class Connect4GUI implements ActionListener {
 	/*Creates a Connect4Logic object to call methods from*/
 	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 6, 7);
 	
+
+	
 	/*GUI Constructor*/
 	Connect4GUI() {
 		
@@ -67,6 +69,7 @@ public class Connect4GUI implements ActionListener {
         		grid[row][col].addActionListener(this);
         		frame.add(grid[row][col]);
         	}
+		
 		
 		/*Sets frame properties*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +107,7 @@ public class Connect4GUI implements ActionListener {
 						System.out.println(curPlayer + " Wins!!");
 						ConnectFour.reset(6,7);
 						frame.dispose();
-						new cFourGOscreen();
+						new C4GOScreen();
 					}else {
 						
 						/*Turn counter increments to determine what the current player is
