@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 *
 *
 *****************************************************************************/
+
 public class HubGUI implements ActionListener {
 	
 	/**Instantiates frame JFrame*/

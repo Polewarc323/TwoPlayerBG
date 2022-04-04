@@ -18,6 +18,7 @@ public class BattleshipLogic {
 
 	/**Board of player 1 ship placement and player 2 hit placement.
 	 *0 for an empty, 1 for a ship, 2 for a damaged ship location*/
+	
 	private int[][] p1ShipP2Hit;
 
 	/**Board of player 2 ship placement and player 1 hit placement.
@@ -635,6 +636,14 @@ public class BattleshipLogic {
 	}
 	
 	
+	/*********************************************************
+	 * 
+	 *Method to call for the computer to place a hit.
+	 *
+	 * @return 0 if the computer missed, 
+	 * 1 if the computer hit a ship,
+	 * 2 if the computer made an error placing a hit.
+	 *******************************************************/
 	public int computerPlaceHit(){
 		Random random = new Random();
 		int row;
@@ -647,9 +656,11 @@ public class BattleshipLogic {
 		boolean leftOk;
 		boolean rightOk;
 		
+		//Condition when computer has no idea where to hit
 		if (compHitList.size() == 0) {
 			return randomComputerHit();
 		}
+		//Condition where computer has 1 hit location
 		else if (compHitList.size() == 1) {
 			baseHit = compHitList.get(0);
 			row = baseHit[0];
@@ -702,22 +713,104 @@ public class BattleshipLogic {
 		}
 		//FIXME: Finish the rest.
 		else if (compHitList.size() == 2) {
+			int result;
 			baseHit = compHitList.get(0);
 			previousHit = compHitList.get(1);
 			
+			//Consecutive hit to the right column 
 			if (previousHit[0] == baseHit[0] && previousHit[1] > baseHit[1]) {
-				
+				//Check if the right is okay to hit.
+				if (rightOk(previousHit[0], previousHit[1])) {
+					//If hit result is 1, save the new col coordinate for next attack.
+					result = placeHit(previousHit[0], previousHit[1] + 1, COMPUTER);
+					if(1 == result) {
+						previousHit[1]++;
+					}
+					//If hit is 0, remove from the list.
+					else {
+						compHitList.remove(1);
+					}
+					
+					return result;
+				}
+				//If Right is not okay, remove previousHit, and check left from base.
+				else {
+					compHitList.remove(1);
+					if(leftOk(baseHit[0], baseHit[1] - 1)) {
+						//TODO: Work on checking left and place left (if possible) and the rest.
+					}
+					return computerPlaceHit();
+				}
 			}
 			
+			//Consecutive hit to the left column.
 			else if (previousHit[0] == baseHit[0] && previousHit[1] < baseHit[1]) {
+				//Check if the left is okay to hit.
+				if (leftOk(previousHit[0], previousHit[1])) {
+					//If hit result is 1, save the new col coordinate for next attack.
+					result = placeHit(previousHit[0], previousHit[1] - 1, COMPUTER);
+					if(1 == result) {
+						previousHit[1]--;
+					}
+					//If hit is 0, remove from the list.
+					else {
+						compHitList.remove(1);
+					}
+					
+					return result;
+				}
+				//If left is not okay, remove previousHit, and place hit.
+				else {
+					compHitList.remove(1);
+					return computerPlaceHit();
+				}
+				
 				
 			}
 			
 			else if (previousHit[0] > baseHit[0] && previousHit[1] == baseHit[1]) {
+				//Check if the row below is okay to hit.
+				if (downOk(previousHit[0], previousHit[1])) {
+					//If hit result is 1, save the new col coordinate for next attack.
+					result = placeHit(previousHit[0] + 1, previousHit[1], COMPUTER);
+					if(1 == result) {
+						previousHit[0]++;
+					}
+					//If hit is 0, remove from the list.
+					else {
+						compHitList.remove(1);
+					}
+					
+					return result;
+				}
+				//If bottom is not okay, remove previousHit, and place hit.
+				else {
+					compHitList.remove(1);
+					return computerPlaceHit();
+				}
 				
 			}
 			
 			else if (previousHit[0] < baseHit[0] && previousHit[1] == baseHit[1]) {
+				//Check if row above is okay to hit.
+				if (upOk(previousHit[0], previousHit[1])) {
+					//If hit result is 1, save the new col coordinate for next attack.
+					result = placeHit(previousHit[0] -1, previousHit[1], COMPUTER);
+					
+					if(1 == result) {
+						previousHit[0]--;
+					}
+					//If hit is 0, remove from the list.
+					else {
+						compHitList.remove(1);
+					}
+					return result;
+				}
+				//If row above is not okay, remove from list, and place hit.
+				else {
+					compHitList.remove(1);
+					return computerPlaceHit();
+				}
 				
 			}
 			
@@ -729,6 +822,12 @@ public class BattleshipLogic {
 		
 	}
 	
+	/****************************************************
+	 * 
+	 * Helper method for the computer to place a hit.
+	 * 
+	 * @return 0 if a miss, 1 if a hit, 2 if an error.
+	 ****************************************************/
 	private int randomComputerHit() {
 		Random random = new Random();
 		int row;
@@ -750,6 +849,15 @@ public class BattleshipLogic {
 		
 	}
 	
+	/*****************************************************
+	 * 
+	 * Method to help computer place hit by checking row above.
+	 * 
+	 * @param rowIndex the row index of the board.
+	 * @param colIndex the column index of the board.
+	 * @return True if the row above is allowed for the computer
+	 * to place a hit.
+	 ******************************************************/
 	private boolean upOk(final int rowIndex, final int colIndex) {
 		if (rowIndex == 0) {
 			return false;
@@ -760,6 +868,15 @@ public class BattleshipLogic {
 		return true;
 	}
 	
+	/*****************************************************
+	 * 
+	 * Method to help computer place hit by checking row below.
+	 * 
+	 * @param rowIndex the row index of the board.
+	 * @param colIndex the column index of the board.
+	 * @return True if the row below is allowed for the computer
+	 * to place a hit.
+	 ******************************************************/
 	private boolean downOk(final int rowIndex, final int colIndex) {
 		if (rowIndex == 9) {
 			return false;
@@ -770,6 +887,15 @@ public class BattleshipLogic {
 		return true;
 	}
 	
+	/*****************************************************
+	 * 
+	 * Method to help computer place hit by checking right column.
+	 * 
+	 * @param rowIndex the row index of the board.
+	 * @param colIndex the column index of the board.
+	 * @return True if right column is allowed for the computer
+	 * to place a hit.
+	 ******************************************************/
 	private boolean rightOk(final int rowIndex, final int colIndex) {
 		if (colIndex == 9) {
 			return false;
@@ -780,6 +906,15 @@ public class BattleshipLogic {
 		return true;
 	}
 	
+	/*****************************************************
+	 * 
+	 * Method to help computer place hit by checking left column.
+	 * 
+	 * @param rowIndex the row index of the board.
+	 * @param colIndex the column index of the board.
+	 * @return True if left column is allowed for the computer
+	 * to place a hit.
+	 ******************************************************/
 	private boolean leftOk(final int rowIndex, final int colIndex) {
 		if (rowIndex == 0) {
 			return false;

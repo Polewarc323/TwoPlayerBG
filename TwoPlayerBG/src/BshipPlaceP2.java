@@ -358,11 +358,11 @@ public class BshipPlaceP2 implements ActionListener{
 						BshipPlaceP2.frame.dispose();
 						BshipPlaceP1.frame.removeAll();
 						BshipPlaceP2.frame.removeAll();
-						new bShipGOScreen();
+						new BShipGOScreen();
 					}else {
 						JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 						System.out.println("Player One Won");
-						new bShipGOScreen();
+						new BShipGOScreen();
 						frame.dispose();
 						BshipPlaceP1.frame.removeAll();
 						BshipPlaceP2.frame.removeAll();

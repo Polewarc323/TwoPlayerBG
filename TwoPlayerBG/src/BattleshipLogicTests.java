@@ -11,7 +11,9 @@ import org.junit.jupiter.api.Test;
  * @author Romandy Vu
  *
  *************************************************/
+
 class BattleshipLogicTests {
+	
 	/**The object being called to be tested.*/
 	private BattleshipLogic game;
 	/**Used to loop through the rows for methods containing coordinates.*/
@@ -206,6 +208,7 @@ class BattleshipLogicTests {
 		assertFalse(game.getCoordinateData("C8", 2) == 1);
 	}
 	@Test
+	
 	void testGameOver() {
 		assertFalse(game.isGameOver());
 
