@@ -31,7 +31,7 @@ class BattleshipLogicTests {
 	}
 
 
-	/*
+	
 	@Test
 	void testConstructor() {
 		int[][] player1board = game.getBoard(1);
@@ -549,7 +549,7 @@ class BattleshipLogicTests {
 		}
 		
 		assertTrue(17 == count);
-	}*/
+	}
 	
 	@Test
 	void computerPlaceHits() {
@@ -571,8 +571,33 @@ class BattleshipLogicTests {
 				System.out.println("All coordinates hit.");
 				break;
 			}
+		
+		
 		}
 		
 	}
 	
+	@Test 
+	void computerPlaceHits2(){
+		assertTrue(game.placeShip(1, "J09", "j05", 5));
+		assertTrue(game.placeShip(1, "i10", "i7", 4));
+		assertTrue(game.placeShip(1, "a10", "a08", 3));
+		assertTrue(game.placeShip(1, "e03", "e05", 3));
+		assertTrue(game.placeShip(1, "j1", "j02", 2));
+		
+		int count = 0;
+		game.printBoard(1);
+		
+		while(!game.isGameOver()) {
+			game.computerPlaceHit();
+			game.getComputerHit();
+			game.printBoard(1);
+			
+			if (count == 100) {
+				System.out.println("All coordinates hit.");
+				break;
+			}
+	}
+	
+}
 }
