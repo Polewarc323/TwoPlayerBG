@@ -1065,7 +1065,8 @@ public class BattleshipLogic {
 			result = "ERROR";
 		}
 		
-		System.out.println("Placed hit at: " + coordinate + " resulting in: " + result);
+		System.out.println("Placed hit at: " + coordinate +
+				" resulting in: " + result);
 		
 	}
 	
@@ -1074,7 +1075,7 @@ public class BattleshipLogic {
 	 * Prints the board of the specified player.
 	 * @param player the board of the player being printed.
 	 * 1 for player 1, else player 2
-	 */
+	 *****************************************************/
 	public void printBoard(final int player) {
 		int[][] board = this.p2ShipP1Hit;
 		
@@ -1090,6 +1091,22 @@ public class BattleshipLogic {
 		}
 		
 		System.out.println();
+		
+	}
+	
+	/*****************************************************
+	 * 
+	 * Used for testing purposes to test computer hit
+	 * algorithm by randomly generating board for player 1.
+	 ****************************************************/
+	protected void randomPlayer1Board() {
+		computerPlaceShips();
+		for(int i = 0; i < ROWS; i++) {
+			for(int j = 0; j < COLS; j++) {
+				p1ShipP2Hit[i][j] = p2ShipP1Hit[i][j];
+			}
+		}
+		p2ShipP1Hit = new int[ROWS][COLS];
 		
 	}
 

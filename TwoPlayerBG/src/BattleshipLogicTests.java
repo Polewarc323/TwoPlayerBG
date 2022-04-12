@@ -597,7 +597,26 @@ class BattleshipLogicTests {
 				System.out.println("All coordinates hit.");
 				break;
 			}
-	}
+		}
 	
-}
+	}
+	@Test
+	void computerPlaceHit3() {
+		game.randomPlayer1Board();
+		
+		int count = 0;
+		game.printBoard(1);
+		
+		while(!game.isGameOver()) {
+			game.computerPlaceHit();
+			game.getComputerHit();
+			game.printBoard(1);
+			
+			if (count == 100) {
+				System.out.println("All coordinates hit.");
+				break;
+			}
+		}
+		
+	}
 }
