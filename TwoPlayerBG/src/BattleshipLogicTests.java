@@ -31,6 +31,7 @@ class BattleshipLogicTests {
 	}
 
 
+	
 	@Test
 	void testConstructor() {
 		int[][] player1board = game.getBoard(1);
@@ -422,5 +423,200 @@ class BattleshipLogicTests {
 		assertTrue(index[0] == 0 && index[1] == -1);
 		index = game.getRowAndColIndex("M11");
 		assertTrue(index[0] == -1 && index[1] == -1 );
+	}
+	
+	@Test
+	void placeHitWithIndex() {
+		assertTrue(game.placeShip(1, "A1", "A5", 5));
+		assertTrue(game.placeShip(1, "B1", "B4", 4));
+		assertTrue(game.placeShip(1, "C1", "C3", 3));
+		assertTrue(game.placeShip(1, "D1", "D3", 3));
+		assertTrue(game.placeShip(1, "E1", "E2", 2));
+		
+		assertTrue(game.placeShip(2, "J10", "F10", 5));
+		assertTrue(game.placeShip(2, "J9", "G9", 4));
+		assertTrue(game.placeShip(2, "J8", "H8", 3));
+		assertTrue(game.placeShip(2, "J7", "H7", 3));
+		assertTrue(game.placeShip(2, "J6", "I6", 2));
+		
+		System.out.println("Ships successfully placed.");
+		
+		for(int i = 0; i < 5; i++) {
+			assertTrue(game.placeHit(i, 0, 2) == 1);
+			assertTrue(game.placeHit(i, 0, 2) == 2);
+		}
+		
+		for(int i = 0; i < 5; i++) {
+			assertTrue(game.placeHit(9, i + 5, 1) == 1);
+			assertTrue(game.placeHit(9, i + 5, 1) == 2);
+		}
+		
+		assertTrue(game.placeHit(0, 9, 2) == 0);
+		assertTrue(game.placeHit(1, 9, 2) == 0);
+		assertTrue(game.placeHit(2, 9, 2) == 0);
+		assertTrue(game.placeHit(3, 9, 2) == 0);
+		assertTrue(game.placeHit(4, 9, 2) == 0);
+		
+		assertTrue(game.placeHit(0, 9, 2) == 2);
+		assertTrue(game.placeHit(1, 9, 2) == 2);
+		assertTrue(game.placeHit(2, 9, 2) == 2);
+		assertTrue(game.placeHit(3, 9, 2) == 2);
+		assertTrue(game.placeHit(4, 9, 2) == 2);
+		
+		assertTrue(game.placeHit(0, 0, 1) == 0);
+		assertTrue(game.placeHit(1, 0, 1) == 0);
+		assertTrue(game.placeHit(2, 0, 1) == 0);
+		assertTrue(game.placeHit(3, 0, 1) == 0);
+		assertTrue(game.placeHit(4, 0, 1) == 0);
+		
+		assertTrue(game.placeHit(0, 0, 1) == 2);
+		assertTrue(game.placeHit(1, 0, 1) == 2);
+		assertTrue(game.placeHit(2, 0, 1) == 2);
+		assertTrue(game.placeHit(3, 0, 1) == 2);
+		assertTrue(game.placeHit(4, 0, 1) == 2);
+	}
+	
+	
+	@Test
+	void PlaceHitWithInvalidIndex() {
+		assertTrue(game.placeHit(-5, 9, 2) == 2);
+		assertTrue(game.placeHit(-5, -10, 1) == 2);
+		assertTrue(game.placeHit(-5, 10, 2) == 2);
+		assertTrue(game.placeHit(-1, -1, 2) == 2);
+		
+		assertTrue(game.placeHit(1, -1, 2) == 2);
+		assertTrue(game.placeHit(2, 10, 1) == 2);
+		assertTrue(game.placeHit(10, 1, 1) == 2);
+		assertTrue(game.placeHit(10, 10, 1) == 2);
+	}
+	
+	@Test
+	void placeShipWithIndex() {
+		assertTrue(game.placeShip(1, 0, 0, 4, 0, 5));
+		assertTrue(game.placeShip(1, 0, 1, 3, 1, 4));
+		assertTrue(game.placeShip(1, 0, 2, 2, 2, 3));
+		assertTrue(game.placeShip(1, 0, 3, 2, 3, 3));
+		assertTrue(game.placeShip(1, 0, 4, 1, 4, 2));
+		
+		assertTrue(game.placeShip(2, 9, 9, 9, 5, 5));
+		assertTrue(game.placeShip(2, 8, 9, 8, 6, 4));
+		assertTrue(game.placeShip(2, 7, 7, 7, 9, 3));
+		assertTrue(game.placeShip(2, 6, 9, 6, 7, 3));
+		assertTrue(game.placeShip(2, 5, 9, 5, 8, 2));
+		
+	}
+	
+	
+	@Test
+	void invalidPlaceShipWithIndex() {
+		assertTrue(game.placeShip(1, 0, 0, 4, 0, 5));
+		assertFalse(game.placeShip(1, 0, 0, 3, 0, 4));
+		assertFalse(game.placeShip(1, 0, 0, 0, 3, 4));
+		
+		assertFalse(game.placeShip(2, -1, -1, -1, -1, 2));
+		assertFalse(game.placeShip(2, -1, -1, -1, 0, 2));
+		assertFalse(game.placeShip(2, -1, -1, -1, 10, 2));
+		
+		assertFalse(game.placeShip(2, -1, -1, 1, -1, 2));
+		assertFalse(game.placeShip(2, -1, -1, 1, 1, 2));
+		assertFalse(game.placeShip(2, -1, -1, 1, 10, 2));
+		
+		assertFalse(game.placeShip(2, -1, -1, 10, -1, 2));
+		assertFalse(game.placeShip(2, -1, -1, 10, 5, 2));
+		assertFalse(game.placeShip(2, -1, -1, 10, 10, 2));
+		
+		assertFalse(game.placeShip(2, -1, -1, 10, 10, 2));
+		assertFalse(game.placeShip(2, -1, 5, 10, 10, 2));
+		assertFalse(game.placeShip(2, -1, 11, 10, 10, 2));
+		
+		assertFalse(game.placeShip(2, 0, 0, -1, -1, 2));
+	}
+	
+	@Test
+	void computerPlaceShips() {
+		game.computerPlaceShips();
+		int[][] board = game.getBoard(2);
+		int count = 0;
+		for(int i = 0; i < row.length; i++) {
+			for(int j = 0; j < col.length; j++) {
+				if (1 == board[i][j]) {
+					count++;
+				}
+				System.out.print(board[i][j] + " ");
+				
+			}
+			System.out.println();
+		}
+		
+		assertTrue(17 == count);
+	}
+	
+	@Test
+	void computerPlaceHits() {
+		assertTrue(game.placeShip(1, "A2", "A6", 5));
+		assertTrue(game.placeShip(1, "B1", "E1", 4));
+		assertTrue(game.placeShip(1, "J10", "J8", 3));
+		assertTrue(game.placeShip(1, "D3", "D5", 3));
+		assertTrue(game.placeShip(1, "A10", "A9", 2));
+		
+		int count = 0;
+		game.printBoard(1);
+		
+		while(!game.isGameOver()) {
+			game.computerPlaceHit();
+			game.getComputerHit();
+			game.printBoard(1);
+			
+			if (count == 100) {
+				System.out.println("All coordinates hit.");
+				break;
+			}
+		
+		
+		}
+		
+	}
+	
+	@Test 
+	void computerPlaceHits2(){
+		assertTrue(game.placeShip(1, "J09", "j05", 5));
+		assertTrue(game.placeShip(1, "i10", "i7", 4));
+		assertTrue(game.placeShip(1, "a10", "a08", 3));
+		assertTrue(game.placeShip(1, "e03", "e05", 3));
+		assertTrue(game.placeShip(1, "j1", "j02", 2));
+		
+		int count = 0;
+		game.printBoard(1);
+		
+		while(!game.isGameOver()) {
+			game.computerPlaceHit();
+			game.getComputerHit();
+			game.printBoard(1);
+			
+			if (count == 100) {
+				System.out.println("All coordinates hit.");
+				break;
+			}
+		}
+	
+	}
+	@Test
+	void computerPlaceHit3() {
+		game.randomPlayer1Board();
+		
+		int count = 0;
+		game.printBoard(1);
+		
+		while(!game.isGameOver()) {
+			game.computerPlaceHit();
+			game.getComputerHit();
+			game.printBoard(1);
+			
+			if (count == 100) {
+				System.out.println("All coordinates hit.");
+				break;
+			}
+		}
+		
 	}
 }
