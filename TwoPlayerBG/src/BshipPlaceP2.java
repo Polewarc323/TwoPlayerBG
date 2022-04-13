@@ -206,7 +206,7 @@ public class BshipPlaceP2 implements ActionListener{
 		 * sets ships placed from being shown on grid to be default color 
 		 * If the ships are not all placed shows an error message*/
 		if(e.getSource() == strtBtn) {
-
+			shipsToBePlaced = 0;
 			if(0 == shipsToBePlaced) {
 				for (int row = 0; row < rowLbl.length; row++) {
 					for (int col = 0; col < colLbl.length; col++) {

@@ -24,6 +24,9 @@ public class BshipStart implements ActionListener {
 	/**Instantiates Label for Battleship title*/
 	JLabel label = new JLabel("Battleship");
 	
+	/**Instantiates Label for Battleship title*/
+	JButton AIShip = new JButton("Battleship vs. Computer");
+	
 	/**Instantiates start button*/
 	JButton bShipStrt= new JButton("Start");
 	
@@ -36,16 +39,19 @@ public class BshipStart implements ActionListener {
 		/**Set placement of items*/
 		label.setBounds(75,160,100,50);
 		bShipStrt.setBounds(50, 210, 300, 50);
-		backToHub.setBounds(50, 260, 300, 50);
+		AIShip.setBounds(50, 260, 300, 50);
+		backToHub.setBounds(50, 310, 300, 50);
 		
 		/**Add items*/
 		frame.add(label);
 		frame.add(bShipStrt);
+		frame.add(AIShip);
 		frame.add(backToHub);
 		
 		/**Add action listeners to buttons*/
 		backToHub.addActionListener(this);
 		bShipStrt.addActionListener(this); 
+		AIShip.addActionListener(this);
 	
 		/*Set frame Properties*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,6 +75,10 @@ public class BshipStart implements ActionListener {
 		if(e.getSource() == bShipStrt) {
 			frame.dispose();
 			new BshipPlaceP1();
+		}
+		if(e.getSource() == AIShip) {
+			frame.dispose();
+			new BshipAI();
 		}
 		
 	}

@@ -210,6 +210,7 @@ public class BshipPlaceP1 implements ActionListener{
 		 * sets ships placed from being shown on grid to be default color 
 		 * If the ships are not all placed shows an error message*/
 		if(e.getSource() == donBtn) {
+			shipsToBePlaced = 0;
 			if(0 == shipsToBePlaced) {
 				for(int row = 0; row < 10; row++)
 					for(int col = 0; col < 10; col++){
@@ -300,35 +301,36 @@ public class BshipPlaceP1 implements ActionListener{
 			for(int j = 0; j < 7; j++) {
 				if(e.getSource() == grid[i][j]) {
 					
-					int hitResult;
+					int hitResult = 0;
 					
 					/**Updates lives then sets text box for player one lives*/
 					lives = BshipPlaceP1.bsl.getLives(1);
 					Player1Lives.setText("Player One Lives Left: " + lives);
 					
 					/**Calls placeHit function */
-					hitResult = bsl.placeHit(i, j, 2);
+					//hitResult = bsl.placeHit(i, j, 2);
+					
+					bsl.placeHit(i, j, 2);
 
-					if(2 == hitResult) {
-						/**Error message for invalid coordinates*/
-						JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.",
-								null, JOptionPane.ERROR_MESSAGE, null);
-					}
-					else {
-						/**Checks for if the ships is hit or not
-						 * Prompts will inform Player Two if the did or did not hit a ship*/
-						if(0 == hitResult) {
-							grid[i][j].setBackground(Color.RED);
-							
-							JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
-									null, JOptionPane.PLAIN_MESSAGE, null);
-						}
-						if(1 == hitResult) {
-							grid[i][j].setBackground(Color.GREEN);
-						
-							JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
-									null, JOptionPane.PLAIN_MESSAGE, null);
-						}
+//					if(2 == hitResult) {
+//						/**Error message for invalid coordinates*/
+//						JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.",
+//								null, JOptionPane.ERROR_MESSAGE, null);
+//					}else {
+//						/**Checks for if the ships is hit or not
+//						 * Prompts will inform Player Two if the did or did not hit a ship*/
+//						if(0 == hitResult) {
+//							grid[i][j].setBackground(Color.RED);
+//							
+//							JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
+//									null, JOptionPane.PLAIN_MESSAGE, null);
+//						}
+//						if(1 == hitResult) {
+//							grid[i][j].setBackground(Color.GREEN);
+//						
+//							JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
+//									null, JOptionPane.PLAIN_MESSAGE, null);
+//						}
 
 						/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
 						frame.setVisible(false);
@@ -381,4 +383,3 @@ public class BshipPlaceP1 implements ActionListener{
 		}
 			
 	}
-}
