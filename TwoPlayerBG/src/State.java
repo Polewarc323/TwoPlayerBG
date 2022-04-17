@@ -304,15 +304,16 @@ public class State {
     }
 
     //Print the board
+    //Method was only used for testing in the console
     public void printBoard() {
         System.out.println("| 1 | 2 | 3 | 4 | 5 | 6 | 7 |");
         System.out.println();
         for (int i=0; i<6; i++) {
             for (int j=0; j<7; j++) {
                     if (gameBoard[i][j] == 1) {
-                        System.out.print("| " + "X "); //Blue for user
+                        System.out.print("| " + "X "); 
                     } else if (gameBoard[i][j] == -1) {
-                        System.out.print("| " + "O "); //Red for computer
+                        System.out.print("| " + "O "); 
                     } else {
                         System.out.print("| " + "-" + " ");
                     }
