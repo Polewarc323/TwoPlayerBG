@@ -3,8 +3,8 @@
 *
 *Class serves as the logic for the Connect Four Game AI algorithm
 *The methods are designed to help with the implement of a GUI
-*@author Calab Bahlbi
-*@version March 20, 2022
+*@author Calab Bahlbi 
+*@version March 20, 2022 
 *
 *
 *****************************************************************************/
@@ -19,7 +19,7 @@ public class GamePlay {
         row = -1;
         col = -1;
         value = 0;
-    }//end Constructor
+    }
 
     //Move done
     public GamePlay moveDone(int row, int col) {
@@ -28,7 +28,7 @@ public class GamePlay {
         moveDone.col = col;
         moveDone.value = -1;
         return moveDone;
-    }// end moveDone
+    }
     
     //Move for expansion (with utility function)
     public GamePlay possibleMove(int row, int col, int value) {
@@ -37,7 +37,7 @@ public class GamePlay {
         posisibleMove.col = col;
         posisibleMove.value = value;
         return posisibleMove;
-    }//end possibleMove
+    }
 
  
     //Move used to compare in MinMax algorithm
