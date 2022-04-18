@@ -4,7 +4,7 @@ package connect4Stuff.Controller;
 *Class serves as the logic for the Connect Four Game AI algorithm
 *The methods are designed to help with the implement of a GUI
 *@author Calab Bahlbi
-*@version March 20, 2022
+*@version March 20, 2022 
 *
 *
 *****************************************************************************/
