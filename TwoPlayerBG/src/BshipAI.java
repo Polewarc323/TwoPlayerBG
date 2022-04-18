@@ -201,6 +201,32 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
+		if(e.getSource() == donBtn) {
+			shipsToBePlaced = 0;
+			if(0 == shipsToBePlaced) {
+
+				frame.add(Player1Lives);
+				directions.setVisible(false);
+				donBtn.setVisible(false);
+				donBtn.setVisible(false);
+				placeBtn.setVisible(false);
+				shipSel.setVisible(false);
+				front.setVisible(false);
+				rear.setVisible(false);
+				frontCo.setVisible(false);
+				rearCo.setVisible(false);;
+				p1Place.setVisible(false);
+				
+				bsl.computerPlaceShips();
+			}
+			else {
+				/**Error pop-up shown if placement is invalid*/
+				JOptionPane.showMessageDialog(frame, "Player 1, Place all ships before proceeding", 
+						null, JOptionPane.ERROR_MESSAGE, null);
+			}
+		}
+		
+		
 	if(e.getSource() == placeBtn) {
 				
 				/**ship selected in the drop down box is check then set to 
@@ -240,7 +266,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 					/**Displays placed ship on grid*/
 					for (int row = 0; row < rowLbl.length; row++) {
 						for (int col = 0; col < colLbl.length; col++) {
-							coord = colLbl[row] + rowLbl[col];
+							coord = colLbl[col] + rowLbl[row];
 							id = bsl.getCoordinateData(coord, player);
 							if (1 == id) {
 								placeGrid[row][col].setBackground(Color.GREEN);
@@ -260,8 +286,29 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 					
 			}
 			
+	/*Checks grid for which button is pressed*/
+	for(int i = 0; i < 10; i++) {
+		for(int j = 0; j < 10; j++) {
+			if(e.getSource() == hitGrid[i][j]) {
+				
+					bsl.placeHit(i, j, 1);
+					
+					try        
+					{
+					    Thread.sleep(500);
+					} 
+					catch(InterruptedException ex) 
+					{
+					    Thread.currentThread().interrupt();
+					}
+					
+					bsl.computerPlaceHit();
+					 // tomorrow, throw in error checking from twoplayer shits
+					
+				}
+			}
+		}
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -279,8 +326,8 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
-		System.out.println("YOU ARE A FAGGOT!!!!!" + e.getKeyChar());
+		// TODO Auto-generated method stub
 		
 	}
+
 }
