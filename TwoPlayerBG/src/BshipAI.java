@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -91,6 +92,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 		/**setting properties of the overall frame*/
 		frame.setPreferredSize (new Dimension (944, 574));
 		frame.setLayout (new FlowLayout(FlowLayout.CENTER, 100, 100));
+		frame.getContentPane().setBackground(Color.BLACK);
 		
 		this.addKeyListener(this);
 
@@ -135,17 +137,42 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 		p1Place.setBounds (370, 35, 165, 45);
 		directions.setBounds (5, 65, 460, 110);
 		
+		donBtn.setForeground(Color.GREEN);
+		placeBtn.setForeground(Color.GREEN);
+		shipSel.setForeground(Color.GREEN);
+		front.setForeground(Color.GREEN);
+		rear.setForeground(Color.GREEN);
+		frontCo.setForeground(Color.GREEN);
+		rearCo.setForeground(Color.GREEN);
+		p1Place.setForeground(Color.GREEN);
+		directions.setForeground(Color.GREEN);
+		
+		shipSel.setBackground(Color.BLACK);
+		frontCo.setBackground(Color.BLACK);
+		rearCo.setBackground(Color.BLACK);
+		donBtn.setBackground(Color.BLACK);
+		placeBtn.setBackground(Color.BLACK);
+		
+		donBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		placeBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		shipSel.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		frontCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		rearCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		
 		frame.add(shipPlaceLbl);
 		frame.add(shipFireLbl);
 		
 		shipPlaceLbl.setBounds(500, 50, 150 ,150);
+		shipPlaceLbl.setForeground(Color.GREEN);
 		shipFireLbl.setBounds(500, 600, 150, 150);
+		shipFireLbl.setForeground(Color.GREEN);
 		
 		/**Adding row labels to display on frame*/
 		for(int i = 0; i < rowLbl.length; i++) {
 			rowLabels[i] = new JLabel(rowLbl[i]);
 			rowLabels[i].setBounds(710 , 50 + (40*i), 40, 40);
 			frame.add(rowLabels[i]);
+			rowLabels[i].setForeground(Color.GREEN);
 		}
 		
 		/**Adding column labels to display on frame*/
@@ -153,6 +180,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 			colLabels[i] = new JLabel(colLbl[i]);
 			colLabels[i].setBounds(750 + (40*i), 10, 40, 40);
 			frame.add(colLabels[i]);
+			colLabels[i].setForeground(Color.GREEN);
 		}
 		
 		/**Adds grid of buttons*/
@@ -163,6 +191,9 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 		    	 placeGrid[row][col].setBounds(750 + (40*col),50 + (40*row),40,40);
 		    	 placeGrid[row][col].addActionListener(this);
 		    	 frame.add(placeGrid[row][col]);
+		    	
+		    	 placeGrid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		    	 placeGrid[row][col].setBackground(Color.BLACK);
 		    }
 		
 		/**Adding row labels to display on frame*/
@@ -170,6 +201,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 			rowLabels[i] = new JLabel(rowLblHit[i]);
 			rowLabels[i].setBounds(710 , 600 + (40*i), 40, 40);
 			frame.add(rowLabels[i]);
+			rowLabels[i].setForeground(Color.GREEN);
 		}
 		
 		/**Adding column labels to display on frame*/
@@ -177,6 +209,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 			colLabels[i] = new JLabel(colLblHit[i]);
 			colLabels[i].setBounds(750 + (40*i), 560, 40, 40);
 			frame.add(colLabels[i]);
+			colLabels[i].setForeground(Color.GREEN);
 		}
 		
 		for(int row = 0; row < 10; row++)
@@ -186,6 +219,8 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
         		hitGrid[row][col].setBounds(750 + (40*col),600 + (40*row),40,40);
         		hitGrid[row][col].addActionListener(this);
         		frame.add(hitGrid[row][col]);
+        		hitGrid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+        		hitGrid[row][col].setBackground(Color.BLACK);
         		
         	}
 		
@@ -217,6 +252,10 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 				rearCo.setVisible(false);;
 				p1Place.setVisible(false);
 				
+				frame.add(Player1Lives);
+				Player1Lives.setVisible(true);
+				Player1Lives.setForeground(Color.GREEN);
+				Player1Lives.setBounds(100, 200, 250, 50);
 				bsl.computerPlaceShips();
 			}
 			else {
@@ -290,7 +329,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 	for(int i = 0; i < 10; i++) {
 		for(int j = 0; j < 10; j++) {
 			if(e.getSource() == hitGrid[i][j]) {
-				
+				if(shipsToBePlaced == 0) {
 					bsl.placeHit(i, j, 1);
 					
 					try        
@@ -304,10 +343,19 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 					
 					bsl.computerPlaceHit();
 					 // tomorrow, throw in error checking from twoplayer shits
-					
+					System.out.println("stuff here " + i + ", " + j);
+					 
+					}else {
+						JOptionPane.showMessageDialog(frame, "Place your ships silly", 
+								null, JOptionPane.ERROR_MESSAGE, null);
+						break;
+					}
 				}
+				
 			}
+			
 		}
+	
 	}
 
 	@Override

@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -164,13 +166,14 @@ public class BshipPlaceP1 implements ActionListener{
 		Player2Fire.setBounds(370,35,300,45);
 		fireBtn.setBounds(100, 330, 100, 50);
 		fireCo.setBounds(100, 250, 100, 50);
-		Player1Lives.setBounds (100, 200, 250, 50);
+		Player1Lives.setBounds(100, 200, 250, 50);
 		
 		/**Adding row labels to display on frame*/
 		for(int i = 0; i < rowLbl.length; i++) {
 			rowLabels[i] = new JLabel(rowLbl[i]);
 			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
 			frame.add(rowLabels[i]);
+			rowLabels[i].setForeground(Color.GREEN);
 		}
 		
 		/**Adding column labels to display on frame*/
@@ -178,6 +181,7 @@ public class BshipPlaceP1 implements ActionListener{
 			colLabels[i] = new JLabel(colLbl[i]);
 			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
 			frame.add(colLabels[i]);
+			colLabels[i].setForeground(Color.GREEN);
 		}
 		
 		/**Adds grid of buttons*/
@@ -188,6 +192,8 @@ public class BshipPlaceP1 implements ActionListener{
 		    	 grid[row][col].setBounds(600 + (25*col),200 + (25*row),25,25);
 		    	 grid[row][col].addActionListener(this);
 		    	 frame.add(grid[row][col]);
+		    	 grid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		    	 grid[row][col].setBackground(Color.BLACK);
 		    }
 		
 		/**Sets more properties of frame*/
@@ -195,7 +201,40 @@ public class BshipPlaceP1 implements ActionListener{
 		frame.setSize(1500,1500);
 		frame.setLayout(null);
 		frame.setVisible(true); 
-
+		frame.getContentPane().setBackground(Color.BLACK);
+		
+		
+		donBtn.setBounds (10, 450, 115, 70);
+		placeBtn.setBounds (10, 330, 100, 50);
+		shipSel.setBounds (30, 160, 100, 25);
+		front.setBounds (30, 225, 100, 25);
+		rear.setBounds (130, 225, 100, 25);
+		frontCo.setBounds (10, 275, 100, 25);
+		rearCo.setBounds (125, 275, 100, 25);
+		p1Place.setBounds (370, 35, 165, 45);
+		directions.setBounds (5, 65, 460, 110);
+		
+		donBtn.setForeground(Color.GREEN);
+		placeBtn.setForeground(Color.GREEN);
+		shipSel.setForeground(Color.GREEN);
+		front.setForeground(Color.GREEN);
+		rear.setForeground(Color.GREEN);
+		frontCo.setForeground(Color.GREEN);
+		rearCo.setForeground(Color.GREEN);
+		p1Place.setForeground(Color.GREEN);
+		directions.setForeground(Color.GREEN);
+		
+		shipSel.setBackground(Color.BLACK);
+		frontCo.setBackground(Color.BLACK);
+		rearCo.setBackground(Color.BLACK);
+		donBtn.setBackground(Color.BLACK);
+		placeBtn.setBackground(Color.BLACK);
+		
+		donBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		placeBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		shipSel.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		frontCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		rearCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
 
 	}
 
