@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -103,6 +105,7 @@ public class BshipPlaceP2 implements ActionListener{
 		/**setting properties of the overall frame*/
 		frame.setPreferredSize (new Dimension (944, 574));
 		frame.setLayout (null);
+		frame.getContentPane().setBackground(Color.BLACK);
 
 		/**Adding Phase One items*/
 		frame.add (strtBtn);
@@ -167,30 +170,71 @@ public class BshipPlaceP2 implements ActionListener{
 			rowLabels[i] = new JLabel(rowLbl[i]);
 			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
 			frame.add(rowLabels[i]);
+			rowLabels[i].setForeground(Color.GREEN);
 		}
+		
 
 		/**Adding column labels to display on frame*/
 		for(int i = 0; i < colLbl.length; i++) {	
 			colLabels[i] = new JLabel(colLbl[i]);
 			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
 			frame.add(colLabels[i]);
+			colLabels[i].setForeground(Color.GREEN);
 		}
 
 		/**Adds grid of buttons*/
-		for(int row = 0; row < 10; row++)
+		for(int row = 0; row < 10; row++) {
 			for(int col = 0; col < 10; col++){
 
 				grid[row][col] = new JButton("");
 				grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
 				grid[row][col].addActionListener(this);
 				frame.add(grid[row][col]);
+				grid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		    	grid[row][col].setBackground(Color.BLACK);
 			}
+		}
 
 		/**Sets more properties of frame*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1500,1500);
 		frame.setLayout(null);
 		frame.setVisible(true); 
+		
+		strtBtn.setBounds (10, 450, 115, 70);
+		placeBtn.setBounds (10, 330, 100, 50);
+		shipSel.setBounds (30, 160, 100, 25);
+		front.setBounds (30, 225, 100, 25);
+		rear.setBounds (130, 225, 100, 25);
+		frontCo.setBounds (10, 275, 100, 25);
+		rearCo.setBounds (125, 275, 100, 25);
+		p2Place.setBounds (370, 35, 165, 45);
+		directions.setBounds (5, 65, 460, 110);
+		
+		strtBtn.setForeground(Color.GREEN);
+		placeBtn.setForeground(Color.GREEN);
+		shipSel.setForeground(Color.GREEN);
+		front.setForeground(Color.GREEN);
+		rear.setForeground(Color.GREEN);
+		frontCo.setForeground(Color.GREEN);
+		rearCo.setForeground(Color.GREEN);
+		p2Place.setForeground(Color.GREEN);
+		directions.setForeground(Color.GREEN);
+		
+		shipSel.setBackground(Color.BLACK);
+		frontCo.setBackground(Color.BLACK);
+		rearCo.setBackground(Color.BLACK);
+		strtBtn.setBackground(Color.BLACK);
+		placeBtn.setBackground(Color.BLACK);
+		
+		strtBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		placeBtn.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		shipSel.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		frontCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		rearCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
+		
+		Player2Lives.setForeground(Color.GREEN);
+		Player1Fire.setForeground(Color.GREEN);
 
 
 	}
@@ -210,7 +254,7 @@ public class BshipPlaceP2 implements ActionListener{
 			if(0 == shipsToBePlaced) {
 				for (int row = 0; row < rowLbl.length; row++) {
 					for (int col = 0; col < colLbl.length; col++) {
-						grid[row][col].setBackground(Color.WHITE);
+						grid[row][col].setBackground(Color.BLACK);
 					}
 				}
 

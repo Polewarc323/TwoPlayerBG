@@ -24,8 +24,11 @@ public class C4Start implements ActionListener{
 	/**Instantiates Label for Battleship title*/
 	JLabel label = new JLabel("Connect Four");
 	
-	/**Instantiates start button*/
-	JButton c4Start = new JButton("Start");
+	/**Instantiates Two Player button*/
+	JButton c4Start = new JButton("Two Player");
+	
+	/**Instantiates c4Bot button*/
+	JButton c4Bot = new JButton("Connect Four w/ AI");
 	
 	/**Instantiates backToHub button*/
 	JButton backToHub = new JButton("Back to Hub");
@@ -34,18 +37,21 @@ public class C4Start implements ActionListener{
 	C4Start(){
 		
 		/**Set placement of items*/
-		label.setBounds(75,160,100,50);
-		c4Start.setBounds(50, 210, 300, 50);
+		label.setBounds(75,100,100,50);
+		c4Start.setBounds(50, 160, 300, 50);
+		c4Bot.setBounds(50, 210, 300, 50);
 		backToHub.setBounds(50, 260, 300, 50);
 		
 		/**Add items*/
 		frame.add(label);
 		frame.add(c4Start);
+		frame.add(c4Bot);
 		frame.add(backToHub);
 		
 		/**Add action listeners to buttons*/
 		backToHub.addActionListener(this);
 		c4Start.addActionListener(this); 
+		c4Bot.addActionListener(this);
 		
 		/*Set frame Properties*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,6 +75,11 @@ public class C4Start implements ActionListener{
 		if(e.getSource() == c4Start) {
 			frame.dispose();
 			new Connect4GUI();
+		}
+		
+		if(e.getSource() ==  c4Bot) {
+			frame.dispose();
+			new C4AI();
 		}
 	}
 }

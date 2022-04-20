@@ -164,14 +164,13 @@ public class BshipPlaceP1 implements ActionListener{
 		
 		/**Setting properties of firing phase*/
 		Player2Fire.setBounds(370,35,300,45);
-		fireBtn.setBounds(100, 330, 100, 50);
-		fireCo.setBounds(100, 250, 100, 50);
+		
 		Player1Lives.setBounds(100, 200, 250, 50);
 		
 		/**Adding row labels to display on frame*/
 		for(int i = 0; i < rowLbl.length; i++) {
 			rowLabels[i] = new JLabel(rowLbl[i]);
-			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
+			rowLabels[i].setBounds(560 , 200 + (40*i), 40, 40);
 			frame.add(rowLabels[i]);
 			rowLabels[i].setForeground(Color.GREEN);
 		}
@@ -179,7 +178,7 @@ public class BshipPlaceP1 implements ActionListener{
 		/**Adding column labels to display on frame*/
 		for(int i = 0; i < colLbl.length; i++) {	
 			colLabels[i] = new JLabel(colLbl[i]);
-			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
+			colLabels[i].setBounds(600 + (40*i), 160, 40, 40);
 			frame.add(colLabels[i]);
 			colLabels[i].setForeground(Color.GREEN);
 		}
@@ -189,7 +188,7 @@ public class BshipPlaceP1 implements ActionListener{
 		     for(int col = 0; col < 10; col++){
 		    	 
 		    	 grid[row][col] = new JButton("");
-		    	 grid[row][col].setBounds(600 + (25*col),200 + (25*row),25,25);
+		    	 grid[row][col].setBounds(600 + (40*col),200 + (40*row),40,40);
 		    	 grid[row][col].addActionListener(this);
 		    	 frame.add(grid[row][col]);
 		    	 grid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
@@ -235,7 +234,7 @@ public class BshipPlaceP1 implements ActionListener{
 		shipSel.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
 		frontCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
 		rearCo.setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
-
+		
 	}
 
 
@@ -253,7 +252,7 @@ public class BshipPlaceP1 implements ActionListener{
 			if(0 == shipsToBePlaced) {
 				for(int row = 0; row < 10; row++)
 					for(int col = 0; col < 10; col++){
-						grid[row][col].setBackground(Color.WHITE);
+						grid[row][col].setBackground(Color.BLACK);
 					}
 				
 				frame.setVisible(false);
@@ -318,10 +317,10 @@ public class BshipPlaceP1 implements ActionListener{
 						coord = colLbl[row] + rowLbl[col];
 						id = bsl.getCoordinateData(coord, player);
 						if (1 == id) {
-							grid[row][col].setBackground(Color.BLACK);
+							grid[row][col].setBackground(Color.GREEN);
 						} 
 						
-				    	grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+				    	grid[row][col].setBounds(600 + (40*row),200 + (40*col),40,40);
 				    	grid[row][col].addActionListener(this);
 				    	frame.add(grid[row][col]);	
 					}
@@ -336,8 +335,8 @@ public class BshipPlaceP1 implements ActionListener{
 		}
 		
 		/*Checks grid for which button is pressed*/
-		for(int i = 0; i < 6; i++) {
-			for(int j = 0; j < 7; j++) {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
 				if(e.getSource() == grid[i][j]) {
 					
 					int hitResult = 0;
@@ -350,26 +349,27 @@ public class BshipPlaceP1 implements ActionListener{
 					//hitResult = bsl.placeHit(i, j, 2);
 					
 					bsl.placeHit(i, j, 2);
+					grid[i][j].setBackground(Color.RED);
 
-//					if(2 == hitResult) {
-//						/**Error message for invalid coordinates*/
-//						JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.",
-//								null, JOptionPane.ERROR_MESSAGE, null);
-//					}else {
-//						/**Checks for if the ships is hit or not
-//						 * Prompts will inform Player Two if the did or did not hit a ship*/
-//						if(0 == hitResult) {
-//							grid[i][j].setBackground(Color.RED);
-//							
-//							JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
-//									null, JOptionPane.PLAIN_MESSAGE, null);
-//						}
-//						if(1 == hitResult) {
-//							grid[i][j].setBackground(Color.GREEN);
-//						
-//							JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
-//									null, JOptionPane.PLAIN_MESSAGE, null);
-//						}
+					if(2 == hitResult) {
+						/**Error message for invalid coordinates*/
+						JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.",
+								null, JOptionPane.ERROR_MESSAGE, null);
+					}else {
+						/**Checks for if the ships is hit or not
+						 * Prompts will inform Player Two if the did or did not hit a ship*/
+						if(0 == hitResult) {
+							grid[i][j].setBackground(Color.RED);
+							
+							JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
+									null, JOptionPane.PLAIN_MESSAGE, null);
+						}
+						if(1 == hitResult) {
+							grid[i][j].setBackground(Color.GREEN);
+						
+							JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
+									null, JOptionPane.PLAIN_MESSAGE, null);
+						}
 
 						/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
 						frame.setVisible(false);
@@ -400,7 +400,7 @@ public class BshipPlaceP1 implements ActionListener{
 								frame.dispose();
 
 							}
-
+							break;
 						}else {
 							/**If the game continues then visibility for firing phase items
 							 * will be true, other needed frame items for firing phase will be
@@ -409,11 +409,20 @@ public class BshipPlaceP1 implements ActionListener{
 							BshipPlaceP2.fireCoP2.setVisible(true);
 							BshipPlaceP2.fireBtnP2.setVisible(true);
 							BshipPlaceP2.Player2Lives.setVisible(true);
-
+							
+							BshipPlaceP2.Player2Lives.setBackground(Color.BLACK);
+							BshipPlaceP2.Player1Fire.setBackground(Color.BLACK);
+							BshipPlaceP2.fireCoP2.setBackground(Color.BLACK);
+							BshipPlaceP2.fireBtnP2.setBackground(Color.BLACK);
+						
+							
+							
+							
 							BshipPlaceP2.frame.setVisible(true);
 							BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
 							BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
 							BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+							break;
 						}
 					}
 				
@@ -422,3 +431,4 @@ public class BshipPlaceP1 implements ActionListener{
 		}
 			
 	}
+}

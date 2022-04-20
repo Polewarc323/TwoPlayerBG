@@ -65,7 +65,7 @@ public class Connect4GUI implements ActionListener {
         	for(int col = 0; col< 7; col++){
 
         		grid[row][col] = new JButton("");
-        		grid[row][col].setBounds(10 + (40*col),100 + (40*row),40,40);
+        		grid[row][col].setBounds(50 + (75*col),100 + (75*row),75,75);
         		grid[row][col].addActionListener(this);
         		frame.add(grid[row][col]);
         	}
@@ -73,7 +73,7 @@ public class Connect4GUI implements ActionListener {
 		
 		/*Sets frame properties*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(420,420);
+		frame.setSize(750,750);
 		frame.setLayout(null);
 		frame.setVisible(true); 
 	}

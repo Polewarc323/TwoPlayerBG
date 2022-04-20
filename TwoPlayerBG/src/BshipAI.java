@@ -72,8 +72,12 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 	/**Lives int for calculating current players lives*/
 	private static int lives = bsl.getLives(1);
 	
+	private static int bLives = bsl.getLives(2);
+	
 	/**Creates lives Label for Player One*/
 	static JLabel Player1Lives = new JLabel("Lives Left: " + lives);
+	
+	static JLabel botLives = new JLabel("Computer's Lives left: " + bLives);
 	
 	/**Instantiates frontCo text field*/
 	static JTextField frontCo = new JTextField (1);
@@ -235,7 +239,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource() == donBtn) {
 			shipsToBePlaced = 0;
 			if(0 == shipsToBePlaced) {
@@ -251,11 +255,15 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 				frontCo.setVisible(false);
 				rearCo.setVisible(false);;
 				p1Place.setVisible(false);
-				
+
 				frame.add(Player1Lives);
+				frame.add(botLives);
 				Player1Lives.setVisible(true);
 				Player1Lives.setForeground(Color.GREEN);
 				Player1Lives.setBounds(100, 200, 250, 50);
+				botLives.setBounds(100, 150, 250, 50);
+				botLives.setVisible(true);
+				botLives.setForeground(Color.GREEN);
 				bsl.computerPlaceShips();
 			}
 			else {
@@ -264,118 +272,213 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 						null, JOptionPane.ERROR_MESSAGE, null);
 			}
 		}
-		
-		
-	if(e.getSource() == placeBtn) {
-				
-				/**ship selected in the drop down box is check then set to 
-				 * the corresponding ship size*/
-				if(shipSel.getSelectedItem() == "Carrier") {
-					ship = 5;
-	
-				}else if(shipSel.getSelectedItem() == "Battleship") {
-					ship = 4;
-					
-				}else if(shipSel.getSelectedItem() == "Cruiser") {
-					ship = 3;
-	
-				}else if(shipSel.getSelectedItem() == "Submarine") {
-					ship = 3;
-	
-				}else if(shipSel.getSelectedItem() == "Patrol Boat") {
-					ship = 2;
-				}
-				
-				/**Front and Rear coordinate are set to the text that is
-				 * input in the fronCo and rearCo text fields*/
-				String front = frontCo.getText();
-				String rear = rearCo.getText();
-	
-				/**Checks if placeShip boolean is true, called from the
-				 * battleshipLogic object*/
-				if(bsl.placeShip( player,  front,  rear,  ship)) {
-					//
-					shipsToBePlaced--;
-					shipSel.removeItem(shipSel.getSelectedItem());
-					//Get the lives of player 1, not player 2.
-					lives = BshipPlaceP1.bsl.getLives(1);
 
-					String coord;
-					int id;
-					/**Displays placed ship on grid*/
-					for (int row = 0; row < rowLbl.length; row++) {
-						for (int col = 0; col < colLbl.length; col++) {
-							coord = colLbl[col] + rowLbl[row];
-							id = bsl.getCoordinateData(coord, player);
-							if (1 == id) {
-								placeGrid[row][col].setBackground(Color.GREEN);
-							} 
-							
-							//placeGrid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
-							placeGrid[row][col].addActionListener(this);
-					    	frame.add(placeGrid[row][col]);	
-						}
-					}
-				}
-				else {
-					/**Throws error message if placement is invalid*/
-					JOptionPane.showMessageDialog(frame, "Player 1, invalid ship placement, try again.", 
-							null, JOptionPane.ERROR_MESSAGE, null);
-				}
-					
+
+		if(e.getSource() == placeBtn) {
+
+			/**ship selected in the drop down box is check then set to 
+			 * the corresponding ship size*/
+			if(shipSel.getSelectedItem() == "Carrier") {
+				ship = 5;
+
+			}else if(shipSel.getSelectedItem() == "Battleship") {
+				ship = 4;
+
+			}else if(shipSel.getSelectedItem() == "Cruiser") {
+				ship = 3;
+
+			}else if(shipSel.getSelectedItem() == "Submarine") {
+				ship = 3;
+
+			}else if(shipSel.getSelectedItem() == "Patrol Boat") {
+				ship = 2;
 			}
-			
-	/*Checks grid for which button is pressed*/
-	for(int i = 0; i < 10; i++) {
-		for(int j = 0; j < 10; j++) {
-			if(e.getSource() == hitGrid[i][j]) {
-				if(shipsToBePlaced == 0) {
-					bsl.placeHit(i, j, 1);
-					
-					try        
-					{
-					    Thread.sleep(500);
-					} 
-					catch(InterruptedException ex) 
-					{
-					    Thread.currentThread().interrupt();
+
+			/**Front and Rear coordinate are set to the text that is
+			 * input in the fronCo and rearCo text fields*/
+			String front = frontCo.getText();
+			String rear = rearCo.getText();
+
+			/**Checks if placeShip boolean is true, called from the
+			 * battleshipLogic object*/
+			if(bsl.placeShip( player,  front,  rear,  ship)) {
+				//
+				shipsToBePlaced--;
+				shipSel.removeItem(shipSel.getSelectedItem());
+				//Get the lives of player 1, not player 2.
+				lives = BshipPlaceP1.bsl.getLives(1);
+
+				String coord;
+				int id;
+				/**Displays placed ship on grid*/
+				for (int row = 0; row < rowLbl.length; row++) {
+					for (int col = 0; col < colLbl.length; col++) {
+						coord = colLbl[col] + rowLbl[row];
+						id = bsl.getCoordinateData(coord, player);
+						if (1 == id) {
+							placeGrid[row][col].setBackground(Color.GREEN);
+						} 
+
+						//placeGrid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+						placeGrid[row][col].addActionListener(this);
+						frame.add(placeGrid[row][col]);	
 					}
-					
-					bsl.computerPlaceHit();
-					 // tomorrow, throw in error checking from twoplayer shits
-					System.out.println("stuff here " + i + ", " + j);
-					 
-					}else {
+				}
+			}
+			else {
+				/**Throws error message if placement is invalid*/
+				JOptionPane.showMessageDialog(frame, "Player 1, invalid ship placement, try again.", 
+						null, JOptionPane.ERROR_MESSAGE, null);
+			}
+
+		}
+
+		/*Checks grid for which button is pressed*/
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				if(e.getSource() == hitGrid[i][j]) {
+					if(shipsToBePlaced == 0) {
+						int hitResult = bsl.placeHit(i, j, 1);
+						
+						if(2 == hitResult) {
+							/**Error message for invalid coordinates*/
+							JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
+						}
+						else {
+							/**Checks for if the ships is hit or not
+							 * Prompts will inform Player Two if the did or did not hit a ship*/
+							if(0 == hitResult) {
+								hitGrid[i][j].setBackground(Color.RED);	
+								JOptionPane.showMessageDialog(frame, "Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
+							}
+							if(1 == hitResult) {
+								hitGrid[i][j].setBackground(Color.GREEN);
+								bLives = bsl.getLives(2);
+								botLives.setText("Computer's Lives Left: " + bLives);
+								
+								//Prompt message that they hit a ship.
+								JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
+							}
+							
+
+							/**Checks lives to see if the game is over, otherwise the game continues
+							 * If the game is over there will be a prompt that pops up to tell which player won*/
+							if(bsl.isGameOver() == true) {
+								if(bsl.getLives(1) == 0) {
+									JOptionPane.showMessageDialog(frame, "Computer Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+									System.out.println("Computer Won");
+									this.frame.dispose();
+
+									new BShipGOScreen();
+								}else {
+									JOptionPane.showMessageDialog(frame, "Player Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+									System.out.println("Player One Won");
+									new BShipGOScreen();
+									frame.dispose();
+
+								}	
+
+							}
+						}
+						
+						try        
+						{
+							Thread.sleep(500);
+						} 
+						catch(InterruptedException ex) 
+						{
+							Thread.currentThread().interrupt();
+						}
+
+						bsl.computerPlaceHit();
+						// tomorrow, throw in error checking from two player shits
+						/**Calls placeHit function */
+						int botHitResult = bsl.computerPlaceHit();
+
+						lives = bsl.getLives(1);
+						Player1Lives.setText("Player Lives Left: " + lives);
+						
+						/**Calls placeHit function */
+						//hitResult = bsl.placeHit(i, j, 2);
+
+
+						//placeGrid[i][j].setBackground(Color.RED);
+
+						if(2 == botHitResult) {
+							/**Error message for invalid coordinates*/
+							JOptionPane.showMessageDialog(frame, "Computer Place invalid Coordinate",
+									null, JOptionPane.ERROR_MESSAGE, null);
+						}else {
+							/**Checks for if the ships is hit or not
+							 * Prompts will inform Player Two if the did or did not hit a ship*/
+							if(0 == botHitResult) {
+								//placeGrid[i][j].setBackground(Color.BLUE);
+
+								JOptionPane.showMessageDialog(frame, " The Computer missed!!", 
+										null, JOptionPane.PLAIN_MESSAGE, null);
+							}
+							if(1 == hitResult) {
+								//placeGrid[i][j].setBackground(Color.RED);
+
+								JOptionPane.showMessageDialog(frame, "The Computer hit a ship!!!!", 
+										null, JOptionPane.PLAIN_MESSAGE, null);
+							}
+
+
+
+
+						}
+						
+						/**Checks lives to see if the game is over, otherwise the game continues
+						 * If the game is over there will be a prompt that pops up to tell which player won*/
+						if(bsl.isGameOver() == true) {
+							if(bsl.getLives(1) == 0) {
+								JOptionPane.showMessageDialog(frame, "Computer Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+								System.out.println("Computer Won");
+								this.frame.dispose();
+
+								new BShipGOScreen();
+							}else {
+								JOptionPane.showMessageDialog(frame, "Player Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+								System.out.println("Player One Won");
+								new BShipGOScreen();
+								frame.dispose();
+
+							}	
+
+						}
+
+					}else{
 						JOptionPane.showMessageDialog(frame, "Place your ships silly", 
 								null, JOptionPane.ERROR_MESSAGE, null);
 						break;
 					}
+
 				}
-				
+
 			}
-			
 		}
-	
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
