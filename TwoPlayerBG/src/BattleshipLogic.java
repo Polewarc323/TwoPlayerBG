@@ -47,20 +47,20 @@ public class BattleshipLogic {
 
 	/**Largest ship piece (Cruiser at length 5). */
 	private static final int MAX_SHIP_SIZE = 5;
-	
+
 	/**Helps computer keep track of coordinate of a ship hit.*/
-	ArrayList<int[]> compHitList;
-	
-	/**Represents the player number of the computer, 
+	private ArrayList<int[]> compHitList;
+
+	/**Represents the player number of the computer,
 	 * if option is to play against computer.*/
 	private static final int COMPUTER = 2;
-	
+
 	/**Keeps track of the row the computer placed their hits.*/
 	private int compRecentRow;
-	
+
 	/**Keeps track of the col the computer placed their hits.*/
 	private int compRecentCol;
-	
+
 	/**Keeps track of the result of the recent computer hit.*/
 	private int compRecentResult;
 
@@ -75,7 +75,7 @@ public class BattleshipLogic {
 	p1Lives = LIVES;
 	p2Lives = LIVES;
 	compHitList = new ArrayList<int[]>();
-	
+
 
 	//Fills board with 0 to help with ship placement.
 	for (int i = 0; i < ROWS; i++) {
@@ -554,36 +554,36 @@ public class BattleshipLogic {
 		String frontCoord;
 		String backCoord;
 		char charPos;
-		int numPos; 
+		int numPos;
 		int direction;
 		int count = 0;
 		int diff = shipSize - 1;
-		
+
 		do{
 			//Get letter
 			charPos = (char)(random.nextInt(10) + 65);
 			numPos = random.nextInt(10);
 			direction = random.nextInt(4);
-			frontCoord = charPos +"" + numPos; 
+			frontCoord = charPos + "" + numPos; 
 			if (0 == direction){
 				backCoord = ((char)(charPos - diff) + "" + numPos);
 			}
-			else if (1 == direction){
+			else if (1 == direction) {
 				backCoord = charPos + "" + (numPos + diff); 
 			}
-			else if (2 == direction){
-				backCoord = (char)(charPos + diff)+ "" + numPos;
+			else if (2 == direction) {
+				backCoord = (char) (charPos + diff) + "" + numPos;
 			}
 			else {
 				backCoord = charPos + "" + (numPos - diff);
 			}
-		
-			} while(!placeShip(COMPUTER, frontCoord, backCoord,  shipSize));
-	
+
+			} while (!placeShip(COMPUTER, frontCoord, backCoord,  shipSize));
+
 	}
-	
+
 	/********************************************************
-	 * 
+	 *
 	 * A method that places all the ships in the Battleship
 	 * game.
 	 ********************************************************/
@@ -594,12 +594,12 @@ public class BattleshipLogic {
 		computerPlaceShip(3);
 		computerPlaceShip(2);
 	}
-	
+
 	/*******************************************************
 	 * Places the ship onto the board (array) for the player.
 	 * This is an alternative to inputting the coordinates by
 	 * click on the grid itself.
-	 * 
+	 *
 	 * Return value helps GUI determine to prompt user to try again.
 	 * due to an invalid input.
 	 * There should be:
@@ -632,22 +632,22 @@ public class BattleshipLogic {
 		char backLetter;
 		int backNum = backColIndex + 1;
 		int frontNum = frontColIndex + 1;
-		
+
 		frontLetter = (char)(65 + frontRowIndex);
 		backLetter = (char)(65 + backRowIndex);
-		
+
 		frontCoord = frontLetter + "" + frontNum;
 		backCoord = backLetter + "" + backNum;
-		
+
 		return placeShip(player, frontCoord, backCoord, ship);
 	}
-	
-	
+
+
 	/*********************************************************
-	 * 
+	 *
 	 *Method to call for the computer to place a hit.
 	 *
-	 * @return 0 if the computer missed, 
+	 * @return 0 if the computer missed,
 	 * 1 if the computer hit a ship,
 	 * 2 if the computer made an error placing a hit.
 	 *******************************************************/
@@ -658,12 +658,12 @@ public class BattleshipLogic {
 		int[] previousHit;
 		int[] baseHit;
 		int result;
-		
+
 		boolean upOk;
 		boolean downOk;
 		boolean leftOk;
 		boolean rightOk;
-		
+
 		//Condition when computer has no idea where to hit
 		if (compHitList.size() == 0) {
 			return randomComputerHit();
@@ -673,44 +673,44 @@ public class BattleshipLogic {
 			baseHit = compHitList.get(0);
 			row = baseHit[0];
 			col = baseHit[1];
-			
+
 			upOk = upOk(row, col);
 			downOk = downOk(row, col);
 			leftOk = leftOk(row, col);
 			rightOk = rightOk(row, col);
-			
+
 			int decider;
 			int chosen = 0;
-			
+
 			do {
 				chosen = 0;
 				decider = random.nextInt(4);
-				
-				if(!upOk && !downOk && !leftOk && !rightOk) {
+
+				if (!upOk && !downOk && !leftOk && !rightOk) {
 					chosen = -1;
 				}
-					
+
 				else if (0 == decider && upOk) {
 					row--;
 					chosen = 1;
 				}
-				
+
 				else if (1 == decider && downOk) {
 					row++;
 					chosen = 1;
 				}
-					
+
 				else if (2 == decider && rightOk) {
 					col++;
 					chosen = 1;
 				}
-					
+
 				else if (3 == decider && leftOk){
 					col--;
 					chosen = 1;
 				}
 			} while(0 == chosen);
-			
+
 			if (-1 == chosen) {
 				compHitList.clear();
 				return randomComputerHit();
@@ -723,29 +723,30 @@ public class BattleshipLogic {
 				if(1 == result) {
 					int[] recentHit = {row, col};
 					this.compHitList.add(recentHit);
-					
+
 				}
 				return result;
-			}	
-			
+			}
+
 		}
-		//FIXME: If bugs occur.
+
 		else if (compHitList.size() == 2) {
 			baseHit = compHitList.get(0);
 			previousHit = compHitList.get(1);
-			
+
 			//Consecutive hit to the right column 
-			if (previousHit[0] == baseHit[0] && previousHit[1] > baseHit[1]) {
+			if (previousHit[0] == baseHit[0] 
+					&& previousHit[1] > baseHit[1]) {
 				//Check if the right is okay to hit.
 				if (rightOk(previousHit[0], previousHit[1])) {
 					//If hit result is 1, save the new col coordinate for next attack.
-					
+
 					result = placeHit(previousHit[0], previousHit[1] + 1, COMPUTER);
-					
+
 					this.compRecentRow = previousHit[0];
 					this.compRecentCol = previousHit[1] + 1;
 					this.compRecentResult = result;
-					
+
 					if(1 == result) {
 						previousHit[1]++;
 					}
@@ -753,20 +754,20 @@ public class BattleshipLogic {
 					else {
 						compHitList.remove(1);
 					}
-					
+
 					return result;
 				}
 				//If Right is not okay, remove previousHit, and check left from base.
 				else {
 					compHitList.remove(1);
 					if(leftOk(baseHit[0], baseHit[1])) {
-						//TODO: Work on checking left and place left (if possible) and the rest.
+
 						result = placeHit(baseHit[0], baseHit[1] - 1, COMPUTER);
-						
+
 						this.compRecentRow = baseHit[0];
 						this.compRecentCol = baseHit[1] - 1;
 						this.compRecentResult = result;
-						
+
 						if(1 == result) {
 							int[] next = {baseHit[0], baseHit[1] - 1};
 							compHitList.add(next);
@@ -776,26 +777,25 @@ public class BattleshipLogic {
 							compHitList.clear();
 						}
 						return result;
-					
+
 					}
 					//Clear list to randomly hit.
 					compHitList.clear();
 					return randomComputerHit();
 				}
 			}
-			
-			
+
 			//Consecutive hit to the left column.
 			else if (previousHit[0] == baseHit[0] && previousHit[1] < baseHit[1]) {
 				//Check if the left is okay to hit.
 				if (leftOk(previousHit[0], previousHit[1])) {
 					//If hit result is 1, save the new col coordinate for next attack.
 					result = placeHit(previousHit[0], previousHit[1] - 1, COMPUTER);
-					
+
 					this.compRecentRow = previousHit[0];
 					this.compRecentCol = previousHit[1] - 1;
 					this.compRecentResult = result;
-					
+
 					if(1 == result) {
 						previousHit[1]--;
 					}
@@ -803,19 +803,19 @@ public class BattleshipLogic {
 					else {
 						compHitList.remove(1);
 					}
-					
+
 					return result;
 				}
 				//If left is not okay, remove previousHit, and check right from base.
 				else {
 					compHitList.remove(1);
 					if(rightOk(baseHit[0], baseHit[1])) {
-						
+
 						result = placeHit(baseHit[0], baseHit[1] + 1, COMPUTER);
 						this.compRecentRow = baseHit[0];
 						this.compRecentCol = baseHit[1] + 1;
 						this.compRecentResult = result;
-						
+
 						if(1 == result) {
 							int[] next = {baseHit[0], baseHit[1] + 1};
 							compHitList.add(next);
@@ -825,13 +825,13 @@ public class BattleshipLogic {
 							compHitList.clear();
 						}
 						return result;
-					
+
 					}
 					//Clear list to randomly hit.
 					compHitList.clear();
 					return randomComputerHit();
 				}
-				
+
 			}
 			
 			else if (previousHit[0] > baseHit[0] && previousHit[1] == baseHit[1]) {
@@ -842,7 +842,7 @@ public class BattleshipLogic {
 					this.compRecentRow = previousHit[0] + 1;
 					this.compRecentCol = previousHit[1];
 					this.compRecentResult = result;
-					
+
 					if(1 == result) {
 						previousHit[0]++;
 					}
@@ -850,7 +850,7 @@ public class BattleshipLogic {
 					else {
 						compHitList.remove(1);
 					}
-					
+
 					return result;
 				}
 				
@@ -859,11 +859,11 @@ public class BattleshipLogic {
 					compHitList.remove(1);
 					if(upOk(baseHit[0], baseHit[1])) {
 						result = placeHit(baseHit[0] - 1, baseHit[1], COMPUTER);
-						
+
 						this.compRecentRow = baseHit[0] - 1;
 						this.compRecentCol = baseHit[1];
 						this.compRecentResult = result;
-						
+
 						if(1 == result) {
 							int[] next = {baseHit[0] - 1, baseHit[1]};
 							compHitList.add(next);
@@ -873,15 +873,15 @@ public class BattleshipLogic {
 							compHitList.clear();
 						}
 						return result;
-					
+
 					}
 					//Clear list to randomly hit.
 					compHitList.clear();
 					return randomComputerHit();
 				}
-				
+
 			}
-			
+
 			else if (previousHit[0] < baseHit[0] && previousHit[1] == baseHit[1]) {
 				//Check if row above is okay to hit.
 				if (upOk(previousHit[0], previousHit[1])) {
@@ -890,7 +890,7 @@ public class BattleshipLogic {
 					this.compRecentRow = previousHit[0] - 1;
 					this.compRecentCol = previousHit[1];
 					this.compRecentResult = result;
-					
+
 					if(1 == result) {
 						previousHit[0]--;
 					}
@@ -900,7 +900,7 @@ public class BattleshipLogic {
 					}
 					return result;
 				}
-				
+
 				//If up is not okay, remove previousHit, and check below base hit.
 				else {
 					compHitList.remove(1);
@@ -918,27 +918,27 @@ public class BattleshipLogic {
 							compHitList.clear();
 						}
 						return result;
-					
+
 					}
 					//Clear list to randomly hit.
 					compHitList.clear();
 					return randomComputerHit();
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		System.out.println("An issue with the computer player has occured.");
 		compHitList.clear();
 		return randomComputerHit();
-		
+
 	}
 	
 	/****************************************************
-	 * 
+	 *
 	 * Helper method for the computer to place a hit.
-	 * 
+	 *
 	 * @return 0 if a miss, 1 if a hit, 2 if an error.
 	 ****************************************************/
 	private int randomComputerHit() {
@@ -946,13 +946,13 @@ public class BattleshipLogic {
 		int row;
 		int col;
 		int result;
-		
+
 		do {
 			row = random.nextInt(10);
 			col = random.nextInt(10);
 			result = placeHit(row, col, COMPUTER);
 		}while(2 == result);
-		
+
 		if(1 == result) {
 			int[] toHitList = {row, col};
 			compHitList.add(toHitList);
@@ -960,15 +960,15 @@ public class BattleshipLogic {
 		this.compRecentCol = col;
 		this.compRecentRow = row;
 		this.compRecentResult = result;
-		
+
 		return result;
-		
+
 	}
-	
+
 	/*****************************************************
-	 * 
+	 *
 	 * Method to help computer place hit by checking row above.
-	 * 
+	 *
 	 * @param rowIndex the row index of the board.
 	 * @param colIndex the column index of the board.
 	 * @return True if the row above is allowed for the computer
@@ -983,11 +983,11 @@ public class BattleshipLogic {
 		}
 		return true;
 	}
-	
-	/*****************************************************
-	 * 
+
+	/****************************************************
+	 *
 	 * Method to help computer place hit by checking row below.
-	 * 
+	 *
 	 * @param rowIndex the row index of the board.
 	 * @param colIndex the column index of the board.
 	 * @return True if the row below is allowed for the computer
@@ -1002,11 +1002,11 @@ public class BattleshipLogic {
 		}
 		return true;
 	}
-	
+
 	/*****************************************************
-	 * 
+	 *
 	 * Method to help computer place hit by checking right column.
-	 * 
+	 *
 	 * @param rowIndex the row index of the board.
 	 * @param colIndex the column index of the board.
 	 * @return True if right column is allowed for the computer
@@ -1021,11 +1021,11 @@ public class BattleshipLogic {
 		}
 		return true;
 	}
-	
+
 	/*****************************************************
-	 * 
+	 *
 	 * Method to help computer place hit by checking left column.
-	 * 
+	 *
 	 * @param rowIndex the row index of the board.
 	 * @param colIndex the column index of the board.
 	 * @return True if left column is allowed for the computer
@@ -1040,21 +1040,25 @@ public class BattleshipLogic {
 		}
 		return true;
 	}
-	
+
 	/*******************************************************
-	 * 
+	 *
 	 * Method to get information of computer hit for testing
-	 * purposes.
+	 * purposes and to return row and col index that the
+	 * computer hit.
+	 *
+	 * @return an int array containing the row and column
+	 * the computer hit respectively.
 	 ******************************************************/
-	public void getComputerHit(){
+	public int[] getComputerHit(){
 		String result;
 		String coordinate;
-		
+
 		char letter = (char)(65 + this.compRecentRow);
 		int num = this.compRecentCol + 1;
-		
+
 		coordinate = letter + "" + num;
-		
+
 		if (0 == this.compRecentResult) {
 			result = "MISS";
 		}
@@ -1064,38 +1068,43 @@ public class BattleshipLogic {
 		else {
 			result = "ERROR";
 		}
-		
+
 		System.out.println("Placed hit at: " + coordinate +
 				" resulting in: " + result);
+
+		int[] data = {compRecentRow, compRecentCol};
 		
+		return data;
+
 	}
 	
+
 	/*****************************************************
-	 * 
+	 *
 	 * Prints the board of the specified player.
 	 * @param player the board of the player being printed.
 	 * 1 for player 1, else player 2
 	 *****************************************************/
 	public void printBoard(final int player) {
 		int[][] board = this.p2ShipP1Hit;
-		
+
 		if(1 == player) {
 			board = this.p1ShipP2Hit;
 		}
-		
+
 		for(int i = 0; i < ROWS; i++) {
 			for(int j = 0; j < COLS; j++) {
 				System.out.print(board[i][j]+ " ");
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println();
-		
+
 	}
-	
+
 	/*****************************************************
-	 * 
+	 *
 	 * Used for testing purposes to test computer hit
 	 * algorithm by randomly generating board for player 1.
 	 ****************************************************/
@@ -1107,7 +1116,7 @@ public class BattleshipLogic {
 			}
 		}
 		p2ShipP1Hit = new int[ROWS][COLS];
-		
+
 	}
 
 
