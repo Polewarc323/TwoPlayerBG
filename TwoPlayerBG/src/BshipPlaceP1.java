@@ -339,207 +339,97 @@ public class BshipPlaceP1 implements ActionListener{
 		for(int i = 0; i < 10; i++) {
 			for(int j = 0; j < 10; j++) {
 				if(e.getSource() == grid[i][j]) {
-					
+
 					int hitResult = bsl.placeHit(i, j, 2);
 					System.out.println(hitResult);
 					/**Updates lives then sets text box for player one lives*/
 					lives = BshipPlaceP1.bsl.getLives(1);
 					Player1Lives.setText("Player One Lives Left: " + lives);
-					
+
 					/**Calls placeHit function */
 					//hitResult = bsl.placeHit(i, j, 2);
-				
+
 					//grid[i][j].setBackground(Color.RED);
-
 					if(2 == hitResult) {
-						/**Error message for invalid coordinates*/
-						
-						JOptionPane.showMessageDialog(frame, "Player 2, invalid coordinate, try again.",
-								null, JOptionPane.ERROR_MESSAGE, null);
-						
-						break;
-					}else {
-						/**Checks for if the ships is hit or not
-						 * Prompts will inform Player Two if the did or did not hit a ship*/
-						if(0 == hitResult) {
-							grid[i][j].setBackground(Color.RED);
-							
-							JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
-									null, JOptionPane.PLAIN_MESSAGE, null);
-							/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
-							frame.setVisible(false);
-							BshipPlaceP2.strtBtn.setVisible(false);
-							BshipPlaceP2.placeBtn.setVisible(false);
-							BshipPlaceP2.frontCo.setVisible(false);
-							BshipPlaceP2.rearCo.setVisible(false);
-							BshipPlaceP2.p2Place.setVisible(false);
-							BshipPlaceP2.front.setVisible(false);
-							BshipPlaceP2.rear.setVisible(false);
-							BshipPlaceP2.directions.setVisible(false);
-							BshipPlaceP2.shipSel.setVisible(false);
 
-
-							/**Checks lives to see if the game is over, otherwise the game continues
-							 * If the game is over there will be a prompt that pops up to tell which player won*/
-							if(bsl.isGameOver() == true) {
-								if(bsl.getLives(1) == 0) {
-									JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-									System.out.println("Player Two Won");
-									this.frame.dispose();
-									BshipPlaceP2.frame.dispose();
-									new BShipGOScreen();
-									break;
-								}else {
-									JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-									System.out.println("Player One Won");
-									new BShipGOScreen();
-									frame.dispose();
-									break;
-
-								}
-								
-							}else {
-								/**If the game continues then visibility for firing phase items
-								 * will be true, other needed frame items for firing phase will be
-								 * be added as well*/
-								BshipPlaceP2.Player1Fire.setVisible(true);
-								
-								BshipPlaceP2.Player2Lives.setVisible(true);
-								
-								BshipPlaceP2.Player2Lives.setBackground(Color.BLACK);
-								BshipPlaceP2.Player1Fire.setBackground(Color.BLACK);
-							
-							
-								
-								
-								
-								BshipPlaceP2.frame.setVisible(true);
-								
-								BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
-								
-							} 	
-							
-					break;
-						}
-						if(1 == hitResult) {
-							grid[i][j].setBackground(Color.GREEN);
-						
-							JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
-									null, JOptionPane.PLAIN_MESSAGE, null);
-									/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
-									frame.setVisible(false);
-									BshipPlaceP2.strtBtn.setVisible(false);
-									BshipPlaceP2.placeBtn.setVisible(false);
-									BshipPlaceP2.frontCo.setVisible(false);
-									BshipPlaceP2.rearCo.setVisible(false);
-									BshipPlaceP2.p2Place.setVisible(false);
-									BshipPlaceP2.front.setVisible(false);
-									BshipPlaceP2.rear.setVisible(false);
-									BshipPlaceP2.directions.setVisible(false);
-									BshipPlaceP2.shipSel.setVisible(false);
-
-
-									/**Checks lives to see if the game is over, otherwise the game continues
-									 * If the game is over there will be a prompt that pops up to tell which player won*/
-									if(bsl.isGameOver() == true) {
-										if(bsl.getLives(1) == 0) {
-											JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-											System.out.println("Player Two Won");
-											this.frame.dispose();
-											BshipPlaceP2.frame.dispose();
-											new BShipGOScreen();
-											break;
-										}else {
-											JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-											System.out.println("Player One Won");
-											new BShipGOScreen();
-											frame.dispose();
-											break;
-
-										}
-										
-									}else {
-										/**If the game continues then visibility for firing phase items
-										 * will be true, other needed frame items for firing phase will be
-										 * be added as well*/
-										BshipPlaceP2.Player1Fire.setVisible(true);
-										
-										BshipPlaceP2.Player2Lives.setVisible(true);
-										
-										BshipPlaceP2.Player2Lives.setBackground(Color.BLACK);
-										BshipPlaceP2.Player1Fire.setBackground(Color.BLACK);
-									
-									
-										
-										
-										
-										BshipPlaceP2.frame.setVisible(true);
-										
-										BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
-										
-									} 	
-									
-							break;
-						}
-
-						/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
-						frame.setVisible(false);
-						BshipPlaceP2.strtBtn.setVisible(false);
-						BshipPlaceP2.placeBtn.setVisible(false);
-						BshipPlaceP2.frontCo.setVisible(false);
-						BshipPlaceP2.rearCo.setVisible(false);
-						BshipPlaceP2.p2Place.setVisible(false);
-						BshipPlaceP2.front.setVisible(false);
-						BshipPlaceP2.rear.setVisible(false);
-						BshipPlaceP2.directions.setVisible(false);
-						BshipPlaceP2.shipSel.setVisible(false);
-
-
-						/**Checks lives to see if the game is over, otherwise the game continues
-						 * If the game is over there will be a prompt that pops up to tell which player won*/
-						if(bsl.isGameOver() == true) {
-							if(bsl.getLives(1) == 0) {
-								JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-								System.out.println("Player Two Won");
-								this.frame.dispose();
-								BshipPlaceP2.frame.dispose();
-								new BShipGOScreen();
-								break;
-							}else {
-								JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-								System.out.println("Player One Won");
-								new BShipGOScreen();
-								frame.dispose();
-								break;
-
-							}
-							
-						}else {
-							/**If the game continues then visibility for firing phase items
-							 * will be true, other needed frame items for firing phase will be
-							 * be added as well*/
-							BshipPlaceP2.Player1Fire.setVisible(true);
-							
-							BshipPlaceP2.Player2Lives.setVisible(true);
-							
-							BshipPlaceP2.Player2Lives.setBackground(Color.BLACK);
-							BshipPlaceP2.Player1Fire.setBackground(Color.BLACK);
-						
-						
-							
-							
-							
-							BshipPlaceP2.frame.setVisible(true);
-							
-							BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
-							
-						}
 					}
-					break;
+
+					/**Checks for if the ships is hit or not
+					 * Prompts will inform Player Two if the did or did not hit a ship*/
+					if(0 == hitResult) {
+						grid[i][j].setBackground(Color.RED);
+
+						JOptionPane.showMessageDialog(frame, " Player 2, you did not hit a ship.", 
+								null, JOptionPane.PLAIN_MESSAGE, null);
+
+					}
+					if(1 == hitResult) {
+						grid[i][j].setBackground(Color.GREEN);
+
+						JOptionPane.showMessageDialog(frame, "Player 2, you hit a ship!", 
+								null, JOptionPane.PLAIN_MESSAGE, null);
+
+
+
+					}
+
+					/**sets Placement Phase items for the BshipPlaceP2 frame to be non visible */
+					frame.setVisible(false);
+					BshipPlaceP2.strtBtn.setVisible(false);
+					BshipPlaceP2.placeBtn.setVisible(false);
+					BshipPlaceP2.frontCo.setVisible(false);
+					BshipPlaceP2.rearCo.setVisible(false);
+					BshipPlaceP2.p2Place.setVisible(false);
+					BshipPlaceP2.front.setVisible(false);
+					BshipPlaceP2.rear.setVisible(false);
+					BshipPlaceP2.directions.setVisible(false);
+					BshipPlaceP2.shipSel.setVisible(false);
+
+
+					/**Checks lives to see if the game is over, otherwise the game continues
+					 * If the game is over there will be a prompt that pops up to tell which player won*/
+					if(bsl.isGameOver() == true) {
+						if(bsl.getLives(1) == 0) {
+							JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+							System.out.println("Player Two Won");
+							this.frame.dispose();
+							BshipPlaceP2.frame.dispose();
+							new BShipGOScreen();
+							break;
+						}else {
+							JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+							System.out.println("Player One Won");
+							new BShipGOScreen();
+							frame.dispose();
+							break;
+
+						}
+
+					}else {
+						/**If the game continues then visibility for firing phase items
+						 * will be true, other needed frame items for firing phase will be
+						 * be added as well*/
+						BshipPlaceP2.Player1Fire.setVisible(true);
+
+						BshipPlaceP2.Player2Lives.setVisible(true);
+
+						BshipPlaceP2.Player2Lives.setBackground(Color.BLACK);
+						BshipPlaceP2.Player1Fire.setBackground(Color.BLACK);
+
+
+
+
+
+						BshipPlaceP2.frame.setVisible(true);
+
+						BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+
+					}
 				}
-				break;
+
 			}
 		}
-			
 	}
+
 }
+

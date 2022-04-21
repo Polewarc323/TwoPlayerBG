@@ -433,7 +433,7 @@ public class BshipPlaceP2 implements ActionListener{
 
 					if(2 == hitResult) {
 						/**Error message for invalid coordinates*/
-						JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
+						//JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 					}
 					else {
 						/**Checks for if the ships is hit or not
