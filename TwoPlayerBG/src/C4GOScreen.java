@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,6 +39,14 @@ public class C4GOScreen implements ActionListener {
 		label.setBounds(75, 160, 100, 50);
 		newC4.setBounds(50, 210, 300, 50);
 		backToHub.setBounds(50, 260, 300, 50);
+		frame.getContentPane().setBackground(Color.GREEN);
+		label.setForeground(Color.WHITE);
+		newC4.setForeground(Color.WHITE);
+		backToHub.setForeground(Color.WHITE);
+		
+		label.setBackground(Color.ORANGE);
+		newC4.setBackground(Color.ORANGE);
+		backToHub.setBackground(Color.ORANGE);
 		
 		/**Set properties of frame*/
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

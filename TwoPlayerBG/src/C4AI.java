@@ -32,8 +32,8 @@ public class C4AI implements ActionListener {
 	/*Creates a 6x7 2d array of buttons*/
 	JButton[][] grid = new JButton[6][7];
 	
-	/*Creates a Connect4Logic object to call methods from*/
-	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 6, 7);
+	/*Creates a GamePlay object to call methods from*/
+	GamePlay alg = new GamePlay();
 	
 	C4AI(){
 		
@@ -59,6 +59,9 @@ public class C4AI implements ActionListener {
 		
 		
 		
+		
+		
+		
 	}
 
 	@Override
@@ -69,46 +72,21 @@ public class C4AI implements ActionListener {
 			for(int j = 0; j < 7; j++) {
 				if(e.getSource() == grid[i][j]) {
 					
-					/*Adds piece*/
-					ConnectFour.board.addPiece(j, curPlayer);
+					alg.theBoard.makeMove(j, State.X);
+					grid[i][j].setBackground(Color.RED);
 					
-					/*Checks which color to make button after click*/
-					if(curPlayer == "Red") {
-		
-						grid[i][j].setBackground(Color.RED);
-						grid[i][j].setBorder(null);
-					}else{
+					GamePlay computerMove = alg.computerPlayer.getNextMove(alg.theBoard);
+					alg.theBoard.makeMove(computerMove.col, State.O);
+					grid[i][computerMove.col].setBackground(Color.BLUE);
 						
-						grid[i][j].setBackground(Color.YELLOW);
-						grid[i][j].setBorder(null);
 					}
 					
-					/*Checks for winner*/
-					if(ConnectFour.checkForWinner(j, curPlayer) == true) {
-						
-						/*Shows which player won*/
-						JOptionPane.showMessageDialog(frame, curPlayer + " wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-						System.out.println(curPlayer + " Wins!!");
-						ConnectFour.reset(6,7);
-						frame.dispose();
-						new C4GOScreen();
-					}else {
-						
-						/*Turn counter increments to determine what the current player is
-						 * and updates accordingly*/
-						turn++;
-						if((turn % 2) == 1) {
-							curPlayer = yellow;
-						}else {
-							curPlayer = red; //this is unnecessary
-						}
-						CurrentPlayer.setText(curPlayer + "'s turn");
-
-					}
+					
+					
 				}
 			}
 		}
 		
 	}
-}
+
 
