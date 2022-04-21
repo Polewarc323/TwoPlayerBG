@@ -39,14 +39,14 @@ public class BShipGOScreen implements ActionListener{
 		label.setBounds(75,160,100,50);
 		bShipEnd.setBounds(50, 210, 300, 50);
 		backToHub.setBounds(50, 260, 300, 50);
-		frame.getContentPane().setBackground(Color.GREEN);
-		label.setForeground(Color.WHITE);
-		bShipEnd.setForeground(Color.WHITE);
-		backToHub.setForeground(Color.WHITE);
+		frame.getContentPane().setBackground(Color.BLACK);
+		label.setForeground(Color.GREEN);
+		bShipEnd.setForeground(Color.GREEN);
+		backToHub.setForeground(Color.GREEN);
 		
-		label.setBackground(Color.ORANGE);
-		bShipEnd.setBackground(Color.ORANGE);
-		backToHub.setBackground(Color.ORANGE);
+		label.setBackground(Color.BLACK);
+		bShipEnd.setBackground(Color.BLACK);
+		backToHub.setBackground(Color.BLACK);
 		
 		
 		/**Set properties of frame*/

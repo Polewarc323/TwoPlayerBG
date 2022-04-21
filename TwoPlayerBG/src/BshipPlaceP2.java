@@ -65,12 +65,6 @@ public class BshipPlaceP2 implements ActionListener{
 	/**Instantiates rearCo text field*/
 	static JTextField rearCo = new JTextField (1);
 
-	/**Instantiates fireCo text field that will be shown
-	 * during firing phase of the game*/
-	static JTextField fireCoP2 = new JTextField (1);
-
-	/**Instantiates fireBrn for the firing phase of the game*/
-	static JButton fireBtnP2 = new JButton ("Fire");
 
 	/**Creates an array of labels for the side of the grid
 	 * to show the user the coordinates of each button on the grid*/
@@ -135,7 +129,7 @@ public class BshipPlaceP2 implements ActionListener{
 		strtBtn.addActionListener(this);
 		placeBtn.addActionListener(this);
 		shipSel.addActionListener(this);
-		fireBtnP2.addActionListener(this);
+		
 
 
 
@@ -155,20 +149,18 @@ public class BshipPlaceP2 implements ActionListener{
 		/**Phase two items or 
 		 * firing phase items, hidden*/
 		Player1Fire.setVisible(false);
-		fireCoP2.setVisible(false);
-		fireBtnP2.setVisible(false);
+	
 		Player2Lives.setVisible(false);
 
 		/**Setting properties of firing phase*/
 		Player1Fire.setBounds(370,35,300,45);
-		fireCoP2.setBounds(100, 250, 100, 50);
-		fireBtnP2.setBounds(100, 330, 100, 50);
+	
 		Player2Lives.setBounds (100, 200, 250, 50);
 
 		/**Adding row labels to display on frame*/
 		for(int i = 0; i < rowLbl.length; i++) {
 			rowLabels[i] = new JLabel(rowLbl[i]);
-			rowLabels[i].setBounds(575 , 200 + (25*i), 25, 25);
+			rowLabels[i].setBounds(560 , 200 + (40*i), 40, 40);
 			frame.add(rowLabels[i]);
 			rowLabels[i].setForeground(Color.GREEN);
 		}
@@ -177,7 +169,7 @@ public class BshipPlaceP2 implements ActionListener{
 		/**Adding column labels to display on frame*/
 		for(int i = 0; i < colLbl.length; i++) {	
 			colLabels[i] = new JLabel(colLbl[i]);
-			colLabels[i].setBounds(600 + (25*i), 175, 25, 25);
+			colLabels[i].setBounds(600 + (40*i), 160, 40, 40);
 			frame.add(colLabels[i]);
 			colLabels[i].setForeground(Color.GREEN);
 		}
@@ -187,7 +179,7 @@ public class BshipPlaceP2 implements ActionListener{
 			for(int col = 0; col < 10; col++){
 
 				grid[row][col] = new JButton("");
-				grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+				grid[row][col].setBounds(600 + (40*col),200 + (40*row),40,40);
 				grid[row][col].addActionListener(this);
 				frame.add(grid[row][col]);
 				grid[row][col].setBorder(BorderFactory.createLineBorder(Color.GREEN,1));
@@ -279,8 +271,7 @@ public class BshipPlaceP2 implements ActionListener{
 				frame.add(Player2Lives);
 
 				Player1Fire.setVisible(true);
-				fireCoP2.setVisible(true);
-				fireBtnP2.setVisible(true);
+		
 				Player2Lives.setVisible(true);
 
 				BshipPlaceP1.Player2Fire.setVisible(true);
@@ -346,7 +337,7 @@ public class BshipPlaceP2 implements ActionListener{
 							grid[row][col].setBackground(Color.BLUE);
 						}
 
-						grid[row][col].setBounds(600 + (25*row),200 + (25*col),25,25);
+						grid[row][col].setBounds(600 + (40*row),200 + (40*col),40,40);
 						grid[row][col].addActionListener(this);
 						frame.add(grid[row][col]);	
 					}
@@ -482,13 +473,11 @@ public class BshipPlaceP2 implements ActionListener{
 						}else {
 
 							Player1Fire.setVisible(true);
-							fireCoP2.setVisible(true);
-							fireBtnP2.setVisible(true);
+							
 							Player2Lives.setVisible(true);
 
 							BshipPlaceP1.frame.setVisible(true);
-							BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
-							BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
+							
 							BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
 						}
 					}

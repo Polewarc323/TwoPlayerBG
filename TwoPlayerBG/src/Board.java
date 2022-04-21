@@ -1,4 +1,4 @@
-
+import java.util.Random;
 
 /****************************************************************************
 *
@@ -93,6 +93,15 @@ public class Board {
             System.err.println("You are trying to add somewhere that is not supported, fool.");
             return -1;
         }
+    }
+    
+    public int AIadd(String color) {
+    	Random rn = new Random();
+    	int col = rn.nextInt(7);
+    	System.out.println(col);
+    	addPiece(col, color);
+		return col;
+    	
     }
 
 	/***********************************************************************

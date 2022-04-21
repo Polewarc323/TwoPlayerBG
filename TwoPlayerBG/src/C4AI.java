@@ -32,8 +32,8 @@ public class C4AI implements ActionListener {
 	/*Creates a 6x7 2d array of buttons*/
 	JButton[][] grid = new JButton[6][7];
 	
-	/*Creates a GamePlay object to call methods from*/
-	GamePlay alg = new GamePlay();
+	/*Creates a Connect4Logic object to call methods from*/
+	Connect4Logic ConnectFour = new Connect4Logic(red, yellow, 6, 7);
 	
 	C4AI(){
 		
@@ -71,22 +71,45 @@ public class C4AI implements ActionListener {
 		for(int i = 0; i < 6; i++) {
 			for(int j = 0; j < 7; j++) {
 				if(e.getSource() == grid[i][j]) {
-					
-					alg.theBoard.makeMove(j, State.X);
+						int AIt;
+					curPlayer = red;
+					ConnectFour.board.addPiece(j, red);
 					grid[i][j].setBackground(Color.RED);
-					
-					GamePlay computerMove = alg.computerPlayer.getNextMove(alg.theBoard);
-					alg.theBoard.makeMove(computerMove.col, State.O);
-					grid[i][computerMove.col].setBackground(Color.BLUE);
+					grid[i][j].setBorder(null);
+					/*Checks for winner*/
+					if(ConnectFour.checkForWinner(j, curPlayer) == true) {
 						
+						/*Shows which player won*/
+						JOptionPane.showMessageDialog(frame, curPlayer + " wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+						System.out.println(curPlayer + " Wins!!");
+						ConnectFour.reset(6,7);
+						frame.dispose();
+						new C4GOScreen();
 					}
 					
+					curPlayer = yellow;
+					AIt = ConnectFour.board.AIadd(yellow);
+					grid[i][AIt].setBackground(Color.YELLOW);
+					grid[i][AIt].setBorder(null);
 					
+				
 					
+					/*Checks for winner*/
+					if(ConnectFour.checkForWinner(j, curPlayer) == true) {
+						
+						/*Shows which player won*/
+						JOptionPane.showMessageDialog(frame, curPlayer + " wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+						System.out.println(curPlayer + " Wins!!");
+						ConnectFour.reset(6,7);
+						frame.dispose();
+						new C4GOScreen();
+					}
+
 				}
 			}
 		}
-		
 	}
+
+}
 
 
