@@ -19,20 +19,41 @@ public class MinMax {
     int computerLetter;
 
     
-    //Constructor
+	/***********************************************************************
+	*
+	* Constructor
+	*
+	* @param thePlayerLetter allows the player letter to be called
+	* @return returns the game
+	**********************************************************************/
     public MinMax(int thePlayerLetter) {
         maxDepth = 5; //This is important to get a better decision (more depth, more accurate decision, more time)
         computerLetter = thePlayerLetter;
     }
 
-    //Initiates the MinMax algorithm
+	/***********************************************************************
+	*
+	* Initiates the MinMax algorithm
+	*
+	* @param board allows the board to be displayed
+	* @return returns the minmax algorithm 
+	**********************************************************************/
     public GamePlay getNextMove(State board) {
         
         return max(board.boardWithExpansion(board), 0);
     }
 
-    //The max and min methods are called interchangeably, one after another until a max depth is reached
-  
+    
+	/***********************************************************************
+	*
+	* The max and min methods are called interchangeably, one after another 
+	* until a max depth is reached
+	*
+	* @param board allows the board to be displayed
+	* @param depth accounts for the depth the algorithm will reach
+	* @return returns the min part of the algorithm
+	**********************************************************************/
+    
     public GamePlay min(State board, int depth) { 
         Random r = new Random();
         
@@ -70,7 +91,17 @@ public class MinMax {
         }
     }
 
-    //The max and min methods are called interchangeably, one after another until a max depth or game over is reached
+	/***********************************************************************
+	*
+	* The max and min methods are called interchangeably, one after another 
+	* until a max depth is reached
+	*
+	* @param board allows the board to be displayed
+	* @param depth accounts for the depth the algorithm will reach
+	* @return returns the max part of thr algorithm
+	**********************************************************************/
+   
+    
     public GamePlay max(State board, int depth) { 
         Random r = new Random();
        
