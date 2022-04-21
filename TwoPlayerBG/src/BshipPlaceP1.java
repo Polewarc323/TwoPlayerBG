@@ -393,14 +393,16 @@ public class BshipPlaceP1 implements ActionListener{
 								this.frame.dispose();
 								BshipPlaceP2.frame.dispose();
 								new BShipGOScreen();
+								break;
 							}else {
 								JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
 								System.out.println("Player One Won");
 								new BShipGOScreen();
 								frame.dispose();
+								break;
 
 							}
-							break;
+							
 						}else {
 							/**If the game continues then visibility for firing phase items
 							 * will be true, other needed frame items for firing phase will be
@@ -422,7 +424,7 @@ public class BshipPlaceP1 implements ActionListener{
 							BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
 							BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
 							BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
-							break;
+							
 						}
 					}
 				

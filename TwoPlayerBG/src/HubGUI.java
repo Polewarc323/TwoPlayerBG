@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -37,34 +38,38 @@ public class HubGUI implements ActionListener {
 	
 	/**Constructor class for HubGUI*/
 	HubGUI(){
+		/**Set properties of frame itself*/
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(420,420);
+		frame.setLayout(null);
+		frame.setVisible(true);
+		frame.getContentPane().setBackground(Color.BLUE);
 		
 		/**Set properties of bShip button*/
 		bShip.setBounds(100,200,200,25);
 		bShip.setFocusable(false);
 		bShip.addActionListener(this);
+		bShip.setBackground(Color.CYAN);
+		bShip.setForeground(Color.BLUE);
 
 		/**Set properties of c4 button*/
 		c4.setBounds(100,160,200,25);
 		c4.setFocusable(false);
 		c4.addActionListener(this);
-		
+		c4.setBackground(Color.CYAN);
+		c4.setForeground(Color.BLUE);
 		/**Set bounds of labels welcome and info*/
 		welcome.setBounds(100, 80, 300, 50);
+		welcome.setForeground(Color.YELLOW);
 		info.setBounds(100, 100, 300, 50);
-		
+		info.setForeground(Color.YELLOW);
 		/** Adds buttons and labels to the frame*/
 		frame.add(welcome);
 		frame.add(info);
 		frame.add(bShip);
 		frame.add(c4);
 
-		/**Set properties of frame itself*/
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(420,420);
-		frame.setLayout(null);
-		frame.setVisible(true);
-
-
+		
 	}
 
 	@Override

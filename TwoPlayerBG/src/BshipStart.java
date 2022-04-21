@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -41,6 +42,7 @@ public class BshipStart implements ActionListener {
 		bShipStrt.setBounds(50, 210, 300, 50);
 		AIShip.setBounds(50, 260, 300, 50);
 		backToHub.setBounds(50, 310, 300, 50);
+		frame.getContentPane().setBackground(Color.BLUE);
 		
 		/**Add items*/
 		frame.add(label);
@@ -58,6 +60,14 @@ public class BshipStart implements ActionListener {
 		frame.setSize(420,420);
 		frame.setLayout(null);
 		frame.setVisible(true); 
+		
+		label.setForeground(Color.WHITE);
+		AIShip.setBackground(Color.CYAN);
+		backToHub.setBackground(Color.CYAN);
+		bShipStrt.setBackground(Color.CYAN);
+		AIShip.setForeground(Color.BLUE);
+		backToHub.setForeground(Color.BLUE);
+		bShipStrt.setForeground(Color.BLUE);
 		
 	}
 

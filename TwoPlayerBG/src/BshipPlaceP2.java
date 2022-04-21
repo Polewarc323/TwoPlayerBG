@@ -364,66 +364,135 @@ public class BshipPlaceP2 implements ActionListener{
 		 * Calls placeHit function to determine hit
 		 * An error will pop-up if the coordinate is either chosen already
 		 * or if the coordinate is invalid*/
-		if(e.getSource() == fireBtnP2) {
+//		if(e.getSource() == fireBtnP2) {
+//
+//
+//			/**Calls placeHit function */
+//			int hitResult = BshipPlaceP1.bsl.placeHit(fireCoP2.getText(), 1);
+//
+//			/**Updates lives then sets text box for player one lives*/
+//			lives = BshipPlaceP1.bsl.getLives(2);
+//			Player2Lives.setText("Player Two Lives Left: " + lives);
+//
+//			if(2 == hitResult) {
+//				/**Error message for invalid coordinates*/
+//				JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
+//			}
+//			else {
+//				/**Checks for if the ships is hit or not
+//				 * Prompts will inform Player Two if the did or did not hit a ship*/
+//				if(0 == hitResult) {
+//					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.RED);	
+//					JOptionPane.showMessageDialog(frame, "Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
+//				}
+//				if(1 == hitResult) {
+//					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
+//					//Prompt message that they hit a ship.
+//					JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
+//				}
+//				this.frame.setVisible(false);
+//
+//				/**Checks lives to see if the game is over, otherwise the game continues
+//				 * If the game is over there will be a prompt that pops up to tell which player won*/
+//				if(BshipPlaceP1.bsl.isGameOver() == true) {
+//					if(BshipPlaceP1.bsl.getLives(1) == 0) {
+//						JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+//						System.out.println("Player Two Won");
+//						this.frame.dispose();
+//						BshipPlaceP2.frame.dispose();
+//						BshipPlaceP1.frame.removeAll();
+//						BshipPlaceP2.frame.removeAll();
+//						new BShipGOScreen();
+//					}else {
+//						JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+//						System.out.println("Player One Won");
+//						new BShipGOScreen();
+//						frame.dispose();
+//						BshipPlaceP1.frame.removeAll();
+//						BshipPlaceP2.frame.removeAll();
+//
+//					}
+//
+//				}else {
+//
+//					Player1Fire.setVisible(true);
+//					fireCoP2.setVisible(true);
+//					fireBtnP2.setVisible(true);
+//					Player2Lives.setVisible(true);
+//
+//					BshipPlaceP1.frame.setVisible(true);
+//					BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
+//					BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
+//					BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+//				}
+//			}
+//		}
+		
+		/*Checks grid for which button is pressed*/
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				if(e.getSource() == grid[i][j]) {
+					
+					/**Calls placeHit function */
+					int hitResult = BshipPlaceP1.bsl.placeHit(i, j, 1);
 
+					/**Updates lives then sets text box for player one lives*/
+					lives = BshipPlaceP1.bsl.getLives(2);
+					Player2Lives.setText("Player Two Lives Left: " + lives);
 
-			/**Calls placeHit function */
-			int hitResult = BshipPlaceP1.bsl.placeHit(fireCoP2.getText(), 1);
-
-			/**Updates lives then sets text box for player one lives*/
-			lives = BshipPlaceP1.bsl.getLives(2);
-			Player2Lives.setText("Player Two Lives Left: " + lives);
-
-			if(2 == hitResult) {
-				/**Error message for invalid coordinates*/
-				JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
-			}
-			else {
-				/**Checks for if the ships is hit or not
-				 * Prompts will inform Player Two if the did or did not hit a ship*/
-				if(0 == hitResult) {
-					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.RED);	
-					JOptionPane.showMessageDialog(frame, "Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
-				}
-				if(1 == hitResult) {
-					grid[BshipPlaceP1.bsl.getRowIndex(fireCoP2.getText())][BshipPlaceP1.bsl.getColIndex(fireCoP2.getText())].setBackground(Color.GREEN);
-					//Prompt message that they hit a ship.
-					JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
-				}
-				this.frame.setVisible(false);
-
-				/**Checks lives to see if the game is over, otherwise the game continues
-				 * If the game is over there will be a prompt that pops up to tell which player won*/
-				if(BshipPlaceP1.bsl.isGameOver() == true) {
-					if(BshipPlaceP1.bsl.getLives(1) == 0) {
-						JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-						System.out.println("Player Two Won");
-						this.frame.dispose();
-						BshipPlaceP2.frame.dispose();
-						BshipPlaceP1.frame.removeAll();
-						BshipPlaceP2.frame.removeAll();
-						new BShipGOScreen();
-					}else {
-						JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
-						System.out.println("Player One Won");
-						new BShipGOScreen();
-						frame.dispose();
-						BshipPlaceP1.frame.removeAll();
-						BshipPlaceP2.frame.removeAll();
-
+					if(2 == hitResult) {
+						/**Error message for invalid coordinates*/
+						JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
 					}
+					else {
+						/**Checks for if the ships is hit or not
+						 * Prompts will inform Player Two if the did or did not hit a ship*/
+						if(0 == hitResult) {
+							grid[i][j].setBackground(Color.RED);	
+							JOptionPane.showMessageDialog(frame, "Player 1, you did not hit a ship.", null, JOptionPane.PLAIN_MESSAGE, null);
+						}
+						if(1 == hitResult) {
+							grid[i][j].setBackground(Color.GREEN);
+							//Prompt message that they hit a ship.
+							JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
+						}
+						frame.setVisible(false);
 
-				}else {
+						/**Checks lives to see if the game is over, otherwise the game continues
+						 * If the game is over there will be a prompt that pops up to tell which player won*/
+						if(BshipPlaceP1.bsl.isGameOver() == true) {
+							if(BshipPlaceP1.bsl.getLives(1) == 0) {
+								JOptionPane.showMessageDialog(frame, "Player 2 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+								System.out.println("Player Two Won");
+								frame.dispose();
+								BshipPlaceP2.frame.dispose();
+								BshipPlaceP1.frame.removeAll();
+								BshipPlaceP2.frame.removeAll();
+								new BShipGOScreen();
+							}else {
+								JOptionPane.showMessageDialog(frame, "Player 1 Wins!", null, JOptionPane.PLAIN_MESSAGE, null);
+								System.out.println("Player One Won");
+								new BShipGOScreen();
+								frame.dispose();
+								BshipPlaceP1.frame.removeAll();
+								BshipPlaceP2.frame.removeAll();
 
-					Player1Fire.setVisible(true);
-					fireCoP2.setVisible(true);
-					fireBtnP2.setVisible(true);
-					Player2Lives.setVisible(true);
+							}
 
-					BshipPlaceP1.frame.setVisible(true);
-					BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
-					BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
-					BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+						}else {
+
+							Player1Fire.setVisible(true);
+							fireCoP2.setVisible(true);
+							fireBtnP2.setVisible(true);
+							Player2Lives.setVisible(true);
+
+							BshipPlaceP1.frame.setVisible(true);
+							BshipPlaceP2.frame.add(BshipPlaceP2.fireBtnP2);
+							BshipPlaceP2.frame.add(BshipPlaceP2.fireCoP2);
+							BshipPlaceP2.frame.add(BshipPlaceP2.Player1Fire);
+						}
+					}
+				
 				}
 			}
 		}

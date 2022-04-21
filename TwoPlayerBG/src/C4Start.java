@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -58,6 +59,15 @@ public class C4Start implements ActionListener{
 		frame.setSize(420,420);
 		frame.setLayout(null);
 		frame.setVisible(true); 
+		frame.getContentPane().setBackground(Color.BLUE);
+		
+		label.setForeground(Color.WHITE);
+		c4Bot.setBackground(Color.CYAN);
+		backToHub.setBackground(Color.CYAN);
+		c4Start.setBackground(Color.CYAN);
+		c4Bot.setForeground(Color.BLUE);
+		backToHub.setForeground(Color.BLUE);
+		c4Start.setForeground(Color.BLUE);
 		
 	}
 

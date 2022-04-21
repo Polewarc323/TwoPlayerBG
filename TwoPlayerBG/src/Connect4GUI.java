@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -50,11 +52,14 @@ public class Connect4GUI implements ActionListener {
 		
 		/*Adds Labels*/
 		frame.add(c4Lbl);
+		c4Lbl.setForeground(Color.GREEN);
 		frame.add(CurrentPlayer);
+		CurrentPlayer.setForeground(Color.GREEN);
 		
 		/*Sets properties for labels*/
 		c4Lbl.setBounds(10, 10, 100, 100);
 		CurrentPlayer.setBounds(30, 30, 100, 100);
+		frame.getContentPane().setBackground(Color.MAGENTA);
 		
 		/*Set's text of labels*/
 		CurrentPlayer.setText(curPlayer + "'s turn");
@@ -68,6 +73,7 @@ public class Connect4GUI implements ActionListener {
         		grid[row][col].setBounds(50 + (75*col),100 + (75*row),75,75);
         		grid[row][col].addActionListener(this);
         		frame.add(grid[row][col]);
+        		grid[row][col].setBorder(BorderFactory.createLineBorder(Color.BLUE,3));
         	}
 		
 		

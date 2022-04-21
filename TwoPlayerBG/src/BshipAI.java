@@ -340,6 +340,9 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 					if(shipsToBePlaced == 0) {
 						int hitResult = bsl.placeHit(i, j, 1);
 						
+						bLives = bsl.getLives(2);
+						botLives.setText("Computer's Lives Left: " + bLives);
+						
 						if(2 == hitResult) {
 							/**Error message for invalid coordinates*/
 							JOptionPane.showMessageDialog(frame, "Player 1, invalid coordinate, try again.", null, JOptionPane.ERROR_MESSAGE, null);
@@ -353,8 +356,7 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 							}
 							if(1 == hitResult) {
 								hitGrid[i][j].setBackground(Color.GREEN);
-								bLives = bsl.getLives(2);
-								botLives.setText("Computer's Lives Left: " + bLives);
+								
 								
 								//Prompt message that they hit a ship.
 								JOptionPane.showMessageDialog(frame, "Player 1, you hit a ship!", null, JOptionPane.PLAIN_MESSAGE, null);
@@ -390,19 +392,14 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 							Thread.currentThread().interrupt();
 						}
 
-						bsl.computerPlaceHit();
-						// tomorrow, throw in error checking from two player shits
-						/**Calls placeHit function */
 						int botHitResult = bsl.computerPlaceHit();
+						int placedHit[] = bsl.getComputerHit();
+						System.out.println("" + placedHit[0]  + placedHit[1]);
+						
 
 						lives = bsl.getLives(1);
 						Player1Lives.setText("Player Lives Left: " + lives);
 						
-						/**Calls placeHit function */
-						//hitResult = bsl.placeHit(i, j, 2);
-
-
-						//placeGrid[i][j].setBackground(Color.RED);
 
 						if(2 == botHitResult) {
 							/**Error message for invalid coordinates*/
@@ -412,13 +409,13 @@ public class BshipAI extends JFrame implements ActionListener, KeyListener{
 							/**Checks for if the ships is hit or not
 							 * Prompts will inform Player Two if the did or did not hit a ship*/
 							if(0 == botHitResult) {
-								//placeGrid[i][j].setBackground(Color.BLUE);
+								placeGrid[placedHit[0]][placedHit[1]].setBackground(Color.BLUE);
 
 								JOptionPane.showMessageDialog(frame, " The Computer missed!!", 
 										null, JOptionPane.PLAIN_MESSAGE, null);
 							}
-							if(1 == hitResult) {
-								//placeGrid[i][j].setBackground(Color.RED);
+							if(1 == botHitResult) {
+								placeGrid[placedHit[0]][placedHit[1]].setBackground(Color.RED);
 
 								JOptionPane.showMessageDialog(frame, "The Computer hit a ship!!!!", 
 										null, JOptionPane.PLAIN_MESSAGE, null);
